@@ -29,7 +29,13 @@
             window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
             KEEP.refresh();
         });
-    });</script><script type="text/javascript" src="/js/snow.js"></script></body></html>rt();
+    });</script><script type="text/javascript" src="/js/snow.js"></script></body></html>se,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
         });
 
         document.addEventListener('pjax:complete', () => {
