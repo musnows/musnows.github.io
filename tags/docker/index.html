@@ -29,7 +29,11 @@
             window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
             KEEP.refresh();
         });
-    });</script><script type="text/javascript" src="/js/snow.js"></script></body></html>     '.page-container',
+    });</script><script type="text/javascript" src="/js/snow.js"></script></body></html>ipt src="//unpkg.com/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script><script>window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
                 '.pjax'
             ],
             history: true,
