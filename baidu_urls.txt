@@ -4,5 +4,5 @@ https://blog.musnow.top/2023/03/17/Linux/37%E9%87%8D%E7%9C%8Btcp/
 https://blog.musnow.top/2023/03/16/tools/git/18git%20status%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/
 https://blog.musnow.top/2023/03/13/oj/%E5%B0%86%E6%B5%AE%E7%82%B9%E6%95%B0%E6%AF%8F%E4%B8%80%E4%BD%8D%E6%8B%86%E5%88%86%E8%BE%93%E5%87%BA/
 https://blog.musnow.top/2023/03/12/data_structure/14%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/
-https://blog.musnow.top/2023/03/12/tools/img/17%E5%8F%88%E6%8B%8D%E4%BA%91uos+picgo/
+https://blog.musnow.top/2023/03/12/tools/img/17%E5%8F%88%E6%8B%8D%E4%BA%91uss+picgo/
 https://blog.musnow.top/2023/03/12/blog/%E5%BB%BA%E7%AB%99%E6%95%99%E7%A8%8B/
