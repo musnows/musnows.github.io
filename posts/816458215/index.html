@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>【树莓派】实验11-U型光点传感器 | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言本篇实验和上篇博客的实验相似，我们要学习用U型光电传感器来控制双色LED  这都是基础实验中不可或缺的内容，因为后续我们需要学会交叉使用不同的传感器来控制更复杂的电路。那些才是学习树莓派基础实验真正的意义 不管怎样，还是继续努力吧！  关注本专栏，和我一起学习树莓派开发板30+经典实验！ C语言代码，0基础剖析！  还等什么😍心动不如行动！👉点我关注  本专栏代码仓库📝：Raspbe"><meta property="og:type" content="article"><meta property="og:title" content="【树莓派】实验11-U型光点传感器"><meta property="og:url" content="https://blog.musnow.top/posts/816458215/index.html"><meta property="og:site_name" content="慕雪的寒舍"><meta property="og:description" content="前言本篇实验和上篇博客的实验相似，我们要学习用U型光电传感器来控制双色LED  这都是基础实验中不可或缺的内容，因为后续我们需要学会交叉使用不同的传感器来控制更复杂的电路。那些才是学习树莓派基础实验真正的意义 不管怎样，还是继续努力吧！  关注本专栏，和我一起学习树莓派开发板30+经典实验！ C语言代码，0基础剖析！  还等什么😍心动不如行动！👉点我关注  本专栏代码仓库📝：Raspbe"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.musnow.top/img/bg/gm1.jpg"><meta property="article:published_time" content="2022-04-21T07:45:14.000Z"><meta property="article:modified_time" content="2023-03-29T08:18:13.000Z"><meta property="article:author" content="慕雪年华"><meta property="article:tag" content="Linux"><meta property="article:tag" content="C语言"><meta property="article:tag" content="树莓派"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm1.jpg"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/816458215/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/5.0.19/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离上次更新本文已经过去了","messageNext":"天，文章部分内容可能已经过时，请注意甄别"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.staticfile.org/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdn.staticfile.org/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"【树莓派】实验11-U型光点传感器",isPost:!0,isHome:!1,isHighlightShrink:!1,isToc:!0,postUpdate:"2023-03-29 16:18:13"}</script><noscript><style type="text/css">#nav{opacity:1}.justified-gallery img{opacity:1}#post-meta time,#recent-posts time{display:inline!important}</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script><script>LA.init({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"})</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/favicon.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">272</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-robot"></i><span> 机器人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/posts/847195815/"><i class="fa-fw fab fa-waze"></i><span> Kook-Valorant</span></a></li><li><a class="site-page child" href="/posts/2556995516/"><i class="fa-fw fas fa-ticket-alt"></i><span> Kook-Ticket</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://kdocs.cn/l/cn3OnSwigGxx"><i class="fa-fw fas fa-microphone-alt"></i><span> Kook-VoiceShop</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://github.com/musnows/Kook-Afd-Webhook-Bot"><i class="fa-fw fa-brands fa-square-github"></i><span> Kook-AfdWh</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> Keep</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.csdn.net/muxuen"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51cto</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/memos/"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image:url(/img/bg/gm1.jpg)"><nav id="nav"><span id="blog-info"><a href="/" title="慕雪的寒舍"><img class="site-icon" src="/favicon.jpg"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-robot"></i><span> 机器人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/posts/847195815/"><i class="fa-fw fab fa-waze"></i><span> Kook-Valorant</span></a></li><li><a class="site-page child" href="/posts/2556995516/"><i class="fa-fw fas fa-ticket-alt"></i><span> Kook-Ticket</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://kdocs.cn/l/cn3OnSwigGxx"><i class="fa-fw fas fa-microphone-alt"></i><span> Kook-VoiceShop</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://github.com/musnows/Kook-Afd-Webhook-Bot"><i class="fa-fw fa-brands fa-square-github"></i><span> Kook-AfdWh</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> Keep</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.csdn.net/muxuen"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51cto</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/memos/"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【树莓派】实验11-U型光点传感器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-21T07:45:14.000Z" title="发表于 2022-04-21 15:45:14">2022-04-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-29T08:18:13.000Z" title="更新于 2023-03-29 16:18:13">2023-03-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B2%A1%E4%BA%8B%E5%B0%B1%E5%90%83%E6%A0%91%E8%8E%93%E6%B4%BE/">没事就吃树莓派</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">869</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span data-flag-title="【树莓派】实验11-U型光点传感器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇实验和上篇博客的实验相似，我们要学习用<code>U型光电传感器</code>来控制双色LED</p><p><img src="https://img.musnow.top/i/2023/02/202204191046871.png" alt="QQ图片20220419104557"></p><p>这都是基础实验中不可或缺的内容，因为后续我们需要学会交叉使用不同的传感器来控制更复杂的电路。那些才是学习<strong>树莓派基础实验</strong>真正的意义</p><p>不管怎样，还是继续努力吧！</p><blockquote><p>关注本专栏，和我一起学习树莓派开发板<strong>30+经典实验</strong>！</p><p><strong>C语言代码，0基础剖析！</strong></p><ul><li><p>还等什么😍心动不如行动！👉<a target="_blank" rel="noopener" href="https://blog.csdn.net/muxuen/category_11751690.html">点我关注</a></p></li><li><p>本专栏代码仓库📝：<a target="_blank" rel="noopener" href="https://gitee.com/musnow/raspberry-practice">Raspberry-practice</a></p></li></ul></blockquote><h1 id="1-实验器材"><a href="#1-实验器材" class="headerlink" title="1.实验器材"></a>1.实验器材</h1><ul><li>树莓派</li><li>40p软排线+T型转接板+面包板</li><li>U型光电传感器模块</li><li>双色LED模块</li><li>跳线一堆</li></ul><p><img src="https://img.musnow.top/i/2023/02/202204191053515.jpg" alt="IMG_20220419_105013"></p><p>上：U型光电传感器；下：双色LED</p><hr><h1 id="2-实验原理"><a href="#2-实验原理" class="headerlink" title="2.实验原理"></a>2.实验原理</h1><p>U型光电传感器是一种红外感应光点产品。其有<strong>红外发射管和接收管</strong>，分别位于U型槽的两侧，以此形成一光轴。当检测到物体经过U型槽并阻断光轴时，就能产生对应的电信号。</p><h2 id="2-1电路图"><a href="#2-1电路图" class="headerlink" title="2.1电路图"></a>2.1电路图</h2><p>以下是U型光电传感器模块的电路图</p><ul><li>无障碍物阻挡时，<code>D1\D2-LED</code>都亮起，OUT管脚检测到低电平0</li><li>有障碍物阻挡时，<code>D1-LED</code>熄灭，OUT管脚检测到高电平1</li></ul><p><img src="https://img.musnow.top/i/2023/02/202204191056797.jpg" alt="11.U 型光电传感器实验原理图"></p><h2 id="2-2接线图"><a href="#2-2接线图" class="headerlink" title="2.2接线图"></a>2.2接线图</h2><table><thead><tr><th>树莓派</th><th>T型转接板</th><th>U型光电传感器</th></tr></thead><tbody><tr><td>GPIO 0</td><td>GPIO 17</td><td>OUT</td></tr><tr><td>5V</td><td>5V</td><td>VCC</td></tr><tr><td>GND</td><td>GND</td><td>GND</td></tr></tbody></table><table><thead><tr><th>树莓派</th><th>T型转接板</th><th>双色LED</th></tr></thead><tbody><tr><td>GPIO 1</td><td>GPIO 18</td><td>R(中间)</td></tr><tr><td>GND</td><td>GND</td><td>GND(-)</td></tr><tr><td>GPIO 2</td><td>GPIO 27</td><td>G(S)</td></tr></tbody></table><p><img src="https://img.musnow.top/i/2023/02/202204191111770.png" alt="image-20220419111105684"></p><p><img src="https://img.musnow.top/i/2023/02/202204191130921.png" alt="image-20220419113059634"></p><p>不过我手上的这个传感器并没有两个指示灯。只有一个，该指示灯在传感器被阻隔的时候会<strong>变暗</strong></p><p><img src="https://img.musnow.top/i/2023/02/202204191132608.jpg" alt="光影魔术手拼图"></p><hr><h1 id="3-代码示例"><a href="#3-代码示例" class="headerlink" title="3.代码示例"></a>3.代码示例</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//U型光电传感器实验</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;wiringPi.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> makerobo_LBPin		0  <span class="comment">// U型光电传感器管脚定义</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> makerobo_Rpin		1  <span class="comment">// 红色LED模块管脚定义</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> makerobo_Gpin		2  <span class="comment">// 绿色LED模块管脚定义</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 双色LED控制函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">double_colorLED</span><span class="params">(<span class="type">int</span> color)</span></span><br><span class="line">&#123;</span><br><span class="line">	pinMode(makerobo_Rpin, OUTPUT); <span class="comment">// 红色LED管脚设置为输出模式</span></span><br><span class="line">	pinMode(makerobo_Gpin, OUTPUT); <span class="comment">// 绿色LED管脚设置为输出模式</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span> (color == <span class="number">0</span>)&#123;                <span class="comment">// 点亮红色LED灯</span></span><br><span class="line">		digitalWrite(makerobo_Rpin, HIGH);</span><br><span class="line">		digitalWrite(makerobo_Gpin, LOW);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (color == <span class="number">1</span>)&#123;          <span class="comment">// 点亮绿色LED灯</span></span><br><span class="line">		digitalWrite(makerobo_Rpin, LOW);</span><br><span class="line">		digitalWrite(makerobo_Gpin, HIGH);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 有物体挡住时，打印出提示信息</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">makerobo_Print</span><span class="params">(<span class="type">int</span> x)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span> ( x == <span class="number">0</span> )&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;makerobo Light was blocked!\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;clear!\n&quot;</span>);<span class="comment">// 没有挡住</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 主函数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="comment">//初始化连接失败时，将消息打印到屏幕</span></span><br><span class="line">	<span class="keyword">if</span>(wiringPiSetup() == <span class="number">-1</span>)&#123; </span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;setup wiringPi failed !&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>; </span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//U型光电传感器Pin设置为输入模式</span></span><br><span class="line">	pinMode(makerobo_LBPin, INPUT);</span><br><span class="line">	<span class="type">int</span> clb_temp=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="comment">//U型光电传感器有无物体挡住信息检测</span></span><br><span class="line">		<span class="keyword">if</span> ( digitalRead(makerobo_LBPin) == <span class="number">0</span> )&#123;  </span><br><span class="line">			clb_temp = <span class="number">1</span>;<span class="comment">//低电平，代表没有阻挡</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> ( digitalRead(makerobo_LBPin) == <span class="number">1</span> )&#123;</span><br><span class="line">			clb_temp = <span class="number">0</span>;<span class="comment">//高电平，代表被阻挡</span></span><br><span class="line">		&#125;</span><br><span class="line">		double_colorLED(clb_temp); <span class="comment">// 控制双色LED灯显示</span></span><br><span class="line">		makerobo_Print(clb_temp);  <span class="comment">// 信息打印</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="3-1LinuxGCC编译代码"><a href="#3-1LinuxGCC编译代码" class="headerlink" title="3.1LinuxGCC编译代码"></a>3.1LinuxGCC编译代码</h2><p>在控制台输入以下指令，编译出可执行文件<code>TEST</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -Wall 11photoeletricsensor.c -o TEST -lwiringPi</span><br></pre></td></tr></table></figure><p>执行该文件，当传感器被阻挡时，双色LED变红，屏幕打印<code>makerobo Light was blocked!</code></p><p>不被阻挡时，双色LED亮绿灯，屏幕打印<code>clear</code></p><p><img src="https://img.musnow.top/i/2023/02/202204191156275.gif" alt="GIF"></p><h2 id="3-2-效果"><a href="#3-2-效果" class="headerlink" title="3.2 效果"></a>3.2 效果</h2><p><img src="https://img.musnow.top/i/2023/02/202204191200345.gif" alt="Screenshot_2022_0419_115746"></p><hr><h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>本次实验到这里就结束啦！如果有什么问题，欢迎在评论区提出哦！</p><p><img src="https://img.musnow.top/i/2023/02/202204191201621.gif" alt="QQ图片20220419103136"></p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/816458215/">https://blog.musnow.top/posts/816458215/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a><a class="post-meta__tags" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a></div><div class="post_share"><div class="social-share" data-image="/img/bg/gm1.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.staticfile.org/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdn.staticfile.org/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://afdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.png" alt="爱发电"></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2733996002/" title="【树莓派】实验12-PCF8591模数转换器"><img class="cover" src="/img/bg/gm2.jpg" onerror='onerror=null,src="/img/404.jpg"' alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【树莓派】实验12-PCF8591模数转换器</div></div></a></div><div class="next-post pull-right"><a href="/posts/722925156/" title="【树莓派】实验10-干簧管传感器实验"><img class="cover" src="/img/bg/gm12.jpg" onerror='onerror=null,src="/img/404.jpg"' alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【树莓派】实验10-干簧管传感器实验</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4174630598/" title="【树莓派】实验00-配置你的树莓派"><img class="cover" src="/img/bg/gm6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-21</div><div class="title">【树莓派】实验00-配置你的树莓派</div></div></a></div><div><a href="/posts/3585041582/" title="【树莓派】实验01-双色LED"><img class="cover" src="/img/bg/gm21.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-21</div><div class="title">【树莓派】实验01-双色LED</div></div></a></div><div><a href="/posts/178546113/" title="【树莓派】实验02-RGB小灯"><img class="cover" src="/img/bg/gm12.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-21</div><div class="title">【树莓派】实验02-RGB小灯</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Artalk</span><span class="switch-btn"></span><span class="second-comment">Waline</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div><div><div id="waline-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/favicon.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">慕雪年华</div><div class="author-info__description">爱折腾的代码初学者</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">272</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://gitee.com/musnow" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fas fa-globe-asia"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90"><span class="toc-text">1.实验器材</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="toc-text">2.实验原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E7%94%B5%E8%B7%AF%E5%9B%BE"><span class="toc-text">2.1电路图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2%E6%8E%A5%E7%BA%BF%E5%9B%BE"><span class="toc-text">2.2接线图</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-text">3.代码示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1LinuxGCC%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81"><span class="toc-text">3.1LinuxGCC编译代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%95%88%E6%9E%9C"><span class="toc-text">3.2 效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/4160666395/" title="【win】Windows下MSI Afterburner如何让其不在某个软件中显示帧数"><img src="/img/bg/gm24.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【win】Windows下MSI Afterburner如何让其不在某个软件中显示帧数"></a><div class="content"><a class="title" href="/posts/4160666395/" title="【win】Windows下MSI Afterburner如何让其不在某个软件中显示帧数">【win】Windows下MSI Afterburner如何让其不在某个软件中显示帧数</a><time datetime="2023-08-31T13:44:31.000Z" title="发表于 2023-08-31 21:44:31">2023-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3712817486/" title="【win】Windows下C盘里面的WindowsApps文件夹权限怎么获取"><img src="/img/bg/gm24.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【win】Windows下C盘里面的WindowsApps文件夹权限怎么获取"></a><div class="content"><a class="title" href="/posts/3712817486/" title="【win】Windows下C盘里面的WindowsApps文件夹权限怎么获取">【win】Windows下C盘里面的WindowsApps文件夹权限怎么获取</a><time datetime="2023-08-31T13:34:31.000Z" title="发表于 2023-08-31 21:34:31">2023-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1067381808/" title="【Linux】centos8安装bison3.8"><img src="/img/bg/gm13.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Linux】centos8安装bison3.8"></a><div class="content"><a class="title" href="/posts/1067381808/" title="【Linux】centos8安装bison3.8">【Linux】centos8安装bison3.8</a><time datetime="2023-08-30T10:31:55.000Z" title="发表于 2023-08-30 18:31:55">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/343476194/" title="【Linux】centos8安装cmake3.27.4"><img src="https://img.musnow.top/i/2023/08/a7b64c50664a8d69fb805fcbb17edcbe.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Linux】centos8安装cmake3.27.4"></a><div class="content"><a class="title" href="/posts/343476194/" title="【Linux】centos8安装cmake3.27.4">【Linux】centos8安装cmake3.27.4</a><time datetime="2023-08-30T10:30:55.000Z" title="发表于 2023-08-30 18:30:55">2023-08-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image:url(/img/bg/mothra.png)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By 慕雪年华</div><div class="footer_custom_text"><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="https://img.shields.io/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="https://img.shields.io/badge/%E7%B2%A4ICP%E5%A4%872023007189-red" height="20px"></a><br><a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="https://img.foreverblog.cn/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"><img src="/img/ico/upyun_cdn_w.png" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.staticfile.org/hexo-theme-butterfly/4.9.0/js/utils.min.js"></script><script src="https://cdn.staticfile.org/hexo-theme-butterfly/4.9.0/js/main.min.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/5.0.19/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.staticfile.org/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>function loadArtalk () {
+  function initArtalk () {
+    window.artalkItem = new Artalk(Object.assign({
+      el: '#artalk-wrap',
+      server: 'https://artk.musnow.top',
+      site: 'mublog',
+      pageKey: location.pathname,
+      darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
+      countEl: '.artalk-count'
+    },null))
+
+    if (GLOBAL_CONFIG.lightbox === 'null') return
+    window.artalkItem.use(ctx => {
+      ctx.on('list-loaded', () => {
+        ctx.getCommentList().forEach(comment => {
+          const $content = comment.getRender().$content
+          btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
+        })
+      })
+    })
+  }
+
+  if (typeof window.artalkItem === 'object') initArtalk()
+  else {
+    getCSS('https://cdn.staticfile.org/artalk/2.5.5/Artalk.min.css').then(()=>{
+      getScript('https://cdn.staticfile.org/artalk/2.5.5/Artalk.min.js').then(initArtalk)
+    })
+  }
+}
+
+function artalkChangeMode (theme) {
+  const artalkWrap = document.getElementById('artalk-wrap')
+  if (!(artalkWrap && artalkWrap.children.length)) return
+  const isDark = theme === 'dark'
+  window.artalkItem.setDarkMode(isDark)
+}
+
+btf.addModeChange('artalk', artalkChangeMode)
+
+if ('Artalk' === 'Artalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+  else loadArtalk()
+} else {
+  function loadOtherComment () {
+    loadArtalk()
+  }
+}</script><script>function loadWaline () {
+  function initWaline () {
+    const waline = Waline.init(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'https://waline.musnow.top',
+      pageview: true,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: false,
+    }, null))
+  }
+
+  if (typeof Waline === 'object') initWaline()
+  else {
+    getCSS('https://cdn.staticfile.org/waline/2.15.5/waline.min.css').then(() => {
+      getScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js').then(initWaline)
+    })
+  }
+}
+
+if ('Artalk' === 'Waline' || !false) {
+  if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+  else setTimeout(loadWaline, 0)
+} else {
+  function loadOtherComment () {
+    loadWaline()
+  }
+}</script></div><script id="click-heart" src="https://cdn.staticfile.org/butterfly-extsrc/1.1.3/click-heart.min.js" async mobile="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> 数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdn.staticfile.org/hexo-theme-butterfly/4.9.0/js/search/local-search.min.js"></script></div></div></body></html>
