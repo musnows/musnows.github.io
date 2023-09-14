@@ -23,7 +23,7 @@
     <published>2023-09-13T09:32:14.000Z</published>
     <updated>2023-09-13T10:32:14.000Z</updated>
     
-    <content type="html"><![CDATA[<p>230913上海零念科技CPP实习生面试记录</p><span id="more"></span><p>上来先做了个自我介绍，然后面试官介绍了他们是做系统进程调度的；</p><h1 id="CPP"><a href="#CPP" class="headerlink" title="CPP"></a>CPP</h1><p>题目顺序并非实际问的顺序</p><h2 id="1-类的大小"><a href="#1-类的大小" class="headerlink" title="1.类的大小"></a>1.类的大小</h2><p>类的大小和什么东西有关系？</p><p>我答了成员变量和虚函数表</p><h2 id="2-多态怎么实现的"><a href="#2-多态怎么实现的" class="headerlink" title="2.多态怎么实现的"></a>2.多态怎么实现的</h2><p>顺着虚函数表问的，就说了一下动态多态的基本实现方式</p><h2 id="3-只能在栈上的类"><a href="#3-只能在栈上的类" class="headerlink" title="3.只能在栈上的类"></a>3.只能在栈上的类</h2><p>禁止拷贝构造和赋值，构造函数私有化，提供单独函数在栈上开辟空间；</p><p>顺便问了一下动态内存管理的基础形式</p><h2 id="4-智能指针"><a href="#4-智能指针" class="headerlink" title="4.智能指针"></a>4.智能指针</h2><p>哪些类型？有啥区别？weak ptr怎么解决循环引用问题的？</p><p>weak ptr的lock函数用过吗？有没有办法获取到shared ptr的引用计数？</p><p>unique_ptr可以转成share_ptr吗？</p><p>如果要用C++11的类型转换，要使用哪一个来进行unique_ptr和share_ptr的转换？（这个不会，应该是static_cast）</p><p>定制删除器是干嘛的？</p><h2 id="5-类型转换"><a href="#5-类型转换" class="headerlink" title="5.类型转换"></a>5.类型转换</h2><p>C++11的类型转换，几个，区别是什么？</p><p>指针之间转换要用什么？（不会，答的static）</p><p>dynamic_cast父子转换的时候，向上还是向下是安全的？（父到子是安全的）</p><h2 id="6-单例"><a href="#6-单例" class="headerlink" title="6.单例"></a>6.单例</h2><p>几种类型，怎么实现？</p><h2 id="7-模板"><a href="#7-模板" class="headerlink" title="7.模板"></a>7.模板</h2><p>模板的声明和定义为啥不能分离？（忘记了）</p><p>模板特化是什么？函数模板支持半特化吗？（不支持）</p><h2 id="8-C-线程和async有啥区别？"><a href="#8-C-线程和async有啥区别？" class="headerlink" title="8.C++线程和async有啥区别？"></a>8.C++线程和async有啥区别？</h2><p>thread是类，aysnc是函数</p><p>async有两种用法，一个是立马异步执行，会开一个线程；第二个是延迟同步执行，在使用<code>future.get</code>的时候才会执行。</p><p>这部分是在云账房面试的时候问道的，得亏我专门去学了，开心！</p><h2 id="9-C-14新特性"><a href="#9-C-14新特性" class="headerlink" title="9.C++14新特性"></a>9.C++14新特性</h2><p>知道的全说了，auto，lambda新特性，constexpr（和c++11的区别），变量模板，二进制变量，然后还说了最后几个std的函数看不明白；面试官人很好，一直说没关系；</p><p>专门问了<code>constexpr</code>声明变量和const有啥区别（不知道）</p><p>对C++17有没有了解？（无）</p><h2 id="10-stl用过什么？"><a href="#10-stl用过什么？" class="headerlink" title="10.stl用过什么？"></a>10.stl用过什么？</h2><p>把常用的stl都说了一遍</p><h2 id="11-vector和array区别"><a href="#11-vector和array区别" class="headerlink" title="11.vector和array区别"></a>11.vector和array区别</h2><p>array是定数组，vector动态开辟</p><p>array可以使用迭代器，保证代码风格统一</p><p>这里顺便提到了<code>[]</code>的重载，面试官问了vector里面at函数和<code>[]</code>重载的区别</p><h2 id="12-emplace-back和push-back区别"><a href="#12-emplace-back和push-back区别" class="headerlink" title="12.emplace_back和push_back区别"></a>12.emplace_back和push_back区别</h2><p>我说了emplace_back能节省一次拷贝的消耗；</p><p>面试官问要怎么使用才能节省这个消耗？使用方式（不会）</p><p>emplace_back既然高效，为啥没有取代push_back？（不会，这里我就说了一下设计考虑兼容性的问题）</p><h2 id="13-初始化列表、构造函数体内初始化、成员变量给缺省值"><a href="#13-初始化列表、构造函数体内初始化、成员变量给缺省值" class="headerlink" title="13.初始化列表、构造函数体内初始化、成员变量给缺省值"></a>13.初始化列表、构造函数体内初始化、成员变量给缺省值</h2><p>那个更好？有啥区别？</p><h2 id="14-默认构造函数"><a href="#14-默认构造函数" class="headerlink" title="14.默认构造函数"></a>14.默认构造函数</h2><p>什么时候可以不自己写构造函数？</p><p>这里没有答全，感觉自己已经被绕晕了</p><h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="1-进程通信"><a href="#1-进程通信" class="headerlink" title="1.进程通信"></a>1.进程通信</h2><p>有哪些，这里主要问了共享内存和管道的优劣，使用谁的资源消耗更优（这里问的是资源消耗，不是通信速度）</p><p>问有没有用过消息队列（知道这玩意，没用过）</p><h2 id="2-进程和线程区别"><a href="#2-进程和线程区别" class="headerlink" title="2.进程和线程区别"></a>2.进程和线程区别</h2><p>说了资源消耗区别，功能比较隔离的时候适合用进程，还举了个epoll的reactor模式的例子（我瞎编的，说实话，也不知道对不对）</p><h2 id="3-开发环境"><a href="#3-开发环境" class="headerlink" title="3.开发环境"></a>3.开发环境</h2><p>前期用vs2019，后期用vscode+remote ssh；</p><p>面试官问我很多个文件怎么进行编译和管理，我说了makefile；问有没有用过cmake（无）</p><h2 id="4-编译链接过程"><a href="#4-编译链接过程" class="headerlink" title="4.编译链接过程"></a>4.编译链接过程</h2><p>这个其实是第一个问的问题，就简单地说了一下；</p><h2 id="5-动静态库"><a href="#5-动静态库" class="headerlink" title="5.动静态库"></a>5.动静态库</h2><p>有啥区别？优缺点？</p><h1 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h1><p>没有问网络，也没有写OJ，也没有问项目；</p><p>这次的面试官很耐心，会引导你回答问题。爱了；</p>]]></content>
+    <content type="html"><![CDATA[<p>230913上海零念科技CPP实习生面试记录</p><span id="more"></span><p>上来先做了个自我介绍，然后面试官介绍了他们是做系统进程调度的；</p><h1 id="CPP"><a href="#CPP" class="headerlink" title="CPP"></a>CPP</h1><p>题目顺序并非实际问的顺序</p><h2 id="1-类的大小"><a href="#1-类的大小" class="headerlink" title="1.类的大小"></a>1.类的大小</h2><p>类的大小和什么东西有关系？</p><p>我答了成员变量和虚函数表</p><h2 id="2-多态怎么实现的"><a href="#2-多态怎么实现的" class="headerlink" title="2.多态怎么实现的"></a>2.多态怎么实现的</h2><p>顺着虚函数表问的，就说了一下动态多态的基本实现方式</p><h2 id="3-只能在栈上的类"><a href="#3-只能在栈上的类" class="headerlink" title="3.只能在栈上的类"></a>3.只能在栈上的类</h2><p>禁止拷贝构造和赋值，构造函数私有化，提供单独函数在栈上开辟空间；</p><p>顺便问了一下动态内存管理的基础形式</p><h2 id="4-智能指针"><a href="#4-智能指针" class="headerlink" title="4.智能指针"></a>4.智能指针</h2><p>哪些类型？有啥区别？weak ptr怎么解决循环引用问题的？</p><p>weak ptr的lock函数用过吗？有没有办法获取到shared ptr的引用计数？</p><p>unique_ptr可以转成share_ptr吗？</p><p>如果要用C++11的类型转换，要使用哪一个来进行unique_ptr和share_ptr的转换？（这个不会，应该是static_cast）</p><p>定制删除器是干嘛的？</p><p>智能指针线程安全吗？</p><p>拷贝构造share_ptr会不会有内存泄漏？</p><h2 id="5-类型转换"><a href="#5-类型转换" class="headerlink" title="5.类型转换"></a>5.类型转换</h2><p>C++11的类型转换，几个，区别是什么？</p><p>指针之间转换要用什么？（不会，答的static）</p><p>dynamic_cast父子转换的时候，向上还是向下是安全的？（父到子是安全的）</p><h2 id="6-单例"><a href="#6-单例" class="headerlink" title="6.单例"></a>6.单例</h2><p>几种类型，怎么实现？</p><h2 id="7-模板"><a href="#7-模板" class="headerlink" title="7.模板"></a>7.模板</h2><p>模板的声明和定义为啥不能分离？（忘记了）</p><p>模板特化是什么？函数模板支持半特化吗？（不支持）</p><h2 id="8-C-线程和async有啥区别？"><a href="#8-C-线程和async有啥区别？" class="headerlink" title="8.C++线程和async有啥区别？"></a>8.C++线程和async有啥区别？</h2><p>thread是类，aysnc是函数</p><p>async有两种用法，一个是立马异步执行，会开一个线程；第二个是延迟同步执行，在使用<code>future.get</code>的时候才会执行。</p><p>这部分是在云账房面试的时候问道的，得亏我专门去学了，开心！</p><h2 id="9-C-14新特性"><a href="#9-C-14新特性" class="headerlink" title="9.C++14新特性"></a>9.C++14新特性</h2><p>知道的全说了，auto，lambda新特性，constexpr（和c++11的区别），变量模板，二进制变量，然后还说了最后几个std的函数看不明白；面试官人很好，一直说没关系；</p><p>专门问了<code>constexpr</code>声明变量和const有啥区别（不知道）</p><blockquote><p>GPT的回答</p><ol><li>时间点：<code>constexpr</code> 是在编译时确定值的，而 <code>const</code> 是在运行时确定值的。</li><li>编译期计算：<code>constexpr</code> 变量可以用于编译时期间的计算，比如数组大小、模板参数等需要在编译阶段确定大小的场景。而 <code>const</code> 变量只是表示它的值不可以修改，在编译阶段无法使用 <code>const</code> 变量进行编译期计算。</li><li>初始化：<code>constexpr</code> 变量必须在声明时进行初始化，并且只能使用常量表达式初始化；<code>const</code> 变量可以在声明时初始化，也可以稍后赋值，但赋值后就不能再修改。</li><li>地址：<code>constexpr</code> 变量往往会被编译器优化，可能不会占用内存空间，并且在编译期间被消除。<code>const</code> 变量在运行时分配内存，并且有相应的内存地址。</li><li>但是这两个关键字声明的变量都具有常量属性，不可修改；</li></ol></blockquote><p>对C++17有没有了解？（无）</p><h2 id="10-stl用过什么？"><a href="#10-stl用过什么？" class="headerlink" title="10.stl用过什么？"></a>10.stl用过什么？</h2><p>把常用的stl都说了一遍</p><p>stl线程安全吗？当然不</p><h2 id="11-vector和array区别"><a href="#11-vector和array区别" class="headerlink" title="11.vector和array区别"></a>11.vector和array区别</h2><p>array是定长数组，vector动态开辟</p><p>array可以使用迭代器，保证代码风格统一</p><p>这里顺便提到了<code>[]</code>的重载，面试官问了vector里面at函数和<code>[]</code>重载的区别（at会抛异常，<code>[]</code>不会）</p><h2 id="12-emplace-back和push-back区别"><a href="#12-emplace-back和push-back区别" class="headerlink" title="12.emplace_back和push_back区别"></a>12.emplace_back和push_back区别</h2><p>我说了emplace_back能节省一次拷贝的消耗；</p><p>面试官问要怎么使用才能节省这个消耗？使用方式（不会）</p><p>emplace_back既然高效，为啥没有取代push_back？（不会，这里我就说了一下设计考虑兼容性的问题）</p><h2 id="13-初始化列表、构造函数体内初始化、成员变量给缺省值"><a href="#13-初始化列表、构造函数体内初始化、成员变量给缺省值" class="headerlink" title="13.初始化列表、构造函数体内初始化、成员变量给缺省值"></a>13.初始化列表、构造函数体内初始化、成员变量给缺省值</h2><p>那个更好？有啥区别？</p><p>引用是没有办法使用缺省值的，只有常量&#x2F;普通变量可以用缺省值；</p><p>在VS2019里面调试测试了一下运行顺序：</p><ul><li>缺省值</li><li>初始化列表</li><li>函数体内<h2 id="14-默认构造函数"><a href="#14-默认构造函数" class="headerlink" title="14.默认构造函数"></a>14.默认构造函数</h2></li></ul><p>什么时候可以不自己写构造函数？</p><p>这里没有答全，感觉自己已经被绕晕了</p><h2 id="15-function和bind的作用"><a href="#15-function和bind的作用" class="headerlink" title="15.function和bind的作用"></a>15.function和bind的作用</h2><p>如题</p><h2 id="16-final-x2F-overide-x2F-explicit"><a href="#16-final-x2F-overide-x2F-explicit" class="headerlink" title="16.final&#x2F;overide&#x2F;explicit"></a>16.final&#x2F;overide&#x2F;explicit</h2><p>作用</p><p>explicit忘记了，<strong>面试官说没关系，反正也不用</strong>🤣</p><h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="1-进程通信"><a href="#1-进程通信" class="headerlink" title="1.进程通信"></a>1.进程通信</h2><p>有哪些，这里主要问了共享内存和管道的优劣，使用谁的资源消耗更优（这里问的是资源消耗，不是通信速度）</p><blockquote><p>我答的是因为管道是文件描述符，操作系统需要维护文件和进程之间的关系，所以消耗会高一点；然后共享内存是直接在页表上操作，没有额外的消耗；</p><p>咱也不知道对不对，感觉答案应该是下面这个</p><p><img src="https://img.musnow.top/i/2023/09/17766a5a0226a48b578aed58d9ed5c1d.png" alt="image-20230913212808024"></p></blockquote><p>问有没有用过消息队列（知道这玩意，没用过）</p><h2 id="2-进程和线程区别"><a href="#2-进程和线程区别" class="headerlink" title="2.进程和线程区别"></a>2.进程和线程区别</h2><p>说了资源消耗区别，功能比较隔离的时候适合用进程，还举了个epoll的reactor模式的例子（我瞎编的，说实话，也不知道对不对）</p><h2 id="3-开发环境"><a href="#3-开发环境" class="headerlink" title="3.开发环境"></a>3.开发环境</h2><p>前期用vs2019，后期用vscode+remote ssh；</p><p>面试官问我很多个文件怎么进行编译和管理，我说了makefile；问有没有用过cmake（无）</p><h2 id="4-编译链接过程"><a href="#4-编译链接过程" class="headerlink" title="4.编译链接过程"></a>4.编译链接过程</h2><p>这个其实是第一个问的问题，就简单地说了一下；</p><h2 id="5-动静态库"><a href="#5-动静态库" class="headerlink" title="5.动静态库"></a>5.动静态库</h2><p>有啥区别？优缺点？</p><h1 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h1><p>没有问网络，也没有写OJ，也没有问项目；</p><p>这次的面试官很耐心，会引导你回答问题。爱了；</p>]]></content>
     
     
     <summary type="html">230913上海零念科技CPP实习生</summary>
@@ -232,9 +232,9 @@
     <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
     
     
-    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
     <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
+    
+    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
     <category term="C++14" scheme="https://blog.musnow.top/tags/C-14/"/>
     
@@ -262,9 +262,9 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="leetcode" scheme="https://blog.musnow.top/tags/leetcode/"/>
     
@@ -371,9 +371,9 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="牛客网" scheme="https://blog.musnow.top/tags/%E7%89%9B%E5%AE%A2%E7%BD%91/"/>
     
@@ -396,9 +396,9 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
   </entry>
   
