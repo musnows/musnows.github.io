@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2023-09-26T04:40:46.000Z</updated>
+  <updated>2023-10-02T04:35:28.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【七牛云】artalk表情遇到跨域访问问题</title>
+    <link href="https://blog.musnow.top/posts/489538601/"/>
+    <id>https://blog.musnow.top/posts/489538601/</id>
+    <published>2023-10-02T04:35:28.000Z</published>
+    <updated>2023-10-02T04:35:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>如题，当我在我自己编写的文档站点 <a href="https://khl-py.eu.org/">https://khl-py.eu.org/</a> 访问我的artalk服务时，其中包含一个artalk表情的请求，被浏览器的跨域策略给挡住了。这会导致artalk评论中无法发送表情（虽然无伤大雅）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access to fetch at &#x27;https://img.musnow.top/i/artalk-emoji.json&#x27; from origin &#x27;https://khl-py.eu.org&#x27; has been blocked by CORS policy: No &#x27;Access-Control-Allow-Origin&#x27; header is present on the requested resource. If an opaque response serves your needs, set the request&#x27;s mode to &#x27;no-cors&#x27; to fetch the resource with CORS disabled.</span><br></pre></td></tr></table></figure><p>百度了一下，我们需要在七牛云的CDN策略中进行配置（我的七牛云KODO是绑定到CDN上，通过CDN进行访问的）</p><p>找到CDN界面中的<strong>HTTP响应头配置</strong></p><p><img src="https://img.musnow.top/i/2023/10/6e1119859945ce9b07928a2bff2643d8.png" alt="image-20231002222846450"></p><p>点击修改配置，添加如下两点</p><p><img src="https://img.musnow.top/i/2023/10/6b3b5f2bc783ef6bf7cc614d5bc2a1e7.png" alt="image-20231002222920540"></p><p>保存后过一会，就不会出现这个跨域访问问题了。至于这部分设置会不会导致有人盗刷你的CDN流量，仍待更多的观察。</p><p>另外，如果你的CDN还开启了防盗链，还需要把对应域名填入防盗链的白名单中！</p>]]></content>
+    
+    
+    <summary type="html">七牛云存放的artalk表情遇到跨域访问问题</summary>
+    
+    
+    
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    
+    <category term="图床" scheme="https://blog.musnow.top/tags/%E5%9B%BE%E5%BA%8A/"/>
+    
+  </entry>
   
   <entry>
     <title>【C++】C++17的那些新特性</title>
@@ -37,9 +58,9 @@
     <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
     
     
-    <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
-    
     <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
     
     <category term="C++17" scheme="https://blog.musnow.top/tags/C-17/"/>
     
@@ -155,7 +176,7 @@
   </entry>
   
   <entry>
-    <title>【MySQL】复合查询 | 内外链接</title>
+    <title>【MySQL】复合查询 | 内外链接（未完成）</title>
     <link href="https://blog.musnow.top/posts/2529084145/"/>
     <id>https://blog.musnow.top/posts/2529084145/</id>
     <published>2023-09-06T23:52:14.000Z</published>
@@ -303,9 +324,9 @@
     <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
     
     
-    <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
-    
     <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
     
     <category term="C++14" scheme="https://blog.musnow.top/tags/C-14/"/>
     
@@ -449,29 +470,6 @@
     <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="牛客网" scheme="https://blog.musnow.top/tags/%E7%89%9B%E5%AE%A2%E7%BD%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【C++】早绑定、析构与多态 | 一道关于多态的选择题记录</title>
-    <link href="https://blog.musnow.top/posts/2254346194/"/>
-    <id>https://blog.musnow.top/posts/2254346194/</id>
-    <published>2023-08-22T13:14:28.000Z</published>
-    <updated>2023-08-22T13:14:28.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天在和群友聊天的时候看到了一道很坑的题目，分享给大家</p><span id="more"></span><h1 id="1-看题！"><a href="#1-看题！" class="headerlink" title="1.看题！"></a>1.看题！</h1><p>先来看看题目</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Dad</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Dad</span>()&#123; <span class="built_in">echo</span>();&#125;</span><br><span class="line">    ~<span class="built_in">Dad</span>()&#123; <span class="built_in">echo</span>();&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">echo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;DAD &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Son</span>:Dad</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">echo</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;SON &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Son ss;</span><br></pre></td></tr></table></figure><p>请问这个的输出是什么？</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">A  &quot;DAD DAD &quot;</span><br><span class="line">B  &quot;DAD SON &quot;</span><br><span class="line">C  &quot;SON DAD &quot;</span><br><span class="line">D  &quot;SON SON &quot;</span><br><span class="line">E  编译出错</span><br><span class="line">F  运行出错</span><br></pre></td></tr></table></figure><blockquote><p>答案是E，编译出错！</p></blockquote><h1 id="2-涉及到的知识点"><a href="#2-涉及到的知识点" class="headerlink" title="2.涉及到的知识点"></a>2.涉及到的知识点</h1><h2 id="2-1-知识点"><a href="#2-1-知识点" class="headerlink" title="2.1 知识点"></a>2.1 知识点</h2><p>先来说说这道题目里面涉及到了什么知识点</p><ul><li>多态调用；</li><li>多态重写函数需要满足什么条件；</li><li>类内函数后加<code>const</code>的作用；</li><li>类内函数后加<code>override</code>的作用；</li><li>什么是早绑定和晚绑定</li></ul><p>一个一个复习吧！</p><ul><li>多态调用是父类指针&#x2F;引用指向子类时，调用虚函数会调用子类重写后的版本</li><li>多态重写函数的条件：函数名&#x2F;参数&#x2F;返回值都必须相同（注意还有协变）</li><li>类内函数后加<code>const</code>修饰的是这个对象的<code>this</code>指针，被修饰的函数中无法修改类内成员变量</li><li>类内函数后加<code>override</code>是让编译器来严格检查是否构成重载</li><li>早绑定：静态绑定；晚绑定：动态绑定（具体请看<a href="https://blog.musnow.top/posts/3933786088/">CPP多态</a>的博客）</li></ul><h2 id="2-2-分析题目"><a href="#2-2-分析题目" class="headerlink" title="2.2 分析题目"></a>2.2 分析题目</h2><p>注意看父类和子类中这两个<code>echo()</code>函数的区别</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">echo</span><span class="params">()</span></span>&#123;&#125;<span class="comment">//父类</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">echo</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;&#125;<span class="comment">//子类</span></span><br></pre></td></tr></table></figure><p>首先需要说明的是，子类函数中<code>virtual</code>关键字是可以省略的，但即便省略了，这个函数依旧是个虚函数。</p><p>这里子类的函数中多了<code>const</code>修饰，而这个const修饰的就是函数中隐含的<code>this</code>指针，此时子类中<code>echo()</code>函数的参数就发生了变化！</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">echo</span><span class="params">(Son* <span class="keyword">this</span>)</span> </span>&#123; &#125; <span class="comment">// 不加const</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">echo</span><span class="params">(<span class="type">const</span> Son* <span class="keyword">this</span>)</span> </span>&#123; &#125; <span class="comment">// 加const</span></span><br></pre></td></tr></table></figure><p>正是因为这里的this指针出现了const的修饰，所以子类的echo和父类echo的参数类型不同，不构成虚函数重写！再加上<code>override</code>关键字的严格检查，会直接编译报错！</p><p>正确的写法是删除子类echo中的const或者给父类echo函数加上const</p><h1 id="3-再来看题"><a href="#3-再来看题" class="headerlink" title="3.再来看题"></a>3.再来看题</h1><p>好了，坑人的点看完了，再来看个「常规」的，就是把上面的题干改成能编译通过的。此时又应该选谁呢？</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Dad</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Dad</span>()&#123; <span class="built_in">echo</span>();&#125;</span><br><span class="line">    ~<span class="built_in">Dad</span>()&#123; <span class="built_in">echo</span>();&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">echo</span><span class="params">()</span> <span class="type">const</span></span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;DAD &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Son</span>:Dad</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">echo</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;SON &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Son ss;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A  &quot;DAD DAD &quot;</span><br><span class="line">B  &quot;DAD SON &quot;</span><br><span class="line">C  &quot;SON DAD &quot;</span><br><span class="line">D  &quot;SON SON &quot;</span><br></pre></td></tr></table></figure><p><img src="https://img.musnow.top/i/2023/08/e278c7b0a62e7383e4151067de284350.png" alt="image-20230822211806379"></p><p>编译运行，可以看到，结果是<code>DAD DAD</code>，应该选A</p><h2 id="3-1-分析"><a href="#3-1-分析" class="headerlink" title="3.1 分析"></a>3.1 分析</h2><p>在给 <code>Son</code> 类定义构造函数和析构函数时，没有指定调用父类的对应构造函数和析构函数。因此，在创建 <code>Son</code> 对象 <code>ss</code> 时，会默认调用 <code>Dad</code> 类的构造函数和析构函数。</p><p>由于 <code>Dad</code> 类中的构造函数和析构函数调用了虚函数 <code>echo()</code>，而这个虚函数在子类 <code>Son</code> 中被重写，所以会根据对象类型调用相应的重写函数。然而，在构造函数和析构函数中，虚函数机制不会按照预期工作。</p><p>构造函数中调用虚函数时，会忽略动态绑定机制，直接调用父类的函数版本。因此，在 <code>Dad</code> 的构造函数中调用 <code>echo()</code>，实际上调用的是 <code>Dad</code> 类中的 <code>echo()</code> 函数，而不是 <code>Son</code> 类中的重写版本。</p><p>同样地，析构函数中也会忽略动态绑定机制，直接调用父类的函数版本。所以，在 <code>Dad</code> 的析构函数中调用 <code>echo()</code>，依然调用的是 <code>Dad</code> 类中的 <code>echo()</code> 函数。</p><p>因此，当创建 <code>Son</code> 对象 <code>ss</code> 并打印输出时，会先调用 <code>Dad</code> 类的构造函数并打印 <code>&quot;DAD &quot;</code>，然后调用 <code>Dad</code> 类的析构函数并再次打印 <code>&quot;DAD &quot;</code>。</p><h2 id="3-2-结论"><a href="#3-2-结论" class="headerlink" title="3.2 结论"></a>3.2 结论</h2><p>在父类的构造和析构中，对象的版本都被确定为父类的版本，会采用<strong>早绑定</strong>来调用父类自己的函数，而不是子类的重写后的函数；</p><p>简单记忆：父类的构造和析构中如果出现虚函数，只会调用父类自己的函数！</p><hr><p>这是因为编译器需要保证正确的构造和析构顺序，<strong>如果父类析构里调用子类的虚函数</strong>，可能会出现下面的场景</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Dad</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Dad</span>()&#123; <span class="built_in">echo</span>();&#125;</span><br><span class="line">    ~<span class="built_in">Dad</span>()&#123; <span class="built_in">echo</span>();&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">echo</span><span class="params">()</span> <span class="type">const</span></span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;DAD &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Son</span>:Dad</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Son</span>() &#123;</span><br><span class="line">        _a = <span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Son</span>() &#123;</span><br><span class="line">        <span class="keyword">delete</span> _a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">echo</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;SON &quot;</span>;</span><br><span class="line">        <span class="keyword">delete</span> _a;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> _a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Son ss;</span><br></pre></td></tr></table></figure><p>如果父类中的析构<code>echo()</code>调用子类重写的函数，此时就会出现子类已经被销毁（子类的析构函数早于父类析构调用）的<code>_a</code>被二次<code>delete</code>，两次<code>delete</code>同一片空间是会报错的！</p><p>所以为了避免这种情况，父类的析构中采用早绑定，子类重写的虚函数不会生效！</p><p>这种行为是为了确保在对象的构造和析构过程中，<strong>按照正确的顺序调用各个类的构造和析构函数</strong>，避免在对象处于未完全初始化或已部分销毁状态时调用子类的函数。</p><blockquote><p>包括父类的构造也可以这么理解，如果父类构造里面可以调用子类的虚函数，可能会出现两次对一个子类对象进行new空间，会产生内存泄露；</p><p>但构造函数还和虚函数表的初始化有关系，此时虚函数表还没有完全初始化，<strong>子类对象尚未构造完成</strong>，没有多态调用的条件，所以也不能调用到子类重写后的虚函数。</p></blockquote>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;今天在和群友聊天的时候看到了一道很坑的题目，分享给大家&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
-    
-    
-    <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
-    
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
   </entry>
   
