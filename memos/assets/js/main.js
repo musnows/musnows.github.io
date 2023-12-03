@@ -65,7 +65,7 @@ if (typeof (memos) !== "undefined") {
 
 var limit = memo.limit
 var memos = memo.host
-var memoUrl = memos + "api/memo?creatorId=" + memo.creatorId + "&rowStatus=NORMAL"
+var memoUrl = memos + "api/v1/memo?creatorId=" + memo.creatorId + "&rowStatus=NORMAL"
 var page = 1,
     offset = 0,
     nextLength = 0,
@@ -131,7 +131,7 @@ function getNextList() {
 
 document.addEventListener('click', function (event) {
 	var target = event.target;
-	if (target.tagName.toLowerCase() === 'a' && target.getAttribute('href').startsWith('#')) {	
+	if (target.tagName.toLowerCase() === 'a' && target.getAttribute('href').startsWith('#')) {
 		event.preventDefault();
 		tag = target.getAttribute('href').substring(1); // 获取标签名
 		if (btnRemove) {	// 如果 botton 被 remove
@@ -149,8 +149,8 @@ document.addEventListener('click', function (event) {
 				}
 				getNextList()
 			});
-			
-		}		
+
+		}
 		getTagFirstList();
 		var filterElem = document.getElementById('tag-filter');
 		filterElem.style.display = 'block';	// 显示过滤器
