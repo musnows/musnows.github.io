@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2023-12-08T12:32:14.000Z</updated>
+  <updated>2023-12-09T02:32:14.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【图床】删除对象存储桶前一定要检查！</title>
+    <link href="https://blog.musnow.top/posts/3595872827/"/>
+    <id>https://blog.musnow.top/posts/3595872827/</id>
+    <published>2023-12-09T02:32:14.000Z</published>
+    <updated>2023-12-09T02:32:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>我又干蠢事了！虽然没有很大影响，但是这种问题还是不要发生的好。</p><h2 id="什么情况？"><a href="#什么情况？" class="headerlink" title="什么情况？"></a>什么情况？</h2><p>我在博客尚有引用某个对象存储bucket中图片的情况下，删除了那个bucket（因为这个bucket很久没有用，算是弃用的）</p><p>还好今天看旧笔记的时候，突然发现了这个问题，立马去重新搜索了一下这个旧bucket的图片链接，还好还好，受影响的只有两篇文章</p><ul><li>一篇之前导出过PDF，图片还能找到</li><li>另外一篇文章以文字为主，内部丢失的图片可有可无</li></ul><p>我恢复了第一篇里面的图片，然后修改了第二篇中和图片相关的文字说明，算是解决了这个问题。</p><p>又重写检查了一下笔记目录，算是彻底没有这个被我删除的bucket里面的图片了。</p><p>这一次还好，算是没有丢东西，不然数据不备份就删除的笑料又要多一个了……🤣</p><h2 id="以此为戒"><a href="#以此为戒" class="headerlink" title="以此为戒"></a>以此为戒</h2><p>删除bucket之前一定要检查自己到底还有没有使用这个bucket中的文件或者图片！</p><p>删除图床本地目录前，一定要检查自己还有没有这个本地目录里面的图片！</p><p>最佳方案：不要管那个bucket，将其访问权限改成<strong>私有</strong>后，使用备注功能将其标记为弃用。以后不再使用该bucket即可。</p><p>因为对于我个人使用来说，一个bucket里面不会有太多文件，目前最大的图床bucket也不过2GB而已，把它留在那里花不了几个钱！不然把bucket删了，哪天发现需要去里面找旧文件的时候无从下手就麻烦了！</p><blockquote><p>至于我为什么要删……其实是因为我有点强迫症，不用还留在那里看着有点不爽……</p></blockquote><p>当然还有另外一个解决方案：使用<code>rclone</code>等工具，将s3中的所有文件下载到本地，打包多地备份后，删除云端bucket</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我又干蠢事了！虽然没有很大影响，但是这种问题还是不要发生的好。&lt;/p&gt;
+&lt;h2 id=&quot;什么情况？&quot;&gt;&lt;a href=&quot;#什么情况？&quot; class=&quot;headerlink&quot; title=&quot;什么情况？&quot;&gt;&lt;/a&gt;什么情况？&lt;/h2&gt;&lt;p&gt;我在博客尚有引用某个对象存储bucke</summary>
+      
+    
+    
+    
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    
+    <category term="图床" scheme="https://blog.musnow.top/tags/%E5%9B%BE%E5%BA%8A/"/>
+    
+  </entry>
   
   <entry>
     <title>【博客】hexo配置sitemap和百度|bing|谷歌收录</title>
@@ -436,27 +461,6 @@
     
     
     <category term="Linux" scheme="https://blog.musnow.top/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【win】Windows下MSI Afterburner如何让其不在某个软件中显示帧数</title>
-    <link href="https://blog.musnow.top/posts/4160666395/"/>
-    <id>https://blog.musnow.top/posts/4160666395/</id>
-    <published>2023-08-31T13:44:31.000Z</published>
-    <updated>2023-08-31T13:44:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Windows下MSI Afterburner如何让其不在某个软件中显示帧数</p><span id="more"></span><h1 id="1-问题说明"><a href="#1-问题说明" class="headerlink" title="1.问题说明"></a>1.问题说明</h1><p>总所周知，<code>MSI Afterburner</code>这个软件可以在游戏里面展示你当前电脑的各项生命体征，包括GPU&#x2F;CPU功耗频率温度，内存占用，当前帧数等等数据，不管是用来监看电脑运行是否正常，还是用来小超一下显卡，都是很好用的东西，再加上毫无广告+免费，几乎是人手必备的PC良药</p><p><img src="https://img.musnow.top/i/2023/08/22a440a97052d98344faa1679af7e4a1.png" alt="image-20230831211541651"></p><p>但总有时候这个软件会抽风，比如我的电脑里面，最新版本的这个软件，就会把照片莫名其妙的也识别成了一个游戏，在里面显示帧数，最离谱的是，最下方的预览其他图片的小框框里面，也给你显示了帧数</p><p><img src="https://img.musnow.top/i/2023/08/33033ee6b815fd496aefff2db7b41983.png" alt="image-20230831211739693"></p><p>这肯定很恼火，我们要怎么样才能让他不在这里面显示呢？</p><h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h1><p>和<code>MSI Afterburner</code>捆绑下载的有这么一个软件，其实它才是负责将数据投屏到你的屏幕上的软件，在这里面，我们就可以设置在某个软件中不显示帧数</p><p><img src="https://img.musnow.top/i/2023/08/38ddd77df81cad02c8ac53f0834550f8.png" alt="image-20230831212031500"></p><p>对于正常安装的软件，我们都可以找到软件的安装路径，选中它的exe可执行文件，再设置一下把帧数器关闭，就可以避免错误地显示帧数影响软件自身的使用</p><p><img src="https://img.musnow.top/i/2023/08/952d106d45b52990e2bd63ae4ddc5534.png" alt="image-20230831212050181"></p><p>但是windows自带的相册就有点恼火了，<strong>我们压根不知道它的可执行文件在哪里</strong>！</p><h1 id="3-windows系统应用的可执行文件"><a href="#3-windows系统应用的可执行文件" class="headerlink" title="3.windows系统应用的可执行文件"></a>3.windows系统应用的可执行文件</h1><p>windows绝大部分的系统自带软件都在这里面，你需要打开显示隐藏文件夹才能看到此文件夹</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\WindowsApps\</span><br></pre></td></tr></table></figure><p>而<a href="https://zhidao.baidu.com/question/1550787637804576787.html">照片软件路径</a>如下（我的win11版本是<code>22H2 22621.963</code>）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\WindowsApps\Microsoft.Windows.Photos_2023.11080.4003.0_x64__8wekyb3d8bbwe</span><br></pre></td></tr></table></figure><p>这里面有一个<code>PhotosApp.exe</code>，就是windows自带照片的可执行文件了；</p><p>但是！你会发现你压根没有 <code>C:\Program Files\WindowsApps\</code>这个文件夹的进入权限，更别提找到这个照片软件的exe了！</p><p>百度了一下，找到了一个教程 <a href="https://www.bkqs.com.cn/content/kn928o443.html">Win10下WindowsApps权限怎么获取</a>；顺带一提，为了避免原文失效，这篇文章也转载到了本站。</p><blockquote><p>注意！毕竟这算是系统底层文件夹了，我不确定这样修改文件夹权限是否会出现问题！如果你担心出现问题，<strong>请不要操作</strong>，在不打游戏的时候不要启动MSI Afterbuner是更好的选择！</p><p>如果出现问题，参考 【<a href="https://blog.csdn.net/oh_futrue/article/details/91042020">WindowsApps 权限问题导致Microsoft Store及其下载的应用不能启动（闪退）的解决办法</a>】 复原权限！实在不行就恐怕要重装系统了 🤣</p><p><img src="https://img.musnow.top/i/2023/08/91c5e537eee80c51f1e2788b15a7d997.png" alt="image-20230831214242664"></p><p>目前我这边还么有出现异常情况，毕竟我修改为了<code>everyone</code>理论上来说是并不会出现权限不够而导致某个程序无法执行的问题的</p></blockquote><p>根据教程里面的步骤一步一步来，就可以获取到这个文件夹的进入权限</p><p><img src="https://img.musnow.top/i/2023/08/f35c62ab02b889383a3f88a3b9700629.png" alt="image-20230831212801573"></p><h1 id="4-禁用照片中的帧数显示"><a href="#4-禁用照片中的帧数显示" class="headerlink" title="4.禁用照片中的帧数显示"></a>4.禁用照片中的帧数显示</h1><p>找到这个<code>PhotosApp.exe</code>之后，在<code>RivaTuner</code>这个软件里面选中这个可执行文件，将其的display关闭</p><p><img src="https://img.musnow.top/i/2023/08/b98f245a377bbfe1369b7cb9809fc9a5.png" alt="image-20230831212557862"></p><p>好了，这下没有胡乱显示帧数了！</p><p><img src="https://img.musnow.top/i/2023/08/d0f3baad38aec23619141b8cf92b6292.png" alt="image-20230831212631268"></p>]]></content>
-    
-    
-    <summary type="html">Windows下MSI Afterburner如何让其不在某个软件中显示帧数</summary>
-    
-    
-    
-    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
-    
-    
-    <category term="windows" scheme="https://blog.musnow.top/tags/windows/"/>
     
   </entry>
   
