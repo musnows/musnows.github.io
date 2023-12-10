@@ -43,7 +43,8 @@ body.dark-theme {
   --color-hljs-deletion-bg: #78191b;
 }
 
-@media (prefers-color-scheme: light) {body:not(.dark-theme) {
+@media (prefers-color-scheme: light) {
+  body:not(.dark-theme) {
     /* light theme color */
     --color-hljs-hljs: #24292e;
     --color-hljs-hljs-bg: #fff;
@@ -66,7 +67,8 @@ body.dark-theme {
   }
 }
 
-@media (prefers-color-scheme: dark) {body:not(.light-theme) {
+@media (prefers-color-scheme: dark) {
+  body:not(.light-theme) {
     /* dark theme colors */
     --color-hljs-hljs: #adbac7;
     --color-hljs-hljs-bg: #22272e;
@@ -95,7 +97,9 @@ pre code.hljs {
   padding: 1em
 }
 
-code.hljs {padding: 3px 5px}
+code.hljs {
+  padding: 3px 5px
+}
 
 /*!
   Theme: GitHub
@@ -107,7 +111,8 @@ code.hljs {padding: 3px 5px}
   Outdated base version: https://github.com/primer/github-syntax-light
   Current colors taken from GitHub's CSS
 */
-.hljs {color: var(--color-hljs-hljs);
+.hljs {
+  color: var(--color-hljs-hljs);
   background: var(--color-hljs-hljs-bg)
 }
 
@@ -117,13 +122,15 @@ code.hljs {padding: 3px 5px}
 .hljs-template-tag,
 .hljs-template-variable,
 .hljs-type,
-.hljs-variable.language_ {color: var(--color-hljs-tag)
+.hljs-variable.language_ {
+  color: var(--color-hljs-tag)
 }
 
 .hljs-title,
 .hljs-title.class_,
 .hljs-title.class_.inherited__,
-.hljs-title.function_ {color: var(--color-hljs-title)
+.hljs-title.function_ {
+  color: var(--color-hljs-title)
 }
 
 .hljs-attr,
@@ -135,51 +142,63 @@ code.hljs {padding: 3px 5px}
 .hljs-selector-attr,
 .hljs-selector-class,
 .hljs-selector-id,
-.hljs-variable {color: var(--color-hljs-attr)
+.hljs-variable {
+  color: var(--color-hljs-attr)
 }
 
 .hljs-meta .hljs-string,
 .hljs-regexp,
-.hljs-string {color: var(--color-hljs-meta)
+.hljs-string {
+  color: var(--color-hljs-meta)
 }
 
 .hljs-built_in,
-.hljs-symbol {color: var(--color-hljs-symbol)
+.hljs-symbol {
+  color: var(--color-hljs-symbol)
 }
 
 .hljs-code,
 .hljs-comment,
-.hljs-formula {color: var(--color-hljs-comment)
+.hljs-formula {
+  color: var(--color-hljs-comment)
 }
 
 .hljs-name,
 .hljs-quote,
 .hljs-selector-pseudo,
-.hljs-selector-tag {color: var(--color-hljs-quote)
+.hljs-selector-tag {
+  color: var(--color-hljs-quote)
 }
 
-.hljs-subst {color: var(--color-hljs-subst)
+.hljs-subst {
+  color: var(--color-hljs-subst)
 }
 
-.hljs-section {color: var(--color-hljs-section);
+.hljs-section {
+  color: var(--color-hljs-section);
   font-weight: 700
 }
 
-.hljs-bullet {color: var(--color-hljs-bullet)
+.hljs-bullet {
+  color: var(--color-hljs-bullet)
 }
 
-.hljs-emphasis {color: var(--color-hljs-emphasis);
+.hljs-emphasis {
+  color: var(--color-hljs-emphasis);
   font-style: italic
 }
 
-.hljs-strong {color: var(--color-hljs-strong);
+.hljs-strong {
+  color: var(--color-hljs-strong);
   font-weight: 700
 }
 
-.hljs-addition {color: var(--color-hljs-addition);
+.hljs-addition {
+  color: var(--color-hljs-addition);
   background-color: var(--color-hljs-addition-bg)
 }
 
-.hljs-deletion {color: var(--color-hljs-deletion);
+.hljs-deletion {
+  color: var(--color-hljs-deletion);
   background-color: var(--color-hljs-deletion-bg)
 }
