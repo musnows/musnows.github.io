@@ -113,7 +113,7 @@
   </entry>
   
   <entry>
-    <title>【博客】hexo 配置 sitemap 和百度 |bing| 谷歌收录</title>
+    <title>【博客】hexo 配置 sitemap 和百度 /bing/ 谷歌收录</title>
     <link href="https://blog.musnow.top/posts/3595872826/"/>
     <id>https://blog.musnow.top/posts/3595872826/</id>
     <published>2023-12-08T12:32:14.000Z</published>
@@ -175,9 +175,9 @@
     <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
     
     
-    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
     <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
+    
+    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -374,9 +374,9 @@
     <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
     
     
-    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
     <category term="C++" scheme="https://blog.musnow.top/tags/C/"/>
+    
+    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
     <category term="C++17" scheme="https://blog.musnow.top/tags/C-17/"/>
     
