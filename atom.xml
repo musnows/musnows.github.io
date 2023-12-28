@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2023-12-26T10:36:00.000Z</updated>
+  <updated>2023-12-27T08:45:00.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【网络】P2P打洞原理</title>
+    <link href="https://blog.musnow.top/posts/725561575/"/>
+    <id>https://blog.musnow.top/posts/725561575/</id>
+    <published>2023-12-27T08:40:00.000Z</published>
+    <updated>2023-12-27T08:45:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>如果你折腾过NAS或者BT下载等等玩意，可能听说过“P2P打洞”这一技术名词。简单来说，P2P打洞可以让我们直接在外网访问内网的设备，从而让没有公网IP的家庭设备也能获得“公网直连”的速度。</p><p>比如绿联、极空间等国产NAS的客户端，在外网访问的时候，都会先尝试P2P打洞让你和你的NAS实现P2P直连，打洞失败的时候才会采用服务器转发的方式；</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">P2P打洞后：你的当前设备和家里的NAS直接通信</span><br><span class="line">采用服务器转发：报文从家里NAS - 服务器 - 你的当前设备</span><br></pre></td></tr></table></figure><p>因为服务器转发的速度直接依赖于服务器的出口带宽，所以使用服务器转发的用户越多，速度也就越慢，有的时候你会发现服务器转发的速度甚至不如没开会员的某度云盘。</p><h1 id="前置技术了解"><a href="#前置技术了解" class="headerlink" title="前置技术了解"></a>前置技术了解</h1><p>在学习P2P打洞之前，你需要了解以下知识点。注意，本文只是对P2P打洞的<strong>简单理解和说明</strong>，深入了解底层原理请自行百度其他更详细的文章！</p><h2 id="什么是P2P？"><a href="#什么是P2P？" class="headerlink" title="什么是P2P？"></a>什么是P2P？</h2><p>P2P即 Peer to Peer，是一种对等连接方式，纯P2P架构包含如下内容</p><ul><li>没有总是在线的服务器</li><li>任意端之间直接通信</li><li>对等方之间可以间断链接，并可以动态改变IP地址</li></ul><p>P2P技术的实际的用例如下：</p><ul><li>文件分发（BT下载）</li><li>流媒体</li><li>VolP</li><li>内网穿透式访问（建立P2P链接，直接和内网主机通信）即本文即将要讲述的P2P打洞。</li></ul><h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>参考本站 <a href="https://blog.musnow.top/posts/3482559497">IP层和数据链路层</a> 博客中4.3节对NAT技术的解析。</p><h3 id="地址限制锥形NAT"><a href="#地址限制锥形NAT" class="headerlink" title="地址限制锥形NAT"></a>地址限制锥形NAT</h3><p>所谓地址限制锥形NAT，即NAT映射之后的外网端口和IP地址对请求具有一定的限制，体现为它只允许已建立链接的主机与之进行通信。</p><ul><li>局域网主机C需要和公网服务器S1进行通信</li><li>局域网主机C发送请求报文，通过运营商路由器转发，抵达S1服务器</li><li>这个过程中每一层的路由器都建立了一个NAT转发表</li><li>如果是限制锥形NAT，运营商的路由器将会限制该NAT地址的外网访问IP地址：<ul><li>只有S1服务器发来的报文能被正常往内网转发（端口不限制），发送给给局域网主机C；</li><li>其他公网服务器（和S1不同IP地址）如果企图向该NAT地址发送报文，会被运营商路由器拒绝；</li></ul></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">限制锥形NAT下</span><br><span class="line">C请求 1.1.1.1:8080</span><br><span class="line">只有 1.1.1.1 这个IP能发送报文给NAT地址，端口不限制</span><br><span class="line">其他来源IP都会被拒绝</span><br></pre></td></tr></table></figure><h3 id="端口限制锥形NAT"><a href="#端口限制锥形NAT" class="headerlink" title="端口限制锥形NAT"></a>端口限制锥形NAT</h3><p>在限制锥形NAT的基础上，添加了端口的限制，即只有局域网设备C请求过的S1的端口才能发送信息给局域网主机。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">端口限制锥形NAT下</span><br><span class="line">C请求 1.1.1.1:8080</span><br><span class="line">只有 1.1.1.1:8080 能发送报文给NAT地址</span><br><span class="line">其他来源IP或者1.1.1.1上不同的端口发来的报文都会被拒绝</span><br></pre></td></tr></table></figure><h3 id="完全锥形NAT"><a href="#完全锥形NAT" class="headerlink" title="完全锥形NAT"></a>完全锥形NAT</h3><p>完全锥形NAT的映射过程同上，但是不会对外网访问做限制。即NAT地址建立后，<strong>任何外网主机都可以发送信息给这个NAT地址</strong>。</p><h3 id="对称式NAT"><a href="#对称式NAT" class="headerlink" title="对称式NAT"></a>对称式NAT</h3><p>对称式NAT把内网IP和端口到相同目的地址和端口的所有请求，都映射到同一个公网地址和端口；同一个内网主机，用相同的内网IP和端口向另外一个目的地址发送报文，则会用不同的映射（比如映射到不同的端口）。</p><p>和端口限制式NAT不同的是，端口限制式NAT是所有请求映射到相同的公网IP地址和端口，而对称式NAT是<strong>为不同的请求建立不同的映射</strong>。它具有端口受限锥型的受限特性，内部地址每一次请求一个特定的外部地址，都可能会绑定到一个新的端口号。<strong>也就是请求不同的外部地址映射的端口号是可能不同的</strong>，甚至请求同一个主机的不同端口也会映射到不同的NAT地址上。</p><h3 id="NAT类型IP端口映射示意图"><a href="#NAT类型IP端口映射示意图" class="headerlink" title="NAT类型IP端口映射示意图"></a>NAT类型IP端口映射示意图</h3><p>根据NAT类型，可能产生如下映射表，<code>↔</code>符号左表示内网主机IP和端口，<code>↔</code>符号右表示NAT的外网IP和端口，<code>@</code>符号右表示限制条件：外网主机地址IP和端口。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/20231227171258.png" alt="image.png"></p><p>通过这个表，也能反推出我们应该如何验证一个NAT的类型</p><ul><li>局域网客户端C向服务器S1发起请求，服务器S1能得到一个C的NAT地址和端口</li><li>服务器S1让C向自己的另外几个端口发起请求，如果这些请求的来源IP和端口都一致，则代表C是锥形NAT，如果出现了不同的端口，则代表是<strong>对称NAT</strong>；</li><li>服务器S1将这个地址和端口交给服务器S2，S2向C发送一个报文</li><li>如果C收到了这个S2发来的报文，代表是<strong>完全锥形NAT</strong>，不对外网来源做限制</li><li>如果C没有收到，说明是限制锥形NAT;</li><li>服务器S1换一个端口向C的NAT地址和端口发起请求；</li><li>如果C收到了，则代表是<strong>地址限制锥形NAT</strong>，对端口不做限制</li><li>如果C没有收到，则代表是<strong>端口限制锥形NAT</strong>，对地址和端口都做了限制<h1 id="P2P打洞过程"><a href="#P2P打洞过程" class="headerlink" title="P2P打洞过程"></a>P2P打洞过程</h1></li></ul><p>如果想实现P2P打洞，那么当前局域网内设备必须是在<strong>锥形NAT</strong>下，才能实现直接通信。因为在对称NAT下，NAT的端口地址会经常变化，很难实现稳定的连接。</p><p>对于锥形NAT，比较好打洞的自然是<code>完全锥形NAT</code>了，因为它对外网的来源IP和端口都不做限制，那么就可以用下面的流程来实现打洞</p><ul><li>需要中间服务器S</li><li>客户端C1和C2都是完全锥形NAT</li><li>客户端C1请求和C2实现P2P连接</li><li>客户端C1向中间服务器S发起请求，NAT会为C1维护一个端口和地址</li><li>服务器S收到C1的请求，并对内网客户端C2下发一个通知，让C2也来请求S</li><li>C2也向服务器发起一个请求，NAT为C2也维护了一个地址</li><li>此时服务器S就同时知道C1和C2通过NAT出来的一个公网端口和IP地址</li><li>服务器S将C1&#x2F;C2的<code>IP:端口</code>互相告知对方</li><li>C1和C2都得到了对方的IP和端口，因为是完全锥形NAT，双方可以直接通信</li><li>打洞完成</li></ul><p>这个过程中，中间服务器S是不可或缺的，如果没有这个中间服务器，C1和C2就很难知道对方的NAT公网IP和端口，也就没有办法直接实现通信。 </p><p>理论上来说，只要C1和C2有一方是<strong>完全锥形NAT</strong>，那么P2P打洞就是比较容易实现的，假设C1是完全锥形NAT，C2是有限制的NAT</p><ul><li>服务器S知道了C1的NAT的公网IP地址和端口后，将其告知C2；</li><li>C2重新对C1的完全锥形NAT发送请求，限制锥形NAT会对C2的新请求更新自己的限制表中的白名单，<strong>将C1的IP地址和端口也加入到了这个白名单中</strong>；此时限制锥形NAT的限制就消失了，C1和C2依旧可以点对点发起通信。</li></ul><p>如果打洞失败，C1和C2就得借助中间服务器S的转发来实现通信，此时通信的速度就会出现限制，同时，中间服务器S的带宽资费也比较感人，这也是为什么绿联和极空间虽然提供了中间服务器转发的方式，但依旧会想办法让你和你的NAS能实现P2P直接通信。除了能提高连接速度，更多的是节省它们服务器的带宽和资费。</p><p>P2P打洞的大概原理就是如此，更深层次的就不再研究了~你看明白了吗？</p>]]></content>
+    
+    
+    <summary type="html">简单介绍P2P打洞的基本原理</summary>
+    
+    
+    
+    <category term="计算机网络" scheme="https://blog.musnow.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="P2P" scheme="https://blog.musnow.top/tags/P2P/"/>
+    
+    <category term="计算机网络" scheme="https://blog.musnow.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>【Linux】gcc中__builtin_expect的作用</title>
@@ -451,29 +474,6 @@
     <category term="虚拟机" scheme="https://blog.musnow.top/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     <category term="wsl" scheme="https://blog.musnow.top/tags/wsl/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【微机】DOSBox在windows上的安装和masm的配置</title>
-    <link href="https://blog.musnow.top/posts/2839269095/"/>
-    <id>https://blog.musnow.top/posts/2839269095/</id>
-    <published>2023-10-16T17:49:13.000Z</published>
-    <updated>2023-10-16T17:49:13.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近学校学习微型计算机原理与接口技术，需要用到DOSBox来模拟DOS环境进行汇编编程的学习。</p><p>本文记录了如何在windows11&#x2F;10上安装<code>DOSBox0.74</code>并配置<code>masm5</code></p><h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h1><p>这两个软件我打包上传到了百度云盘。放心，加起来也就2mb，下载应该不会很久</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">链接: https://pan.baidu.com/s/1vjbSL7iwP8WpMVA9K505ZA</span><br><span class="line">提取码: kr4x</span><br></pre></td></tr></table></figure><h2 id="1-1-DOSBox"><a href="#1-1-DOSBox" class="headerlink" title="1.1 DOSBox"></a>1.1 DOSBox</h2><p>点击<code>DOSBox0.74</code>的安装包，无脑下一步安装即可</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/4ef1475a8016a019d58a90bd6845e70d.png" alt="image-20231017015458406"></p><p>安装出来的图标如下</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/cc5f29112bed916bb978c49a9a23636d.png" alt="image-20231017015529621"></p><h2 id="1-2-masm5"><a href="#1-2-masm5" class="headerlink" title="1.2 masm5"></a>1.2 masm5</h2><p>找一个空的文件夹，文件路径中不能包含空格、特殊字符和中文，将<code>masm5.zip</code>中的文件全部解压到这个文件夹中，如下图</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/21d3adc3a7e767d3aa3d0eba69df75e9.png" alt="image-20231017015700958"></p><p>随后修改DOSBox软件的配置文件，右键桌面上Dosbox软件的快捷图标，选择<code>打开文件所在位置</code>找到DOSBox软件的安装路径，点击<code>DOSBox 0.74 Options.bat</code>文件，稍等片刻，会以记事本的方式打开配置文件。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/06f84cbaea8c2c0380807a61e01f1a7d.png" alt="image-20231017015801923"></p><p>拉到配置文件最底下，新增如下配置。你只需要修改<code>D:\GAME\masm</code>为你的masm5文件的解压目录就行了。这个文件路径中不能有空格，也不能有特殊字符和中文！</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MOUNT C D:\GAME\masm</span><br><span class="line">path=%path%; \masm</span><br><span class="line">C: </span><br><span class="line">cd \asm</span><br></pre></td></tr></table></figure><p>配置完成后，启动DOSbox，查看masm命令是否能正常使用。如图所示，没有报错masm命令不存在，那么就是配置好了。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/62cba64fa60c2fd957b5968d4387109b.png" alt="image-20231017020002774"></p><h1 id="2-修改DOSBox窗口大小"><a href="#2-修改DOSBox窗口大小" class="headerlink" title="2.修改DOSBox窗口大小"></a>2.修改DOSBox窗口大小</h1><p>默认情况下DOSBox的命令行窗口是非常非常非常小的，我们需要将其改大。同样是修改DOSBox的配置文件，如何打开配置文件参考上文。</p><p>按下图所示修改</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/2b5bab3f2fc1dbb0a766659d1eb51130.png" alt="image-20231017020347782"></p><p>请注意，这里的1280和1080中间的是大写的X，并不是乘号</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">windowresolution=1280X1080</span><br><span class="line">output=opengl</span><br></pre></td></tr></table></figure><p>修改了之后保存，再重新打开DOSBox，界面就应该会变大了。如果你觉得还是小了，可以修改这里的分辨率，继续让他变大一点。</p><h1 id="3-编译一个汇编程序"><a href="#3-编译一个汇编程序" class="headerlink" title="3.编译一个汇编程序"></a>3.编译一个汇编程序</h1><p>用下面最简单的汇编程序做测试，将如下内容写入到<code>test.asm</code>中，并放入和masm的同一目录下（必须要是同一目录）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CODE SEGMENT ;USE16</span><br><span class="line">     ASSUME CS:CODE</span><br><span class="line">BEG: MOV DL,&#x27;H&#x27;</span><br><span class="line">     MOV AH, 2 ; 调用2号DOS系统调用输出字符到屏幕上</span><br><span class="line">     INT 21H</span><br><span class="line">     MOV AH, 4CH</span><br><span class="line">     INT 21H</span><br><span class="line">CODE  ENDS</span><br><span class="line">        END BEG</span><br></pre></td></tr></table></figure><p>打开DOSBox，输入如下命令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">masm test.asm</span><br><span class="line">link test.obj</span><br></pre></td></tr></table></figure><p>输出如下图所示，第一个命令的作用是编译源文件（注意看有没有编译报错）；第二个命令的作用是链接obj文件，最终会弹出来一个警告，不用管他。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/60d8190bb6bda5b544018ce777909c0f.png" alt="image-20231017020903839"></p><p>最终执行test，成功输出字符H到终端上。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/10/8cace87b33fc71a4387afa5d7765e8a4.png" alt="image-20231017020946832"></p><p>能走到这一步，就代表你的masm基本环境已经配置好了。可以用来编译运行汇编代码了</p>]]></content>
-    
-    
-    <summary type="html">DOSBox在windows上的安装和masm的配置</summary>
-    
-    
-    
-    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
-    
-    
-    <category term="编译" scheme="https://blog.musnow.top/tags/%E7%BC%96%E8%AF%91/"/>
-    
-    <category term="windows" scheme="https://blog.musnow.top/tags/windows/"/>
     
   </entry>
   
