@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 动态生成链接
         const link = document.createElement("a");
-        link.href = "https://" + allowedDomain; // 设置链接的href属性为allowedDomain
+        link.href = "https://" + allowedDomain + "/?utm_source=domaincheck"; // 设置链接的href属性为allowedDomain
         link.target = "_blank";  // 在新窗口或标签页中打开链接
         link.style.color = "#b8dbff";
         link.style.textDecoration = "underline";
