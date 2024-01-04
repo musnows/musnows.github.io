@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2023-12-30T03:53:00.000Z</updated>
+  <updated>2023-12-31T16:00:00.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【2024】新年快乐！</title>
+    <link href="https://blog.musnow.top/posts/2404659746/"/>
+    <id>https://blog.musnow.top/posts/2404659746/</id>
+    <published>2023-12-31T16:00:00.000Z</published>
+    <updated>2023-12-31T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>给所有阅读本站文章的朋友们道一声，2024 新年快乐！</p><h2 id="新年目标"><a href="#新年目标" class="headerlink" title="新年目标"></a>新年目标</h2><p>新年新目标</p><ul><li><input disabled="" type="checkbox"> 完成一个新的个人项目（cpp）</li><li><input disabled="" type="checkbox"> 填mysql博客的坑（之前没有写完）</li><li><input disabled="" type="checkbox"> 填cpp哈希、B树、图等数据结构博客的坑</li><li><input disabled="" type="checkbox"> 学习redis</li><li><input disabled="" type="checkbox"> 学习docker</li></ul><p>更多的目标就不记录啦，学完这些差不多就要准备暑期实习或者是2024的秋招了，祝我好运吧！</p><ul><li><input disabled="" type="checkbox"> 拿到一个中大厂的offer</li></ul><p>也希望大家在2024能心想事成哦！</p>]]></content>
+    
+    
+    <summary type="html">新年快乐，新年新目标</summary>
+    
+    
+    
+    <category term="随便写写" scheme="https://blog.musnow.top/categories/%E9%9A%8F%E4%BE%BF%E5%86%99%E5%86%99/"/>
+    
+    
+    <category term="随笔" scheme="https://blog.musnow.top/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title>【Hexo】使用cloudflare pages自动化部署hexo</title>
@@ -451,29 +472,6 @@
     
     
     <category term="Linux" scheme="https://blog.musnow.top/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【C++】空对象指针也能访问成员函数？</title>
-    <link href="https://blog.musnow.top/posts/3858168549/"/>
-    <id>https://blog.musnow.top/posts/3858168549/</id>
-    <published>2023-11-16T08:40:46.000Z</published>
-    <updated>2023-11-16T08:40:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="1-起因"><a href="#1-起因" class="headerlink" title="1.起因"></a>1.起因</h1><p>今天写代码的时候遇到一个bug，一个类中的set函数在设置一个POD类型的时候出现了异常，直接段错误退出了。</p><blockquote><p>小tips，POD类型指的是内置类型。</p></blockquote><p>想了好久，都没发现这里的问题到底是因为什么。后来才知道，原来空的对象指针，也能被解引用访问到函数！</p><h1 id="2-示例"><a href="#2-示例" class="headerlink" title="2.示例"></a>2.示例</h1><p>下面是关于这个情况的示例代码</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mytest</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">mytest</span>() = <span class="keyword">default</span>;</span><br><span class="line">    <span class="built_in">mytest</span>(<span class="type">int</span> a):_a(<span class="number">0</span>)&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_int</span><span class="params">(<span class="type">int</span> a)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;set int to &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">        _a = a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(<span class="type">int</span> a)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;just a print&quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> _a = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    mytest* ptr = <span class="literal">nullptr</span>;</span><br><span class="line">    ptr-&gt;<span class="built_in">print</span>(<span class="number">20</span>);</span><br><span class="line">    ptr-&gt;<span class="built_in">set_int</span>(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行这个程序，会出现段错误。但你会发现这个段错误并不是因为我们的<code>ptr-&gt;</code> 里面出现的，而是成功进入了set_int函数，执行了打印，最终对成员变量<code>_a</code>赋值的时候出现的！</p><p>对象指针为空，代表压根不存在一个实际的对象，也没办法对不存在的成员变量操作。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; ./test</span><br><span class="line">just a print20</span><br><span class="line">set int to 10</span><br><span class="line">[1]    280362 segmentation fault  ./test</span><br></pre></td></tr></table></figure><p>当代码很多的时候，就会因为忽略这个特性（其实我当时是压根不知道）而误以为错误出现在set_int函数中。</p><p>没有想到是外层的对象指针为空导致的。</p><h1 id="3-为什么？"><a href="#3-为什么？" class="headerlink" title="3.为什么？"></a>3.为什么？</h1><p>在编译过程中，对象就已经绑定了函数地址。一个类的所有对象，使用的函数地址都是一样的。当编译<code>ptr-&gt;set_int(10)</code> 的时候，函数的地址就已经和这个指针绑定了，调用它等价于直接调用 set_int 函数。</p><p>如果这个函数中没有需要用到成员变量的地方，也就不需要解引用this指针，是不会出错的。比如上方代码中的print函数，就没有出现异常。</p><p>但如果函数内访问了内置成员，那么就会出现解引用空指针导致的段错误！</p>]]></content>
-    
-    
-    <summary type="html">真没想到，空对象指针也能访问成员函数啊？</summary>
-    
-    
-    
-    <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
-    
-    
-    <category term="Cpp" scheme="https://blog.musnow.top/tags/Cpp/"/>
-    
-    <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
