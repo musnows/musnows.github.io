@@ -30,7 +30,9 @@
     
     
     
-    <category term="docker真好玩" scheme="https://blog.musnow.top/categories/docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Docker真好玩" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/"/>
     
     
     <category term="博客" scheme="https://blog.musnow.top/tags/%E5%8D%9A%E5%AE%A2/"/>
@@ -53,7 +55,9 @@
     
     
     
-    <category term="学习sql" scheme="https://blog.musnow.top/categories/%E5%AD%A6%E4%B9%A0sql/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="数据库SQL" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93SQL/"/>
     
     
     <category term="mysql" scheme="https://blog.musnow.top/tags/mysql/"/>
@@ -74,7 +78,9 @@
     
     
     
-    <category term="学习sql" scheme="https://blog.musnow.top/categories/%E5%AD%A6%E4%B9%A0sql/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="数据库SQL" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93SQL/"/>
     
     
     <category term="mysql" scheme="https://blog.musnow.top/tags/mysql/"/>
@@ -95,7 +101,9 @@
     
     
     
-    <category term="玩上Linux" scheme="https://blog.musnow.top/categories/%E7%8E%A9%E4%B8%8ALinux/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Linux" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Linux/"/>
     
     
     <category term="虚拟机" scheme="https://blog.musnow.top/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
@@ -118,7 +126,9 @@
     
     
     
-    <category term="学习sql" scheme="https://blog.musnow.top/categories/%E5%AD%A6%E4%B9%A0sql/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="数据库SQL" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E5%BA%93SQL/"/>
     
     
     <category term="mysql" scheme="https://blog.musnow.top/tags/mysql/"/>
@@ -141,6 +151,8 @@
     
     <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
     
+    <category term="编程工具" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
+    
     
     <category term="windows" scheme="https://blog.musnow.top/tags/windows/"/>
     
@@ -160,7 +172,9 @@
     
     
     
-    <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="C++" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/C/"/>
     
     
     <category term="Linux" scheme="https://blog.musnow.top/tags/Linux/"/>
@@ -185,7 +199,9 @@
     
     
     
-    <category term="玩上Linux" scheme="https://blog.musnow.top/categories/%E7%8E%A9%E4%B8%8ALinux/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Linux" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Linux/"/>
     
     
     <category term="Linux" scheme="https://blog.musnow.top/tags/Linux/"/>
@@ -208,7 +224,9 @@
     
     
     
-    <category term="玩上Linux" scheme="https://blog.musnow.top/categories/%E7%8E%A9%E4%B8%8ALinux/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Linux" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Linux/"/>
     
     
     <category term="Linux" scheme="https://blog.musnow.top/tags/Linux/"/>
@@ -235,6 +253,8 @@
     
     <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
     
+    <category term="编程工具" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
+    
     
     <category term="vscode" scheme="https://blog.musnow.top/tags/vscode/"/>
     
@@ -254,7 +274,9 @@
     
     
     
-    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
     
     
     <category term="vscode" scheme="https://blog.musnow.top/tags/vscode/"/>
@@ -277,7 +299,9 @@
     
     
     
-    <category term="速通Python" scheme="https://blog.musnow.top/categories/%E9%80%9F%E9%80%9APython/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Python" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Python/"/>
     
     
     <category term="Python" scheme="https://blog.musnow.top/tags/Python/"/>
@@ -298,7 +322,9 @@
     
     
     
-    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
     
     
     <category term="windows" scheme="https://blog.musnow.top/tags/windows/"/>
@@ -321,6 +347,8 @@
     
     <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
     
+    <category term="博客建站" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
+    
     
     <category term="Hexo" scheme="https://blog.musnow.top/tags/Hexo/"/>
     
@@ -342,7 +370,9 @@
     
     
     
-    <category term="遇见C++" scheme="https://blog.musnow.top/categories/%E9%81%87%E8%A7%81C/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="C++" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/C/"/>
     
     
     <category term="Cpp" scheme="https://blog.musnow.top/tags/Cpp/"/>
@@ -409,6 +439,8 @@
     
     <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
     
+    <category term="博客建站" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
+    
     
     <category term="Hexo" scheme="https://blog.musnow.top/tags/Hexo/"/>
     
@@ -432,6 +464,8 @@
     
     <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
     
+    <category term="博客建站" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
+    
     
     <category term="Hexo" scheme="https://blog.musnow.top/tags/Hexo/"/>
     
@@ -451,12 +485,14 @@
     
     
     
-    <category term="计算机网络" scheme="https://blog.musnow.top/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="计算机网络" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
     <category term="P2P" scheme="https://blog.musnow.top/tags/P2P/"/>
     
-    <category term="计算机网络" scheme="https://blog.musnow.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    <category term="编程学习,计算机网络" scheme="https://blog.musnow.top/tags/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
