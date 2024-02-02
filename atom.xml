@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2024-02-02T02:31:39.000Z</updated>
+  <updated>2024-02-02T02:33:44.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.musnow.top/posts/3746722946/"/>
     <id>https://blog.musnow.top/posts/3746722946/</id>
     <published>2024-02-02T01:15:20.000Z</published>
-    <updated>2024-02-02T02:31:39.000Z</updated>
+    <updated>2024-02-02T02:33:44.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="问题说明"><a href="#问题说明" class="headerlink" title="问题说明"></a>问题说明</h2><p>如果你像我一样，用的是联想的笔记本，这3年内的联想笔记本都会出厂分盘（据我所知是这样的），C盘雷打不动的200GB，D盘中会存放一个原厂的驱动文件夹，包括你这台电脑的所有驱动。</p><p>但是，200GB很快就会被某些奇奇怪怪的软件缓存给撑满，即便我把微信和QQ两个软件的资料文件夹给转移到D盘了，C盘在用了几个月后就莫名其妙的只剩下50G甚至更少了，看着让人很是焦绿，还是给它扩容一下吧。</p><h2 id="分区助手"><a href="#分区助手" class="headerlink" title="分区助手"></a>分区助手</h2><p>windows是自带磁盘分区管理的，<code>右键我的电脑-属性-存储-磁盘管理</code>，这里能到你的系统里面的所有物理硬盘，和每个硬盘的分区情况，可以在这里对分区进行一定的调整。</p><p>但很遗憾的是，在这里并不能对C盘进行扩容操作，当你给D盘<code>压缩卷</code>后再右键C盘，会发现<code>扩展卷</code>按钮是灰色的，无法被点击，也就无法扩容。</p><p>这时候就需要使用第三方工具来操作了：<a href="https://www.disktool.cn/">傲梅分区助手、轻松备份、数据恢复(恢复之星)、远程控制（AnyViewer）等软件免费下载官网</a></p><blockquote><p>注意：之前在B站看过相关视频，有不少人评论说使用该工具导致系统盘内资料丢失的（虽然在我的几次搞机使用体验中并没有遇到）。为了保险起见，请先备份你的<strong>C盘所在物理盘</strong>内的所有文件后再进行操作！数据无价！<strong>备份，备份，备份</strong>！！</p></blockquote><p>下载软件后安装，安装完毕后打开软件会让你输入一个免费使用密码，这个密码一直是1122（至少一年没变过了，如果不行就去它们的公众号获取一下最新密码吧）</p><p>本次测试使用的是新版10.2版本。</p><p>进入软件后看到的界面和windows自带的磁盘管理类似，这里能看到原装1TB的固态分了一个C盘和一个D盘（下图中已经是我操作后的结果了，所以C盘是300GB）</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/9247b21d9bbd6d8997a14dc33c912316.png" alt="image.png"></p><p>如果你想扩容C盘，右键红色框框区域的C盘，选择<code>调整/移动分区</code>，会打开如下界面。勾选<code>从(*)分区中划分空间给(C)</code>，此时右侧会出现一个下拉菜单，勾选D盘（一定不要勾选那两个<code>*</code>开头的保留分区），此时就可以输入你想给C盘扩容后的容量了，比如想把C盘扩容到300GB就输入300即可。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/c89b075a1e132a8adaca64af27a4b18c.png" alt="image.png"></p><p>再次提醒：进行下一步之前，请先备份C盘所在文件夹的资料文件！！！</p><p>作为示例，这里我输入C盘扩容到350GB</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/72abda5f856a99013ca91cee16406a4b.png" alt="image.png"></p><p>点击确定，会发现下方分区大小已经变化了，但实际上我们的操作还没提交，右上角可以看到提交按钮亮起，有三个操作需要进行</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/d0076d1aa4c517a429d324713be9b0d7.png" alt="image.png"></p><p>这三个操作分别是缩容D盘，移动分区，扩容C盘。这里显示的预期时间很夸张，但实际上15分钟左右就能完成。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/2ad8be24ca47afcb336e76c97e9e9220.png" alt="image.png"></p><p>此时点击执行，会让你选择在什么模式下操作，一般情况选择Windows PE模式即可。选择后点击确定，分区助手就会重启电脑并开始扩容操作。</p><p>再次提醒：这一步的确定后就没有回头路了！！！一定要备份哦！</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/19bc8602625ff5e20b5d57c7ed8294c3.png" alt="image.png"></p><p>会先在软件内走个进度条，随后重启电脑进入PE模式操作，PE界面长下面这样。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/a70195203766f4672afd546e10a34eea.png" alt="image.png"></p><p>耐心等待他完成即可，分区助手会自动重启电脑回到windows。</p><h1 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h1><p>然后就搞定了！成功将C盘从200GB扩容到300GB，且两个盘的资料都在。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/be620570e1124c946d5b6c531992ae58.png" alt="image.png"></p><p>最后还是得上个提醒，虽然我这边实测能成功，但不代表你那边一定能保留资料！备份准没错哦。</p>]]></content>
     
