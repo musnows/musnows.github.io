@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2024-03-25T02:05:18.000Z</updated>
+  <updated>2024-03-26T02:35:27.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【面试】浏览器输入URL到出现网页的全过程</title>
+    <link href="https://blog.musnow.top/posts/2270595544/"/>
+    <id>https://blog.musnow.top/posts/2270595544/</id>
+    <published>2024-03-26T02:09:43.000Z</published>
+    <updated>2024-03-26T02:35:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>面试总是考这个，虽然我能说出个大概，但总是卡壳，还是重新记录一下。</p><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>首先要知道这里面会涉及到什么协议，以HTTP的网页为例，会涉及到下面这些协议</p><ul><li>HTTP&#x2F;HTTPS</li><li>TCP</li><li>IP</li><li>ARP</li><li>DNS</li><li>NAT</li></ul><p>当然，更底层的还有路由选择协议OSPF等，但这些一般情况下不会考察到（除非你面试的是网络工程师相关岗位），所以能把上面的这些协议的步骤说清楚就基本够了。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/03/200e1efb4783410ed6d8dc834e0cc459.png" alt="image.png"></p><h2 id="步骤一：URL解析"><a href="#步骤一：URL解析" class="headerlink" title="步骤一：URL解析"></a>步骤一：URL解析</h2><p>浏览器首先是需要解析你访问的URL，从里面提取当前使用的网络协议（以HTTP协议为例），目标的域名，以及域名后的请求路径与参数。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http(s)://&lt;host&gt;:&lt;port&gt;/&lt;path&gt;?&lt;query&gt;#&lt;frag&gt;</span><br></pre></td></tr></table></figure><p>随后浏览器会将这里面的信息封装成一个HTTP请求报文。因为是在浏览器中输入的URL，所以是GET请求。</p><h2 id="步骤二：DNS解析"><a href="#步骤二：DNS解析" class="headerlink" title="步骤二：DNS解析"></a>步骤二：DNS解析</h2><p>知道了域名，还需要知道这个域名对应的IP地址，才能发起网络请求。浏览器会进行DNS查询（基于UDP），来找到域名的IP地址。</p><ul><li>查询浏览器本地缓存；</li><li>查询PC主机本地缓存；</li><li>查询主机HOSTS文件；</li><li>本地缓存找不到，向默认DNS服务器（通常是ISP的DNS服务器）发起<strong>递归</strong>查询；</li><li>ISP的DNS服务器使用<strong>迭代</strong>的方式依次从根域名服务器、顶级域名服务器……直到找到该域名映射的IP地址。</li><li>ISP的DNS服务器向客户端返回IP地址（服务器一般有<strong>负载均衡</strong>，同一个域名每一次查询到的IP地址可能不一样）</li></ul><p>如果找不到，会返回失败，此时浏览器会显示DNS_PROBE_FINISHED_NXDOMAIN，提示用户该域名找不到IP地址（没有成功解析）</p><p>如果找到了，浏览器会将这个域名和IP的对应关系放入自己的缓存，方便下一次请求。</p><h2 id="步骤三：TCP握手"><a href="#步骤三：TCP握手" class="headerlink" title="步骤三：TCP握手"></a>步骤三：TCP握手</h2><p>现在我们知道目标主机的IP地址了，也知道端口号（HTTP协议是80端口，HTTPS是443端口），现在浏览器会调用系统接口，发起TCP三次握手的请求。</p><blockquote><p>这里可能会追问为什么TCP握手是三次：三次握手是<strong>保证双方通信能力的最小握手次数</strong>，同时也一定程度上避免了一次和二次握手中客户端只需要发送一次SYN就能攻击服务器的情况。</p></blockquote><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/03/87c2006ec4c2d6e3394f0e90b99493d0.png" alt="image.png"></p><p>TCP的握手报文向下层IP层交付，IP层封装源IP和目的服务器IP（刚刚通过DNS获得的），并将TCP报文封装到IP报文的数据部分，向下层数据链路层交付。</p><p>数据链路层通过ARP协议查询IP地址对应的MAC地址</p><ul><li>如果是家庭局域网，查询不到目的IP地址，主机会用默认的下一跳（一般是路由器）发送这个报文（后序还涉及到NAT协议）</li><li>如果两个主机都在公网，发送端进行路由查找，查询目标IP地址的目的网络，并转发到下一跳。</li></ul><p>注意，如果面试官没有要求，可以先忽略IP层的处理，这部分是最容易说岔的！</p><h2 id="步骤四：服务器接收请求"><a href="#步骤四：服务器接收请求" class="headerlink" title="步骤四：服务器接收请求"></a>步骤四：服务器接收请求</h2><p>服务器收到客户端发送的报文，从下往上交付，得到HTTP的GET请求，并根据请求中的路径和参数，将客户端需要的资源（html&#x2F;js&#x2F;css）封装并封装在HTTP响应报文中，传回客户端。</p><h2 id="步骤五：客户端接收响应"><a href="#步骤五：客户端接收响应" class="headerlink" title="步骤五：客户端接收响应"></a>步骤五：客户端接收响应</h2><p>客户端收到响应，解析HTTP响应中的数据，并交付<strong>浏览器进行页面渲染</strong>。</p><p>此时根据双方的约定，决定保持链接还是终止TCP链接（终止需要进行四次挥手）</p>]]></content>
+    
+    
+    <summary type="html">面试常考-浏览器输入URL到出现网页的全过程</summary>
+    
+    
+    
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="默认分组" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E9%BB%98%E8%AE%A4%E5%88%86%E7%BB%84/"/>
+    
+    
+    <category term="计算机网络" scheme="https://blog.musnow.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="http" scheme="https://blog.musnow.top/tags/http/"/>
+    
+    <category term="tcp" scheme="https://blog.musnow.top/tags/tcp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【leetcode】221最大正方形</title>
+    <link href="https://blog.musnow.top/posts/2287991438/"/>
+    <id>https://blog.musnow.top/posts/2287991438/</id>
+    <published>2024-03-25T10:13:29.000Z</published>
+    <updated>2024-03-25T11:47:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote><p><a href="https://leetcode.cn/problems/maximal-square/description/">221. 最大正方形</a></p></blockquote><p>在一个由 ‘0’ 和 ‘1’ 组成的二维矩阵内，找到只包含 ‘1’ 的最大正方形，并返回其面积。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/03/8d21cc06d7ecb1b257bc127a35cf0277.png" alt="image.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m == matrix.length</span><br><span class="line">n == matrix[i].length</span><br><span class="line">1 &lt;= m, n &lt;= 300</span><br><span class="line">matrix[i][j] 为 &#x27;0&#x27; 或 &#x27;1&#x27;</span><br></pre></td></tr></table></figure><h2 id="思路1-前缀和"><a href="#思路1-前缀和" class="headerlink" title="思路1-前缀和"></a>思路1-前缀和</h2><h3 id="思路1说明"><a href="#思路1说明" class="headerlink" title="思路1说明"></a>思路1说明</h3><p>面试的时候遇到了这道题，当时只想得出来遍历的办法，后来面试官提示了一下想出来了另外一个思路，不过没时间写了。</p><p>思路是这样的，开另外一个和题目所给矩阵一样的二维数组<code>vector&lt;vector&lt;pair&lt;int, int&gt;&gt;&gt;</code>，用于存放每一位的往前1的个数和往上1的个数（不包括该数自己）。</p><p>以题目给的矩阵为例</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">[&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p>可以得到下面的前缀和矩阵，每一位的左侧代表该位置行之前的1的个数，右侧代表该位置列往上1的个数（不包括该数自己）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;0,0&#125; &#123;1,0&#125; &#123;1,0&#125; &#123;2,0&#125; &#123;2,0&#125;</span><br><span class="line">&#123;0,1&#125; &#123;1,0&#125; &#123;1,1&#125; &#123;2,0&#125; &#123;3,0&#125;</span><br><span class="line">&#123;0,2&#125; &#123;1,0&#125; &#123;2,2&#125; &#123;3,1&#125; &#123;4,1&#125;</span><br><span class="line">&#123;0,3&#125; &#123;0,1&#125; &#123;1,3&#125; &#123;1,2&#125; &#123;2,2&#125;</span><br></pre></td></tr></table></figure><p>此时要确定一个正方形，以示例图中下标<code>(1,2)</code>到<code>(2,3)</code>的这个2x2的正方形为例，我们只需要判断正方形对角线上的数的前缀和是否符合条件即可。一个符合条件的正方形，假设下标从<code>(0,0)</code>开始，它的对角线上的前缀和应该是这样的，分别代表该位置之前和之上1的数量。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0,0 </span><br><span class="line">1,1</span><br><span class="line">2,2</span><br><span class="line">...</span><br></pre></td></tr></table></figure><p>但我们需要找的下标<code>(1,2)</code>到<code>(2,3)</code>的正方形并不是从<code>(0,0)</code>开始的，所以还需要对这个前缀和矩阵中的值进行一定处理来得到结果。过程如下</p><ul><li>下标<code>(1,2)</code>是1，开始处理；</li><li>正方形边长初始化为1（因为起始下标位置为1，就是一个1x1的正方形）；</li><li>判断<code>(1+1,2+1)</code>下标处的值是否为1；为1继续判断前缀和，值是<code>&#123;3,1&#125;</code>；</li><li>这里前缀和的3代表这一行前面还有3个1，1代表这一列上面还有1个1；</li><li>行需要和下标<code>(2,2)</code>处的前缀和<code>&#123;2.2&#125;</code>第一位相减；列需要和下标<code>(1,2)</code>处的前缀和<code>&#123;2,0&#125;</code>第二位相减。即<code>&#123;3-2,1-0&#125;</code>，最终得到的结果是<code>1,1</code>，符合正方形对角线上的条件，边长加一为2。</li><li>继续判断<code>(2+1,3+1)</code>下标处的值是否为1，此时发现已不为1，停止匹配；</li><li>得到最大正方形边长2，面积为4；</li></ul><p>如果是下面这样的矩阵（相比上面的矩阵只修改了左下角的两个0为1）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p>对应前缀和矩阵如下</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;0,0&#125; &#123;1,0&#125; &#123;1,0&#125; &#123;2,0&#125; &#123;2,0&#125;</span><br><span class="line">&#123;0,1&#125; &#123;1,0&#125; &#123;1,1&#125; &#123;2,0&#125; &#123;3,0&#125;</span><br><span class="line">&#123;0,2&#125; &#123;1,0&#125; &#123;2,2&#125; &#123;3,1&#125; &#123;4,1&#125;</span><br><span class="line">&#123;0,3&#125; &#123;0,1&#125; &#123;1,3&#125; &#123;2,2&#125; &#123;3,2&#125;</span><br></pre></td></tr></table></figure><p>此时<code>(2+1,3+1)</code>下标处的值为1，继续判断前缀和<code>&#123;3,2&#125;</code>，这时候已经是一个3x3的正方形了，这个对角线的值应为<code>&#123;2,2&#125;</code>才符合条件。所以需要计算当前前缀和与<strong>行的前2个</strong>和<strong>列的前2个</strong>的差值：</p><ul><li>行需要和下标<code>(3,2)</code>处的前缀和<code>&#123;1,3&#125;</code>第一位相减；</li><li>列需要和下标<code>(1,4)</code>处的前缀和<code>&#123;3,0&#125;</code>第二位相减；</li><li>即<code>&#123;3-1,2-0&#125;</code>，最终能得到<code>&#123;2,2&#125;</code>，符合正方形条件；</li><li>边长加一为3，最大正方形面积为9。</li></ul><p>以此类推，直到遍历的下标越界为止，即完成了对矩阵中一个位置的正方形查找。</p><p>这里涉及到两次叠加循环和一个扩张循环，时间复杂度可以认为是<code>O(N^3)</code>或<code>O(M^3)</code>；</p><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><p>代码如下，关键部分添加了注释</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maximalSquare</span><span class="params">(vector&lt;vector&lt;<span class="type">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 用于记录前缀和，下标代表这个数的行之前以及列以上的1的个数（不包括该数本身）</span></span><br><span class="line">        <span class="type">int</span> n = matrix.<span class="built_in">size</span>(), m = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;&gt; <span class="built_in">oneCount</span>(</span><br><span class="line">            n, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;(m, &#123;<span class="number">0</span>, <span class="number">0</span>&#125;));</span><br><span class="line">        oneCount[<span class="number">0</span>][<span class="number">0</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="comment">// O(M*N)</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; matrix.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="type">int</span> count = <span class="number">0</span>; <span class="comment">// 每一行的1计数器</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; matrix[i].<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                <span class="comment">// 第i行，j之前的1的个数（不包括当前值）</span></span><br><span class="line">                oneCount[i][j].first = count; <span class="comment">// 先赋值，因为不包括自己</span></span><br><span class="line">                <span class="comment">// 第i行，第j列往上1的个数（不包括当前值）</span></span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">                    oneCount[i][j].second = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 直接拿上一层的值为初值，再判断上一层是否为1</span></span><br><span class="line">                    oneCount[i][j].second = oneCount[i - <span class="number">1</span>][j].second;</span><br><span class="line">                    <span class="keyword">if</span> (matrix[i - <span class="number">1</span>][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                        oneCount[i][j].second++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 每一行的1的个数加一</span></span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 此时可以得到一个矩阵，这样判断是否为正方形只需要判断对角线的数</span></span><br><span class="line">        <span class="type">int</span> maxSquare = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; matrix.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; matrix[i].<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">                <span class="comment">// 一个位置等于1的时候就是一个1x1的正方形了</span></span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                    <span class="comment">// 从2x2的位置开始判断</span></span><br><span class="line">                    <span class="type">int</span> a = i + <span class="number">1</span>, b = j + <span class="number">1</span>;</span><br><span class="line">                    <span class="type">int</span> length = <span class="number">1</span>;      <span class="comment">// 当前正方形边长</span></span><br><span class="line">                    <span class="type">int</span> lengthCheck = <span class="number">1</span>; <span class="comment">// 正方形条件判断计数器</span></span><br><span class="line">                    <span class="comment">// 出现越界的时候停止扩张</span></span><br><span class="line">                    <span class="keyword">while</span> (a &lt; matrix.<span class="built_in">size</span>() &amp;&amp; b &lt; matrix[i].<span class="built_in">size</span>()) &#123;</span><br><span class="line">                    <span class="comment">// 这里不能用引用，避免修改数组里面的原始值</span></span><br><span class="line">                        pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; p = oneCount[a][b];</span><br><span class="line">                        <span class="comment">// 注意这里扩张的时候需要用lengthCheck来相减计算，而不是简单的减一</span></span><br><span class="line">                        <span class="comment">// 因为边长每扩大一次需要减的位置也会扩大一次</span></span><br><span class="line">                        p.first -=</span><br><span class="line">                            oneCount[a][b - lengthCheck].first; <span class="comment">// 行的前一个</span></span><br><span class="line">                        p.second -=</span><br><span class="line">                            oneCount[a - lengthCheck][b].second; <span class="comment">// 列的上一个</span></span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 符合正方形要求</span></span><br><span class="line">                        <span class="keyword">if</span> (matrix[a][b] == <span class="string">&#x27;1&#x27;</span> &amp;&amp; (p.first == lengthCheck &amp;&amp;</span><br><span class="line">                                                    p.second == lengthCheck)) &#123;</span><br><span class="line">                            lengthCheck++;</span><br><span class="line">                            length++;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">break</span>; <span class="comment">// 不符合就跳出</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        a++;</span><br><span class="line">                        b++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 计算面积，更新最大值</span></span><br><span class="line">                    <span class="type">int</span> square = length * length;</span><br><span class="line">                    maxSquare = square &gt; maxSquare ? square : maxSquare;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxSquare;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/03/afa2032b4f1a3b38774d638dab2109fb.png"></p><h2 id="思路2-动态递归"><a href="#思路2-动态递归" class="headerlink" title="思路2-动态递归"></a>思路2-动态递归</h2><p>因为我还没有开始学动归的算法，只学一道题其他的还是不会，不如留着到时候一起回顾。</p>]]></content>
+    
+    
+    <summary type="html">leetcode刷题笔记-221最大正方形</summary>
+    
+    
+    
+    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
+    
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
+    
+    <category term="leetcode" scheme="https://blog.musnow.top/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>【leetcode】33.搜索旋转排序数组</title>
@@ -62,11 +114,11 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
+    <category term="哈希" scheme="https://blog.musnow.top/tags/%E5%93%88%E5%B8%8C/"/>
+    
     <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="栈" scheme="https://blog.musnow.top/tags/%E6%A0%88/"/>
-    
-    <category term="哈希" scheme="https://blog.musnow.top/tags/%E5%93%88%E5%B8%8C/"/>
     
     <category term="leetcode" scheme="https://blog.musnow.top/tags/leetcode/"/>
     
@@ -91,9 +143,9 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="Cpp" scheme="https://blog.musnow.top/tags/Cpp/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="leetcode" scheme="https://blog.musnow.top/tags/leetcode/"/>
     
@@ -145,9 +197,9 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="Cpp" scheme="https://blog.musnow.top/tags/Cpp/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="leetcode" scheme="https://blog.musnow.top/tags/leetcode/"/>
     
@@ -180,9 +232,9 @@
     
     <category term="数据结构" scheme="https://blog.musnow.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="树" scheme="https://blog.musnow.top/tags/%E6%A0%91/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
   </entry>
   
@@ -230,9 +282,9 @@
     <category term="把题目都给刷干净" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E6%8A%8A%E9%A2%98%E7%9B%AE%E9%83%BD%E7%BB%99%E5%88%B7%E5%B9%B2%E5%87%80/"/>
     
     
-    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
-    
     <category term="Cpp" scheme="https://blog.musnow.top/tags/Cpp/"/>
+    
+    <category term="OJ刷题" scheme="https://blog.musnow.top/tags/OJ%E5%88%B7%E9%A2%98/"/>
     
     <category term="leetcode" scheme="https://blog.musnow.top/tags/leetcode/"/>
     
@@ -483,54 +535,6 @@
     
     
     <category term="Redis" scheme="https://blog.musnow.top/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【Redis】02.Ubuntu22.04安装Redis</title>
-    <link href="https://blog.musnow.top/posts/269089114/"/>
-    <id>https://blog.musnow.top/posts/269089114/</id>
-    <published>2024-02-10T06:54:05.000Z</published>
-    <updated>2024-02-19T04:42:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装和启动"><a href="#安装和启动" class="headerlink" title="安装和启动"></a>安装和启动</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y redis</span><br></pre></td></tr></table></figure><p>安装了之后使用如下方式启动redis</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start redis</span><br></pre></td></tr></table></figure><p>看一下6379端口号是否有进程在监听，有代表启动成功了</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root:/etc/redis]# systemctl status redis</span><br><span class="line">● redis-server.service - Advanced key-value store</span><br><span class="line">     Loaded: loaded (/lib/systemd/system/redis-server.service; enabled; vendor preset: enabled)</span><br><span class="line">     Active: active (running) since Sat 2024-02-10 14:45:11 CST; 4min 56s ago</span><br><span class="line">       Docs: http://redis.io/documentation,</span><br><span class="line">             man:redis-server(1)</span><br><span class="line">   Main PID: 1350 (redis-server)</span><br><span class="line">     Status: &quot;Ready to accept connections&quot;</span><br><span class="line">      Tasks: 5 (limit: 9527)</span><br><span class="line">     Memory: 7.5M</span><br><span class="line">     CGroup: /system.slice/redis-server.service</span><br><span class="line">             └─1350 &quot;/usr/bin/redis-server 127.0.0.1:6379&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; &gt;</span><br><span class="line"></span><br><span class="line">Feb 10 14:45:11 wsl-ubuntu systemd[1]: Starting Advanced key-value store...</span><br><span class="line">Feb 10 14:45:11 wsl-ubuntu systemd[1]: Started Advanced key-value store.</span><br><span class="line">[root:/etc/redis]# netstat -nltp | grep 6379</span><br><span class="line">tcp        0      0 127.0.0.1:6379          0.0.0.0:*               LISTEN      1350/redis-server 1</span><br><span class="line">tcp6       0      0 ::1:6379                :::*                    LISTEN      1350/redis-server 1</span><br></pre></td></tr></table></figure><p>注意，如果你尝试在子用户里用如下命令查看redis是否绑定成功端口，可能查询不到结果。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -nltp | grep redis</span><br></pre></td></tr></table></figure><p>因为在子用户中，我们看不到当前占用6379端口的进程名字。只有root用户能看到。</p><h1 id="允许远程访问"><a href="#允许远程访问" class="headerlink" title="允许远程访问"></a>允许远程访问</h1><p>默认情况下redis绑定的ip是127.0.0.1，这个ip地址只允许本机访问，即你只能在这台linux主机上访问这个redis。</p><p>如果想实现远程访问，我们需要将绑定的ip改成0.0.0.0，并且关闭远程访问的保护</p><p>使用如下命令切换到root用户</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su - </span><br></pre></td></tr></table></figure><p>进入redis的配置文件路径</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/redis</span><br></pre></td></tr></table></figure><p>这里有一个<code>redis.conf</code>配置文件，我们需要修改的是下面的条目</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 127.0.0.1 ::1</span><br><span class="line">protected-mode yes</span><br></pre></td></tr></table></figure><p>将它们修改为如下所示，即启用了redis允许远程访问的模式。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0 ::1</span><br><span class="line">protected-mode no</span><br></pre></td></tr></table></figure><p>修改完毕配置文件后，重启服务器即可生效</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart redis</span><br></pre></td></tr></table></figure><h1 id="连接redis"><a href="#连接redis" class="headerlink" title="连接redis"></a>连接redis</h1><p>和MySQL一样，Redis也是客户-服务端架构的软件。在Linux中，使用<code>redis-cli</code>命令即可直接连到当前主机的redis服务器</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root:/etc/redis]# redis-cli</span><br><span class="line">127.0.0.1:6379&gt; ping</span><br><span class="line">PONG</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure><p>如果需要链接非本机的redis服务器，使用如下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h IP地址 -p 端口</span><br></pre></td></tr></table></figure><p>如果想让redis-cli中可以正常显示中文，可以添加<code>--raw</code>选项。注意：使用该选项会导致Redis中显示的<code>(nil)</code>变成空字符串，极易产生误导！如果不是硬性需要在控制台中显示中文，请不要使用该选项！</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --raw</span><br></pre></td></tr></table></figure><p>当然，我们也可以像MySQL一样使用C语言的开发包来链接redis，那是后话了。</p><h1 id="命令学习"><a href="#命令学习" class="headerlink" title="命令学习"></a>命令学习</h1><p>redis的命令学习可以参考官网 <a href="https://redis.io/commands/">Commands | Redis</a></p><p>虽然是英文文档，但是照着翻译读读差不多都能看明白是怎么用的。</p>]]></content>
-    
-    
-    <summary type="html">ubuntu22.04下安装redis</summary>
-    
-    
-    
-    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="Redis" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Redis/"/>
-    
-    
-    <category term="Linux" scheme="https://blog.musnow.top/tags/Linux/"/>
-    
-    <category term="Redis" scheme="https://blog.musnow.top/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【vscode】远程主机可能不符合glibc和libstdc++ vscode服务器的先决条件</title>
-    <link href="https://blog.musnow.top/posts/1712214675/"/>
-    <id>https://blog.musnow.top/posts/1712214675/</id>
-    <published>2024-02-09T01:54:24.000Z</published>
-    <updated>2024-02-09T02:37:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>如图，VSCODE 1.86版本突然不支持我的centos7.6服务器了，这可咋办?</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/803920d76095f770c24324cfed769f89.png" alt="image.png"></p><p>百度了一下，官网上说是centos7缺少依赖项，已经无法被支持。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/c28bde6edd23e6a5285d42485f810f1a.png" alt="image.png"></p><h1 id="回退版本"><a href="#回退版本" class="headerlink" title="回退版本"></a>回退版本</h1><p>不过并不是没有办法解决，回退到1.85版本就行了。</p><blockquote><p>参考：<a href="https://blog.csdn.net/Xuuuuuuuuuuu/article/details/135991844">vscode的ssh忽然连不上服务器：远程主机可能不符合glibc和libstdc++ VS Code服务器的先决条件-CSDN博客</a></p></blockquote><h2 id="关闭自动更新"><a href="#关闭自动更新" class="headerlink" title="关闭自动更新"></a>关闭自动更新</h2><p>回退之前，你先要把vscode的自动更新关掉，不然你安装了1.85后不用过10秒就会自动更新……</p><p>在vscode的设置里面搜索更新，点击左侧的<code>应用程序-更新</code>，找到更新模式，设置为None即取消自动更新，然后再去掉后台下载新版本的勾。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/1169a49b1d503846a31bdedcbc6c02a9.png" alt="image.png"></p><p>然后去微软官网下载1.85旧版本，位置是vscode官网的update模块，在更新日志<code>November 2023 (version 1.85)</code>里面能找到旧版本。</p><p><a href="https://code.visualstudio.com/updates/v1_85">Visual Studio Code November 2023</a></p><p>windows主机点击这个x64下载就行了。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/9e57878ba739716326425a3c87c80999.png" alt="image.png"></p><h2 id="回退插件版本"><a href="#回退插件版本" class="headerlink" title="回退插件版本"></a>回退插件版本</h2><p>安装1.85后remote-ssh和wsl插件都会显示不可用，会是灰色状态带一个红色感叹号。</p><p>点击插件旁边的齿轮，选择安装另外一个版本，安装4个月前的版本就行了。</p><ul><li>wsl插件：0.81.8</li><li>remote-ssh插件：0.107.0</li></ul><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/4f8240bb5ab45cddbfecca7473b5a10e.png" alt="image.png"></p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/114aa6786aa0fe8fac26cd5ec48e92d4.png" alt="image.png"></p><h1 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h1><p>安装完毕这两个旧版本插件后，就能连上centos7.6的服务器了。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/02/2945ac9e10cbee3fcfd0a2e2f398c048.png" alt="image.png"></p>]]></content>
-    
-    
-    <summary type="html">远程主机可能不符合glibc和libstdc++ vscode服务器的先决条件的解决办法</summary>
-    
-    
-    
-    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
-    
-    <category term="编程工具" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="vscode" scheme="https://blog.musnow.top/tags/vscode/"/>
     
   </entry>
   
