@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2024-08-03T06:24:31.151Z</updated>
+  <updated>2024-08-02T11:06:16.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="https://blog.musnow.top/posts/0/"/>
-    <id>https://blog.musnow.top/posts/0/</id>
-    <published>2024-08-03T06:14:18.087Z</published>
-    <updated>2024-08-03T06:24:31.151Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用vmware的NAT模式的时候，如果想让局域网内的其他主机能访问你的虚拟机端口，需要做两个操作</p><ul><li>在vmware的虚拟网络编辑器中，开启宿主机端口到虚拟机端口的端口映射，这部分在安装虚拟机的教程里面有，本文不赘述；</li><li>在windows的防火墙里面，设置端口的出站和入站规则。注意，不建议直接关闭防火墙；</li></ul><p>如何确定是防火墙的问题？如果你在另外一台主机上，能ping通当前主机，但是没有办法访问你映射到宿主机的端口时，那就是被windows的防火墙拦住了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh: connect to host 192.168.0.115 port 22: Connection timed out</span><br></pre></td></tr></table></figure><p>顺带一提，你可以在windows下用<code>ipconfig</code>命令查看当前主机的IP地址，在Linux系统中是使用<code>ifconfig</code>命令查看IP地址。</p><p>进入windows11的设置搜索防火墙，打开防火墙与网络防护。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/6f4d6b8793ed89d96009dad0f257eb2e.png" alt="image.png"></p><p>一些教程会让你直接在这个页面关掉防火墙，不建议哦，我们只需要开启要用的端口就行了，关掉防火墙那就是100%裸奔了。不过家庭局域网一般也没有那么容易被入侵，问题也不算很大。但还是不建议完全关闭防火墙。</p><p>直接点高级设置</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/6c59d8431ebd757086f0732bc47f107a.png" alt="image.png"></p><p>在控制面板中有入站和出战规则，我们两个规则都需要添加一下，这里以入站规则为例（设置界面一模一样），点击入站规则，点击新建规则</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/e656910197f193ccc3ba7ac91bef26da.png" alt="image.png"></p><p>选择按端口号新建规则，协议按你需要的选，比如我需要SSH，选择TCP，设置为22<br>端口。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/0cb22059fa94330a5e51d49bea74080f.png" alt="image.png"></p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/3a8ea9e81db457270a403a1edf076d46.png" alt="image.png"></p><p>选择允许连接</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/3e5b42fb3852f5e0e75cec3efb260569.png" alt="image.png"></p><p>这里会有网络类型，全勾上，因为windows下的网络类型就是一个薛定谔，哪怕是家庭局域网他可能也会认为是公用网络。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/50dc98e53903ccce5e5bba73b6b7dcea.png" alt="image.png"></p><p>然后写个名称，点击确定就可以了。这样就配置好了。然后你还需要用相同的方式配置出站规则。</p><p>配置好了之后，在另外一台电脑上用这个windows主机的ip来ssh试试，能登录上就是OK了。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;使用vmware的NAT模式的时候，如果想让局域网内的其他主机能访问你的虚拟机端口，需要做两个操作&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在vmware的虚拟网络编辑器中，开启宿主机端口到虚拟机端口的端口映射，这部分在安装虚拟机的教程里面有，本文不赘述；&lt;/li&gt;
-&lt;li&gt;在windo</summary>
-      
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>【Docker】威联通QNAP部署思源笔记</title>
@@ -499,6 +476,31 @@
     
     
     <category term="Docker" scheme="https://blog.musnow.top/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【win】windows开启特定端口防火墙</title>
+    <link href="https://blog.musnow.top/posts/2580738879/"/>
+    <id>https://blog.musnow.top/posts/2580738879/</id>
+    <published>2024-06-26T03:04:23.000Z</published>
+    <updated>2024-08-14T13:52:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用vmware的NAT模式的时候，如果想让局域网内的其他主机能访问你的虚拟机端口，需要做两个操作</p><ul><li>在vmware的虚拟网络编辑器中，开启宿主机端口到虚拟机端口的端口映射，这部分在安装虚拟机的教程里面有，本文不赘述；</li><li>在windows的防火墙里面，设置端口的出站和入站规则。注意，不建议直接关闭防火墙；</li></ul><p>如何确定是防火墙的问题？如果你在另外一台主机上，能ping通当前主机，但是没有办法访问你映射到宿主机的端口时，那就是被windows的防火墙拦住了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh: connect to host 192.168.0.115 port 22: Connection timed out</span><br></pre></td></tr></table></figure><p>顺带一提，你可以在windows下用<code>ipconfig</code>命令查看当前主机的IP地址，在Linux系统中是使用<code>ifconfig</code>命令查看IP地址。</p><p>进入windows11的设置搜索防火墙，打开防火墙与网络防护。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/6f4d6b8793ed89d96009dad0f257eb2e.png" alt="image.png"></p><p>一些教程会让你直接在这个页面关掉防火墙，不建议哦，我们只需要开启要用的端口就行了，关掉防火墙那就是100%裸奔了。不过家庭局域网一般也没有那么容易被入侵，问题也不算很大。但还是不建议完全关闭防火墙。</p><p>直接点高级设置</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/6c59d8431ebd757086f0732bc47f107a.png" alt="image.png"></p><p>在控制面板中有入站和出战规则，我们两个规则都需要添加一下，这里以入站规则为例（设置界面一模一样），点击入站规则，点击新建规则</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/e656910197f193ccc3ba7ac91bef26da.png" alt="image.png"></p><p>选择按端口号新建规则，协议按你需要的选，比如我需要SSH，选择TCP，设置为22<br>端口。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/0cb22059fa94330a5e51d49bea74080f.png" alt="image.png"></p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/3a8ea9e81db457270a403a1edf076d46.png" alt="image.png"></p><p>选择允许连接</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/3e5b42fb3852f5e0e75cec3efb260569.png" alt="image.png"></p><p>这里会有网络类型，全勾上，因为windows下的网络类型就是一个薛定谔，哪怕是家庭局域网他可能也会认为是公用网络。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/08/50dc98e53903ccce5e5bba73b6b7dcea.png" alt="image.png"></p><p>然后写个名称，点击确定就可以了。这样就配置好了。然后你还需要用相同的方式配置出站规则。</p><p>配置好了之后，在另外一台电脑上用这个windows主机的ip来ssh试试，能登录上就是OK了。</p>]]></content>
+    
+    
+    <summary type="html">windows开启特定端口防火墙，实现虚拟机NAT端口可被局域网访问。</summary>
+    
+    
+    
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
+    
+    
+    <category term="windows" scheme="https://blog.musnow.top/tags/windows/"/>
+    
+    <category term="虚拟机" scheme="https://blog.musnow.top/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
   </entry>
   
