@@ -58,9 +58,9 @@
     <category term="博客建站" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
     
     
-    <category term="vercel" scheme="https://blog.musnow.top/tags/vercel/"/>
-    
     <category term="博客建站" scheme="https://blog.musnow.top/tags/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
+    
+    <category term="vercel" scheme="https://blog.musnow.top/tags/vercel/"/>
     
   </entry>
   
