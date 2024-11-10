@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2024-11-06T14:04:48.000Z</updated>
+  <updated>2024-11-10T05:24:36.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -17,16 +17,16 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【Linux】如何将一个命令要求的输入通过管道传递给另外一个命令？</title>
+    <title>【Linux】如何将一个命令要求的输入通过管道传递？</title>
     <link href="https://blog.musnow.top/posts/2620921861/"/>
     <id>https://blog.musnow.top/posts/2620921861/</id>
     <published>2024-11-06T13:46:11.000Z</published>
-    <updated>2024-11-06T14:04:48.000Z</updated>
+    <updated>2024-11-10T05:24:36.000Z</updated>
     
-    <content type="html"><![CDATA[<p>如何将一个命令要求的输入通过管道传递给另外一个命令？</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>咳咳，看到这个标题，你可能会愣一下，慕雪这写的是啥玩意，今天是不是没睡醒？</p><p>来举个例子说清楚一点吧，假设我有一个test.sh脚本，运行它会出现下面的输出</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; sh test.sh</span><br><span class="line">Pls make sure you want to run this scripts [y|n]</span><br></pre></td></tr></table></figure><p>这个脚本希望我们确认当前的操作，输入y表示同意，输入n或者其他字符都表示退出。</p><p>此时如果是正常执行，我们输入y就可以继续往后了。但如果我们是使用某些cicd工具（比如jenkins）去自动化执行这个脚本呢？此时就没有办法有用户去做这个输入的操作了。</p><p>但我们又想自动化运行test.sh脚本，咋办？</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>解决方案就是使用linux下的命令行管道<code>|</code>，比如test.sh要求输入y来确认，我们就可以这样写</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> y | sh test.sh</span><br></pre></td></tr></table></figure><p>此时y会被自动当作test.sh脚本的输入，即跳过了要求用户输入来确认的状态。</p><p>这个方式适用于很多命令行执行，不希望有用户输入来阻塞等待的脚本。</p><p>还有一个常用的命令就是切换linux下的用户，默认情况下使用的命令是<code>sudo -u 用户 执行的命令</code>来以另外一个用户的身份执行某个命令，这个操作会要求我们输入目标用户的密码，此时可以用如下方式来替代，新增的<code>-S</code>选项代表sudo -u将从stdin里面提取用户密码。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 用户密码 | sudo -u 用户名 -S 需要执行的命令</span><br></pre></td></tr></table></figure><p>可以使用whami命令来测试这个命令的效果，如果执行成功，whami应该显示另外一个用户的名字，而不是当前执行该命令的用户。</p>]]></content>
+    <content type="html"><![CDATA[<p>如何将一个命令要求的输入通过管道传递？</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>直接来举个例子说明问题吧，假设我有一个test.sh脚本，运行它会出现下面的输出</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; sh test.sh</span><br><span class="line">Pls make sure you want to run this scripts [y|n]</span><br></pre></td></tr></table></figure><p>这个脚本希望我们确认当前的操作，输入y表示同意，输入n或者其他字符都表示退出。</p><p>此时如果是人工正常执行，我们输入y就可以继续往后了。但如果我们是使用某些cicd工具（比如jenkins）去自动化执行这个脚本呢？此时就没有办法有用户去做这个输入的操作了。</p><p>但我们又想自动化运行test.sh脚本，咋办？</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>解决方案就是使用linux下的命令行管道<code>|</code>，比如test.sh要求输入y来确认，我们就可以这样写</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> y | sh test.sh</span><br></pre></td></tr></table></figure><p>此时y会被自动当作test.sh脚本的输入，即跳过了要求用户输入来确认的步骤，会直接往后执行。</p><p>这个方式适用于很多命令行执行，不希望有用户输入导致阻塞等待的脚本。</p><p>还有一个常用的命令就是切换linux下的用户，默认情况下使用的命令是<code>sudo -u 用户 执行的命令</code>来以另外一个用户的身份执行某个命令，这个操作会要求我们输入目标用户的密码，此时可以用如下方式来替代，新增的<code>-S</code>选项代表<code>sudo -u</code>将从stdin里面提取用户密码。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 用户密码 | sudo -u 用户名 -S 需要执行的命令</span><br></pre></td></tr></table></figure><p>可以使用whami命令来测试这个命令的效果，如果执行成功，whami应该显示另外一个用户的名字，而不是当前执行该命令的用户。</p>]]></content>
     
     
-    <summary type="html">如何将一个命令要求的输入通过管道传递给另外一个命令？</summary>
+    <summary type="html">如何将一个命令要求的输入通过管道传递？</summary>
     
     
     
