@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2024-11-14T23:15:49.000Z</updated>
+  <updated>2024-11-14T23:44:07.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【mac】使用AIDente限制mac最大充电电量</title>
+    <title>【Mac】分享一个mac下自动提交hexo的脚本</title>
+    <link href="https://blog.musnow.top/posts/4252209616/"/>
+    <id>https://blog.musnow.top/posts/4252209616/</id>
+    <published>2024-11-15T13:15:00.000Z</published>
+    <updated>2024-11-14T23:44:07.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>先前在windows阵营的时候，我写了一个python的脚本，编译成了exe，来自动执行git三板斧的命令，push我的hexo博客修改到远端仓库，由vercel和netlify的cicd自动执行hexo部署操作。</p><p>在mac这边，由于终端本身是一个zsh，也有bash，所以我们可以直接编写一个bash脚本来处理这些事。</p><blockquote><p>win那边虽然也有bat脚本，但当时我的测试中发现bat脚本没有办法执行<code>hexo g</code>的操作，会在弹出终端之后立马停止执行，不清楚为何。</p></blockquote><p>在这里分享一下这个脚本，功能非常简单，就是本地先执行<code>hexo cl &amp;&amp; hexo g</code>的操作，再判断是否有新的变动，如果有，则提交到远端。</p><p>这里执行<code>hexo g</code>是因为我的博客使用了固定URL的插件，需要本地生成一个固定的URL的ID到MD文件的front-matter里面，再push到远端。如果直接push到远端，那么同一个MD文件在vercel或netlify可能会被生成出不同的固定ID，到时候博文链接就不一样了，不符合我们博客的使用预期。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">dir</span>=<span class="string">&quot;/Users/yangkeliu/data/hexo/blog&quot;</span></span><br><span class="line"><span class="comment"># 进入目标目录</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$dir</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[run] cd <span class="variable">$dir</span>&quot;</span> </span><br><span class="line"><span class="comment"># 生成id</span></span><br><span class="line">hexo cl &amp;&amp; hexo g --d;</span><br><span class="line"><span class="built_in">sleep</span> 1;</span><br><span class="line"><span class="comment"># 提交git仓库</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[run] begin git push&quot;</span>;</span><br><span class="line"><span class="comment"># 检查是否有内容需要提交</span></span><br><span class="line"><span class="keyword">if</span> [[ -n $(git status --porcelain) ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># 获取当前日期时间</span></span><br><span class="line">    current_time=$(<span class="built_in">date</span> <span class="string">&quot;+%Y-%m-%d %H:%M:%S&quot;</span>)</span><br><span class="line">    commit_msg=<span class="string">&quot;auto update at <span class="variable">$&#123;current_time&#125;</span>&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[run] <span class="variable">$current_time</span>&quot;</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[run] <span class="variable">$commit_msg</span>&quot;</span></span><br><span class="line">    git add --all;</span><br><span class="line">    git commit -m <span class="string">&quot;<span class="variable">$commit_msg</span>&quot;</span>;</span><br><span class="line">    git push;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[run] success push to remote&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;[run] nothing to commit&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[run] end git push&quot;</span>;</span><br></pre></td></tr></table></figure><p>当没有可提交信息的时候，脚本不会执行git add等操作，只有有提交信息的时候才会自动提交。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/757eb68fbbd9e1e3419a021a2e9c02dc.png" alt="image.png"></p><p>关于此脚本，有任何问题，欢迎在评论区提出。</p>]]></content>
+    
+    
+    <summary type="html">分享一个mac下自动提交hexo的脚本</summary>
+    
+    
+    
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    <category term="电脑使用小贴士" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"/>
+    
+    
+    <category term="博客建站" scheme="https://blog.musnow.top/tags/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"/>
+    
+    <category term="Hexo" scheme="https://blog.musnow.top/tags/Hexo/"/>
+    
+    <category term="macbook" scheme="https://blog.musnow.top/tags/macbook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Mac】使用AIDente限制mac最大充电电量</title>
     <link href="https://blog.musnow.top/posts/3646407477/"/>
     <id>https://blog.musnow.top/posts/3646407477/</id>
     <published>2024-11-14T13:15:00.000Z</published>
-    <updated>2024-11-14T23:15:49.000Z</updated>
+    <updated>2024-11-14T23:37:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>使用AIDente限制mac最大充电电量。</p><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>嗨嗨嗨，作为一个windows的多年钉子户，也算是用上mac了。只可惜买了没过多久就出M4的mac了，M3的mba直接打折1000元，血亏！不过早买早享受，不管这个了，再在乎也退不了差价ಥ_ಥ</p><p>回到本文的主题，如何限制mac的最大充电电量。</p><ul><li>为什么需要限制？</li></ul><p>虽然mac的续航嘎嘎好，<strong>但绝大部分场景我都是插电（当台式）使用</strong>，此时电池会被100%充满，对电池的健康度不太友好。如果你了解过数码产品，应该知道一个概念，电池在20%到80%的区间是对电池的寿命是最友好的。</p><p>mac本身自带了一个充电习惯的系统设置，描述是能自学习时候用习惯，延缓充到大于80%的电量的时间，但实际上它依旧会把电池的电量完全充满，鬼知道它这所谓的“自学习”到底学了个什么。还不如直接系统提供个选项限制电池最大充电到80%，但万恶的苹果肯定不会出这个功能的，不然还推销他们金子一般的售后？</p><p>咳咳，不跑题了，苹果官方没有这个功能，但是有一个开源软件能实现这个机制，这就是本文的主角AIDente。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/629b18b0de0ab799b3e865751b68f56f.png" alt="image.png"></p><h2 id="下载AIDente"><a href="#下载AIDente" class="headerlink" title="下载AIDente"></a>下载AIDente</h2><p>在Github下载软件：<a href="https://github.com/AppHouseKitchen/AlDente-Charge-Limiter/releases">https://github.com/AppHouseKitchen/AlDente-Charge-Limiter/releases</a></p><p>直接下载最新版本的dmg安装包就可以了。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/cb7e24b3c70bd47cd768a2e23ca2ea3e.png" alt="image.png"></p><p>下载好了之后，双击dmg打开，将软件图标拖动到application里面，就是安装好软件了。这个是mac上安装软件的常用操作，此处不再赘述。</p><p>题外话：这也是mac和win上安装软件差距比较大的一点，绝大部分mac软件都是用这种拖动到application的方式来安装，不会给你多少选项让你自定义安装方式。而windows上基本都会有一个安装的过程。</p><p>这两种软件安装方式说不上孰优孰劣，个人感觉对于不太会使用电脑的小白，mac这种不给任何选项都反而是个好的方式，免得小白把软件的安装路径到处乱放。隔壁windows甚至会出现小白乱丢软件安装路径，导致D盘被某些不做卸载控制的软件“格式化”的离谱情况。</p><h2 id="使用AIDente"><a href="#使用AIDente" class="headerlink" title="使用AIDente"></a>使用AIDente</h2><p>软件的使用比较简单，首先在最开始的引导中，会提示安装一个辅助软件，输入电脑解锁密码确定就可以了。然后会提示你关闭系统自带的电池健康管理功能，开关是在<code>设置-电池-电池健康旁边的i图标-优化电池充电</code>，需要将系统的这个功能关闭。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/8bd0056a7e4b7027b3fbd7cf7dd145c9.png" alt="image.png"></p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/4c0a9e02ed814942451bcce6b5a5a6dd.png" alt="image.png"></p><p>随后软件会弹出一个选择框，问你主要使用场景是移动还是居家，说白了就是当台式用还是经常要带着走。讲道理，如果你经常需要带mac出门，其实没必要安装这个软件。</p><p>选择居家场景之后，默认会设置电池充电阈值为70%，确定之后，顶部状态栏会出现一个图标。点击它就可以进入AIDente的设置界面，我手动将阈值限制改到了75%</p><p>这里的放电模式就是让mac认为自己不在充电，此时即便插了充电器也不会充电。因为安装软件之前我都mac电量是100%，所以我开启了放电模式将其电量放到75%</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/00e944536999431979381e061d9b8d7b.png" alt="image.png"></p><p>电池电量放到75之后，会自动关闭放电模式。此时电池已经不会继续往上充电了，而且会显示当前使用的是电源适配器供电，电池没有在充电，限制成功。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/11/1ca0b6e930ba64420050f81032319356.png" alt="image.png"></p><p>这个软件的限制依赖于软件始终启动，代价就是状态栏上始终都会有一个AIDente的图标，对于mac这个刘海而言，状态栏上能放到图标实在是少。希望软件后续能提供一个关闭状态栏图标的选项吧，希望不要是付费功能。软件目前有内购，但是内购的PRO功能基本都用不上。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>作为一个从来没有用过mac的windows用户，更换这台macbook air算是我对另外一套PC生态系统的初次涉猎，毕竟只有用过了才知道好不好。别的暂且不提，至少mac续航是嘎嘎强了，这也是mac一直以来的最大优势。</p><p>根据我用<strong>腾讯会议</strong>的<strong>单人会议</strong>测试，我原先的win笔记本（CPU为7840HS，电池70wh，纯核显）只能在腾讯会议开启摄像头+摄像头虚拟背景+屏幕分享+麦克风+WPS码字的场景下坚持168min，而这台m3的mba能坚持325min，将近两倍的续航成绩了，完全不能比的。</p><p>你可能会说腾讯会议168min好像也很够用了，但这只是一个WPS码字的场景，实际会议场景可能涉及到给其他人演示PPT、给其他人播放素材视频、面试的时候共享个人项目的演示、面试的时候手撕算法题等等复杂的操作，届时windows的续航会骤降，如果微软阿三正好在你的后台抽烟准备升级系统的话，那更是自求多福了。</p><blockquote><p>我在一次腾讯会议过程中被我的windows笔记本坑了，<strong>会议进行到一半电脑直接没电关机了</strong>……这便是促使我更换macbook的最直接原因。别问为啥不插电，我这边目前的使用场景就是没有地方充电的，这也是为啥我有这个需求🥲</p></blockquote><p>个人观点，对于程序员而言，除非需要编写mac或者ios的原生应用，否则mac在编程方面对于拥有wsl2的windows而言并没有显著的优势。更别提mac上面金子一样的运行内存会显著限制某些多开场景的表现。</p><p>如果你对笔记本电脑的续航并没有非常苛刻的要求，<strong>个人还是更推荐购买windows笔记本</strong>。intel那边新出的ultra2代笔电cpu的能效比提升也非常大，至少从理论续航测试上已经和mac能碰一碰了，可以看看后续购买用户的使用体验，再考虑是选购win还是mac。</p><p>不过，这都是选购电脑之前要考虑的事情了。至少目前，这台m3的mba对我的使用和学习场景而言性能都是够用的。我希望这台mac自己能用很多年，终结我的把笔电换来换去的折腾史。</p><p>让我比较意外的一点是，mac上安装了win11 arm的虚拟机后，竟然可以直接安装绝大部分x86的windows软件（我之前一直以为不行），就连我收藏的一些特别冷门的windows软件都能直接在虚拟机里面装上去使用，还可以安装地表最强C&#x2F;C++编译器VS2022，还是很爽的。</p><p>后续也会在寒舍上分享更多mac的使用体验和吐槽，欢迎大家关注，感谢支持。</p>]]></content>
     
@@ -83,11 +110,11 @@
     
     <category term="Python" scheme="https://blog.musnow.top/tags/Python/"/>
     
+    <category term="Kook" scheme="https://blog.musnow.top/tags/Kook/"/>
+    
     <category term="mysql" scheme="https://blog.musnow.top/tags/mysql/"/>
     
     <category term="sqlite3" scheme="https://blog.musnow.top/tags/sqlite3/"/>
-    
-    <category term="Kook" scheme="https://blog.musnow.top/tags/Kook/"/>
     
   </entry>
   
@@ -485,31 +512,6 @@
     
     
     <summary type="html">第一个HelloWorld程序</summary>
-    
-    
-    
-    <category term="编程学习" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="回顾C和Cpp" scheme="https://blog.musnow.top/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E5%9B%9E%E9%A1%BEC%E5%92%8CCpp/"/>
-    
-    
-    <category term="C语言" scheme="https://blog.musnow.top/tags/C%E8%AF%AD%E8%A8%80/"/>
-    
-    <category term="回顾C和Cpp" scheme="https://blog.musnow.top/tags/%E5%9B%9E%E9%A1%BEC%E5%92%8CCpp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【C语言】都2024年了，还适合学C语言吗？| 回顾C语言001</title>
-    <link href="https://blog.musnow.top/posts/1114620238/"/>
-    <id>https://blog.musnow.top/posts/1114620238/</id>
-    <published>2024-07-27T21:46:55.000Z</published>
-    <updated>2024-08-22T22:41:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>都2023年了，还适合学C语言吗？</p><h2 id="C语言适合什么？"><a href="#C语言适合什么？" class="headerlink" title="C语言适合什么？"></a>C语言适合什么？</h2><p>不同编程语言都有不同的适用范围，比起其他语言，C语言更加适合比较底层的操作。比如在互联网行业中最广泛使用的服务器操作系统Linux，就是用C语言编写的。</p><ul><li>操作系统；</li><li>驱动软件；</li><li>编译器；</li><li>嵌入式编程（单片机）；</li><li>服务器后端程序（C和C++）；</li><li>基础架构平台；</li><li>用来写其他编程语言（比如Python的解释器就是用C语言实现的）；</li><li>…</li></ul><h2 id="C-x2F-C-的就业环境"><a href="#C-x2F-C-的就业环境" class="headerlink" title="C&#x2F;C++的就业环境"></a>C&#x2F;C++的就业环境</h2><p>但是，2023&#x2F;2024年的今天，作为已经在实习生求职中摸爬滚打的过来人，必须要提前告知编程初学者：当下C&#x2F;C++的岗位<strong>极其稀少</strong>，岗位数量甚至不足Java的50%，很多知名企业只有测开岗位的要求中才出现了C&#x2F;C++字样，而测开知识大多是Java&#x2F;Python方向才会学习的。这一点你可以在各大厂的校招官网中求证，搜索C++相关岗位，数量只有个位数，甚至完全没有C++岗位。目前看也就华为和腾讯对C++选手比较友好。</p><blockquote><p>可能有人会和你说，<strong>企业招聘并不看重语言</strong>。这句话只是<strong>部分正确</strong>。</p></blockquote><p>当下大中厂的HC和应聘者比例极度失衡，是<strong>僧多粥少</strong>的局面；既然人家能找到语言对口的应届生，除非你能做到<strong>特别优秀</strong>（学校比人家好、学历比人家高、C&#x2F;C++学的特别牛），那为何要来录取你一位语言不通的求职者？</p><p>企业追求的是效益，语言对口的应聘者绝对是更有优势的。这样能减少入职培训的时长，让新人更快进入实际项目岗位中打螺丝。所以，如果你决心学习C&#x2F;C++，并对操作系统、高性能后台开发、嵌入式编程感兴趣，那就要做好努力学习和接受更少岗位、更少HC的准备！</p><blockquote><p>至于多修编程语言，个人是<strong>非常不推荐</strong>的！</p></blockquote><p>除非你是学霸，能做到全知全能。否则我还是建议你慎重选择自己的主修语言，彻底深入学习该语言，并依照个人喜好辅修一俩门编程语言的基础语法即可。</p><h2 id="跟着慕雪一起回顾C-x2F-C-吧"><a href="#跟着慕雪一起回顾C-x2F-C-吧" class="headerlink" title="跟着慕雪一起回顾C&#x2F;C++吧"></a>跟着慕雪一起回顾C&#x2F;C++吧</h2><p>新开了一个随缘更新的专栏，为回顾C&#x2F;C++所设，日后有学弟学妹想学习C++方向了，我也可以直接把这个专栏丢给他们。如果你想和慕雪一起从0开始学习C语言，可以关注一下本站的<a href="https://blog.musnow.top/tags/%E5%9B%9E%E9%A1%BEc%E5%92%8Ccpp/">回顾C和Cpp</a>这个Tag。</p><p>在学习C语言之前，请安装VS2019或者VS2022编译器：</p><ul><li><a href="https://blog.musnow.top/posts/2731112594">【VS】如何下载VS2019并初始化C&#x2F;C++环境</a>；</li><li><a href="https://blog.musnow.top/posts/4009185516">【VS】如何解决VS编译器scanf报错问题</a>;</li></ul><p>感谢大家的支持！</p>]]></content>
-    
-    
-    <summary type="html">都2024年了，还适合学C语言吗？</summary>
     
     
     
