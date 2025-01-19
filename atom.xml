@@ -6,7 +6,7 @@
   <link href="https://blog.musnow.top/atom.xml" rel="self"/>
   
   <link href="https://blog.musnow.top/"/>
-  <updated>2025-01-19T05:13:30.000Z</updated>
+  <updated>2025-01-19T05:24:39.000Z</updated>
   <id>https://blog.musnow.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【AI】在思源笔记中使用lmstudio部署的本地ai</title>
+    <link href="https://blog.musnow.top/posts/1891619455/"/>
+    <id>https://blog.musnow.top/posts/1891619455/</id>
+    <published>2025-01-19T00:55:26.000Z</published>
+    <updated>2025-01-19T05:24:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>如何在思源笔记中使用本地部署的lmstdio提供的api。</p><h2 id="书接上文"><a href="#书接上文" class="headerlink" title="书接上文"></a>书接上文</h2><p>在 <a href="https://blog.musnow.top/posts/3021867508">【AI】如何安装LM Studio并配置qwen2.5本地ai</a> 一文中，介绍了如何安装LM Studio软件并使用通义千问本地AI大模型。</p><p>LM Studio软件可以基于本地大模型提供一个和openai api兼容的本地AI服务器，基于此，我们可以使用思源笔记自带的AI模块，利用本地的LM Studio来在思源笔记中使用本地部署的AI。</p><p>思源笔记中AI模块有两种用法，一种是选择内容后，让AI帮忙写总结、续写、格式优化等（AI输出的内容会插入到选中内容之后），另外一种就是直接问AI，AI的回答会直接插入到我们的问题之后。</p><h2 id="如何操作"><a href="#如何操作" class="headerlink" title="如何操作"></a>如何操作</h2><h3 id="启动LM-Studio本地服务器Server"><a href="#启动LM-Studio本地服务器Server" class="headerlink" title="启动LM Studio本地服务器Server"></a>启动LM Studio本地服务器Server</h3><p>首先需要配置好并打开LM Studio，点击developer开发者页面，在这里可以选中一个你想使用的模型，然后点击左上角的start server启动本地服务器。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/0e8f59dffba478bef26467be77af56c8.png" alt="image.png"></p><p>成功启动，可以在下方的终端中看到如下内容</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/c0e6e37514a856f315e1123cce110f3c.png" alt="image.png"></p><h3 id="思源笔记中配置LM-Studio的API"><a href="#思源笔记中配置LM-Studio的API" class="headerlink" title="思源笔记中配置LM Studio的API"></a>思源笔记中配置LM Studio的API</h3><p>来到思源笔记的设置中，需要填写如下内容，参考官方文档 <a href="https://lm-studio.cn/docs/api/openai-api">lm-studio.cn&#x2F;docs&#x2F;api&#x2F;openai-api</a>。</p><table><thead><tr><th>参数</th><th>值</th></tr></thead><tbody><tr><td>url</td><td><code>http://127.0.0.1:1234/v1</code></td></tr><tr><td>api key</td><td><code>lm-stdio</code></td></tr><tr><td>模型</td><td>查看lmstdio本地服务器页面显示的模型名字</td></tr></tbody></table><p>其中模型的名称可以在LM Studio开发者页面右侧的API Usage中看到，复制此处的模型名称即可 (“This model’s API identifier”下方的模型名称)</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/4b41c7156e8be8a75866a1a447012b08.png" alt="image.png"></p><p>最终思源笔记AI配置好的结果如下，注意要选择AI提供商为openai，其他设置无需修改。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/15ca21102730b83d4e2a3211f55b6919.png" alt="image.png"></p><h2 id="搞定！"><a href="#搞定！" class="headerlink" title="搞定！"></a>搞定！</h2><p>接下来就可以在思源笔记中使用AI了，斜杠菜单里面能呼出ai编写模块。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/7fa398d4f8635e8b1f8bdc6e3248eabe.png" alt="image.png"></p><p>ai的回答会直接插入到我们输入的问题后方。不过很明显这里通义千问是在瞎说了，思源笔记不是一个便签类应用，也不是阿里云开发的……哈哈哈哈</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/83f7e7a76c1611778292ea19cb36d2fa.png" alt="image.png"></p>]]></content>
+    
+    
+    <summary type="html">如何在思源笔记中使用本地部署的lmstudio提供的api</summary>
+    
+    
+    
+    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
+    
+    <category term="编程工具" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="思源笔记" scheme="https://blog.musnow.top/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>【AI】如何安装LM Studio并配置qwen2.5本地ai</title>
@@ -38,29 +61,6 @@
     <category term="AI" scheme="https://blog.musnow.top/tags/AI/"/>
     
     <category term="GPT" scheme="https://blog.musnow.top/tags/GPT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【AI】在思源笔记中使用lmstudio部署的本地ai</title>
-    <link href="https://blog.musnow.top/posts/1891619455/"/>
-    <id>https://blog.musnow.top/posts/1891619455/</id>
-    <published>2025-01-19T00:52:26.000Z</published>
-    <updated>2025-01-19T05:24:39.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>如何在思源笔记中使用本地部署的lmstdio提供的api。</p><h2 id="书接上文"><a href="#书接上文" class="headerlink" title="书接上文"></a>书接上文</h2><p>在 <a href="https:://blog.musnow.top/posts/3021867508">【AI】如何安装LM Studio并配置qwen2.5本地ai</a>一文中，介绍了如何安装LM Studio软件并使用通义千问本地AI大模型。</p><p>LM Studio软件可以基于本地大模型提供一个和openai api兼容的本地AI服务器，基于此，我们可以使用思源笔记自带的AI模块，利用本地的LM Studio来在思源笔记中使用本地部署的AI。</p><p>思源笔记中AI模块有两种用法，一种是选择内容后，让AI帮忙写总结、续写、格式优化等（AI输出的内容会插入到选中内容之后），另外一种就是直接问AI，AI的回答会直接插入到我们的问题之后。</p><h2 id="如何操作"><a href="#如何操作" class="headerlink" title="如何操作"></a>如何操作</h2><h3 id="启动LM-Studio本地服务器Server"><a href="#启动LM-Studio本地服务器Server" class="headerlink" title="启动LM Studio本地服务器Server"></a>启动LM Studio本地服务器Server</h3><p>首先需要配置好并打开LM Studio，点击developer开发者页面，在这里可以选中一个你想使用的模型，然后点击左上角的start server启动本地服务器。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/0e8f59dffba478bef26467be77af56c8.png" alt="image.png"></p><p>成功启动，可以在下方的终端中看到如下内容</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/c0e6e37514a856f315e1123cce110f3c.png" alt="image.png"></p><h3 id="思源笔记中配置LM-Studio的API"><a href="#思源笔记中配置LM-Studio的API" class="headerlink" title="思源笔记中配置LM Studio的API"></a>思源笔记中配置LM Studio的API</h3><p>来到思源笔记的设置中，需要填写如下内容，参考官方文档 <a href="https://lm-studio.cn/docs/api/openai-api">lm-studio.cn&#x2F;docs&#x2F;api&#x2F;openai-api</a>。</p><table><thead><tr><th>参数</th><th>值</th></tr></thead><tbody><tr><td>url</td><td><code>http://127.0.0.1:1234/v1</code></td></tr><tr><td>api key</td><td><code>lm-stdio</code></td></tr><tr><td>模型</td><td>查看lmstdio本地服务器页面显示的模型名字</td></tr></tbody></table><p>其中模型的名称可以在LM Studio开发者页面右侧的API Usage中看到，复制此处的模型名称即可 (“This model’s API identifier”下方的模型名称)</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/4b41c7156e8be8a75866a1a447012b08.png" alt="image.png"></p><p>最终思源笔记AI配置好的结果如下，注意要选择AI提供商为openai，其他设置无需修改。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/15ca21102730b83d4e2a3211f55b6919.png" alt="image.png"></p><h2 id="搞定！"><a href="#搞定！" class="headerlink" title="搞定！"></a>搞定！</h2><p>接下来就可以在思源笔记中使用AI了，斜杠菜单里面能呼出ai编写模块。</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/7fa398d4f8635e8b1f8bdc6e3248eabe.png" alt="image.png"></p><p>ai的回答会直接插入到我们输入的问题后方。不过很明显这里通义千问是在瞎说了，思源笔记不是一个便签类应用，也不是阿里云开发的……哈哈哈哈</p><p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/83f7e7a76c1611778292ea19cb36d2fa.png" alt="image.png"></p>]]></content>
-    
-    
-    <summary type="html">如何在思源笔记中使用本地部署的lmstudio提供的api</summary>
-    
-    
-    
-    <category term="差生文具多" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"/>
-    
-    <category term="编程工具" scheme="https://blog.musnow.top/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="思源笔记" scheme="https://blog.musnow.top/tags/%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
