@@ -1,13 +1,130 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>【AI】如何安装LM Studio并配置qwen2.5本地AI | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何安装LM Studio并配置通义千问qwen2.5本地AI"><meta property="og:type" content="article"><meta property="og:title" content="【AI】如何安装LM Studio并配置qwen2.5本地AI"><meta property="og:url" content="https://blog.musnow.top/posts/3021867508/index.html"><meta property="og:site_name" content="慕雪的寒舍"><meta property="og:description" content="如何安装LM Studio并配置通义千问qwen2.5本地AI"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png"><meta property="article:published_time" content="2025-01-19T00:52:26.000Z"><meta property="article:modified_time" content="2025-01-20T09:19:28.000Z"><meta property="article:author" content="慕雪年华"><meta property="article:tag" content="AI"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/3021867508/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【AI】如何安装LM Studio并配置qwen2.5本地AI | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如何安装LM Studio并配置通义千问qwen2.5本地AI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【AI】如何安装LM Studio并配置qwen2.5本地AI">
+<meta property="og:url" content="https://blog.musnow.top/posts/3021867508/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="如何安装LM Studio并配置通义千问qwen2.5本地AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png">
+<meta property="article:published_time" content="2025-01-19T00:52:26.000Z">
+<meta property="article:modified_time" content="2025-01-20T09:19:28.000Z">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【AI】如何安装LM Studio并配置qwen2.5本地AI",
+  "url": "https://blog.musnow.top/posts/3021867508/",
+  "image": "https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png",
+  "datePublished": "2025-01-19T00:52:26.000Z",
+  "dateModified": "2025-01-20T09:19:28.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "慕雪年华",
+      "url": "https://blog.musnow.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/3021867508/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
-  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离上次更新本文已经过去了","messageNext":"天，文章部分内容可能已经过时，请注意甄别"},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
@@ -25,244 +142,295 @@
   copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
-      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
     rightside: true,
   },
   autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"【AI】如何安装LM Studio并配置qwen2.5本地AI",isPost:!0,isHome:!1,isHighlightShrink:!1,isToc:!0,postUpdate:"2025-01-20 17:19:28"}</script><noscript><style type="text/css">#nav{opacity:1}.justified-gallery img{opacity:1}#post-meta time,#recent-posts time{display:inline!important}</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【AI】如何安装LM Studio并配置qwen2.5本地AI',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"});</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a><a class="nav-page-title" href="/"><span class="site-name">【AI】如何安装LM Studio并配置qwen2.5本地AI</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【AI】如何安装LM Studio并配置qwen2.5本地AI</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-19T00:52:26.000Z" title="发表于 2025-01-19 08:52:26">2025-01-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-20T09:19:28.000Z" title="更新于 2025-01-20 17:19:28">2025-01-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/">笔记软件</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;距离上次更新本文已经过去了&quot;,&quot;messageNext&quot;:&quot;天，文章部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2025-01-20 17:19:28&quot;}" hidden></div><p>如何安装LM Studio并配置qwen2.5本地ai。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几年以ChatGPT为首的生成式人工智能可是火爆了全网，我在学习编程的过程中也经常使用AI咨询一些问题，绝大部分问题ChatGPT给出的答案都是比较靠谱的，还是节省了不少时间的。</p>
+<p>随着一个又一个开源人工智能模型的发布，我们现在已经可以在自己的电脑上也部署一个本地的生成式人工智能大模型，来辅助我们学习或构建本地的AI知识库。</p>
+<p>本文将介绍如何安装本地AI部署需要用到的软件LM Studio，并下载国产开源大模型通义千问2.5进行部署。</p>
+<h2 id="下载LM-Stdio和大模型"><a href="#下载LM-Stdio和大模型" class="headerlink" title="下载LM Stdio和大模型"></a>下载LM Stdio和大模型</h2><p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TJ4m157GH/">本地运行通义千问72B！兼容AMD显卡或纯CPU【LM Studio】_哔哩哔哩_bilibili</a><br>下面是下载lmstudio的链接，和下载通义千问大模型的链接。</p>
+<ul>
+<li>LM Studio官网：<a target="_blank" rel="noopener" href="https://lmstudio.ai/">https://lmstudio.ai</a>。依照您的操作系统，下载软件之后<strong>无脑下一步安装</strong>即可，本文不做截图演示；</li>
+<li>魔搭社区通义千问：<a target="_blank" rel="noopener" href="https://modelscope.cn/organization/qwen">https://modelscope.cn/organization/qwen</a></li>
+</ul>
+<p>注意，魔塔社区需要登录才能看到页面，不登陆看不到模型列表的。登录后，根据你的需要点进2.5或者2.5-coder的页面中（coder是针对编程优化过的）</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/5ef1ada9ffeeac8eb130143ed07ab24f.png" alt="image.png"></p>
+<p>以coder为例，点进去能看到一些文章，32B、14B、7B字样的仓库，我们要的就是这些仓库，里面能下载到通义千问的本地模型文件。请根据您的电脑配置选择合适大小的模型</p>
+<ul>
+<li>家用轻薄本（2022年以后新出款的），只能下载1.5B或者3B的模型文件进行尝试；</li>
+<li>M1\2\3\4系列Mac轻薄本，至少需要内存大于等于16GB才能尝试7B的模型（m系列mac内存越大就能尝试参数越大的模型）；</li>
+<li>至少要有英伟达或amd独显，且显存大于8GB才能尝试14B及以上模型；</li>
+</ul>
+<p>以上仅为慕雪根据本人的设备和使用体验进行的推测，仅供参考；</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png" alt="image.png"></p>
+<p>我们要下载的文件，是后缀带了GGUF的。为了方便，直接在魔搭社区的搜索栏搜索“通义千问 gguf”关键词即可</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/a0d025c463baf3e8580e2a055ff309d0.png" alt="image.png"></p>
+<p>这里以“通义千问2.5-7B-Instruct-GGUF”为例，点进去，点击模型文件，建议选择后缀为<code>q2</code>的模型文件进行下载。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/4195eaf4e4cd5b53409829072fb3e51a.png" alt="image.png"></p>
+<h2 id="LM-Studio配置使用通义千问"><a href="#LM-Studio配置使用通义千问" class="headerlink" title="LM Studio配置使用通义千问"></a>LM Studio配置使用通义千问</h2><h3 id="创建模型文件路径"><a href="#创建模型文件路径" class="headerlink" title="创建模型文件路径"></a>创建模型文件路径</h3><p>下载了模型文件之后，就可以配置lmstudio了，此处有重点需要敲黑板，lmstudio一定要依照特定文件夹层级来放置模型文件，才能正确识别模型。</p>
+<p>首先创建一个空的文件夹，比如我在D盘的“Program Files”中创建了一个GPT文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\GPT</span><br></pre></td></tr></table></figure>
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+<p>随后，我们需要按如下格式来创建文件夹，一定要这样创建！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\GPT\Qwen\Qwen2.5-7B-Instruct-GGUF</span><br></pre></td></tr></table></figure>
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
+<p>最后，我们将刚刚下载的<code>qwen2.5-7b-instruct-q2_k.gguf</code>这个文件，放置到上述文件夹中就OK了。</p>
+<p>如果我还想下载一个14B的模型咋办？那也要按这个套路去创建文件夹，然后把模型文件塞到这个文件夹里面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\GPT\Qwen\Qwen2.5-14B-Instruct-GGUF</span><br></pre></td></tr></table></figure>
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(r){"use strict";!function(){var t=window,s=document,e=r,c="".concat("https:"===s.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),i=s.createElement("script"),n=s.getElementsByTagName("script")[0];i.type="text/javascript",i.setAttribute("charset","UTF-8"),i.async=!0,i.src=c,i.id="LA_COLLECT",e.d=i;function o(){t.LA.ids.push(e)}t.LA?t.LA.ids&&o():(t.LA=r,t.LA.ids=[],o()),n.parentNode.insertBefore(i,n)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/favicon.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image:url(https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png)"><nav id="nav"><span id="blog-info"><a href="/" title="慕雪的寒舍"><img class="site-icon" src="/favicon.jpg"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【AI】如何安装LM Studio并配置qwen2.5本地AI</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-19T00:52:26.000Z" title="发表于 2025-01-19 08:52:26">2025-01-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-20T09:19:28.000Z" title="更新于 2025-01-20 17:19:28">2025-01-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/">笔记软件</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span data-flag-title="【AI】如何安装LM Studio并配置qwen2.5本地AI"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>如何安装LM Studio并配置qwen2.5本地ai。</p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几年以ChatGPT为首的生成式人工智能可是火爆了全网，我在学习编程的过程中也经常使用AI咨询一些问题，绝大部分问题ChatGPT给出的答案都是比较靠谱的，还是节省了不少时间的。</p><p>随着一个又一个开源人工智能模型的发布，我们现在已经可以在自己的电脑上也部署一个本地的生成式人工智能大模型，来辅助我们学习或构建本地的AI知识库。</p><p>本文将介绍如何安装本地AI部署需要用到的软件LM Studio，并下载国产开源大模型通义千问2.5进行部署。</p><h2 id="下载LM-Stdio和大模型"><a href="#下载LM-Stdio和大模型" class="headerlink" title="下载LM Stdio和大模型"></a>下载LM Stdio和大模型</h2><p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TJ4m157GH/">本地运行通义千问72B！兼容AMD显卡或纯CPU【LM Studio】_哔哩哔哩_bilibili</a><br>下面是下载lmstudio的链接，和下载通义千问大模型的链接。</p><ul><li>LM Studio官网：<a target="_blank" rel="noopener" href="https://lmstudio.ai/">https://lmstudio.ai</a>。依照您的操作系统，下载软件之后<strong>无脑下一步安装</strong>即可，本文不做截图演示；</li><li>魔搭社区通义千问：<a target="_blank" rel="noopener" href="https://modelscope.cn/organization/qwen">https://modelscope.cn/organization/qwen</a></li></ul><p>注意，魔塔社区需要登录才能看到页面，不登陆看不到模型列表的。登录后，根据你的需要点进2.5或者2.5-coder的页面中（coder是针对编程优化过的）</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/5ef1ada9ffeeac8eb130143ed07ab24f.png" alt="image.png"></p><p>以coder为例，点进去能看到一些文章，32B、14B、7B字样的仓库，我们要的就是这些仓库，里面能下载到通义千问的本地模型文件。请根据您的电脑配置选择合适大小的模型</p><ul><li>家用轻薄本（2022年以后新出款的），只能下载1.5B或者3B的模型文件进行尝试；</li><li>M1\2\3\4系列Mac轻薄本，至少需要内存大于等于16GB才能尝试7B的模型（m系列mac内存越大就能尝试参数越大的模型）；</li><li>至少要有英伟达或amd独显，且显存大于8GB才能尝试14B及以上模型；</li></ul><p>以上仅为慕雪根据本人的设备和使用体验进行的推测，仅供参考；</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png" alt="image.png"></p><p>我们要下载的文件，是后缀带了GGUF的。为了方便，直接在魔搭社区的搜索栏搜索“通义千问 gguf”关键词即可</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/a0d025c463baf3e8580e2a055ff309d0.png" alt="image.png"></p><p>这里以“通义千问2.5-7B-Instruct-GGUF”为例，点进去，点击模型文件，建议选择后缀为<code>q2</code>的模型文件进行下载。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/4195eaf4e4cd5b53409829072fb3e51a.png" alt="image.png"></p><h2 id="LM-Studio配置使用通义千问"><a href="#LM-Studio配置使用通义千问" class="headerlink" title="LM Studio配置使用通义千问"></a>LM Studio配置使用通义千问</h2><h3 id="创建模型文件路径"><a href="#创建模型文件路径" class="headerlink" title="创建模型文件路径"></a>创建模型文件路径</h3><p>下载了模型文件之后，就可以配置lmstudio了，此处有重点需要敲黑板，lmstudio一定要依照特定文件夹层级来放置模型文件，才能正确识别模型。</p><p>首先创建一个空的文件夹，比如我在D盘的“Program Files”中创建了一个GPT文件夹</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\GPT</span><br></pre></td></tr></table></figure><p>随后，我们需要按如下格式来创建文件夹，一定要这样创建！</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\GPT\Qwen\Qwen2.5-7B-Instruct-GGUF</span><br></pre></td></tr></table></figure><p>最后，我们将刚刚下载的<code>qwen2.5-7b-instruct-q2_k.gguf</code>这个文件，放置到上述文件夹中就OK了。</p><p>如果我还想下载一个14B的模型咋办？那也要按这个套路去创建文件夹，然后把模型文件塞到这个文件夹里面。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program Files\GPT\Qwen\Qwen2.5-14B-Instruct-GGUF</span><br></pre></td></tr></table></figure><p>创建好了文件夹之后，在lmstudio的modules页面，选择上级目录作为模型文件的根目录，这样就能显示出模型文件了。按上文给出的例子，需要将<code>D:\Program Files\GPT</code>选择为模型文件根目录。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/86a03f4917f5ef5ef7af64893a441936.png" alt="image.png"></p><p>在mac电脑上也是同理，也需要按这个层级去创建文件夹和放置模型文件。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/c4e7d2fcb0cb6cf76b65d3d71a083202.png" alt="image.png"></p><p>只要文件路径ok，最终就能在lmstudio的页面看到你刚刚下载的本地模型。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/b6b62d344c5617682eace30dd2bf4aae.png" alt="image.png"></p><h3 id="使用本地模型"><a href="#使用本地模型" class="headerlink" title="使用本地模型"></a>使用本地模型</h3><p>接下来就能正常使用啦！进入lmstdio的chat聊天页面，在顶栏选择本地模型，会弹出设置页面让你选择。首先第一个设置上下文长度是这个模型能记住的上下文数量，设置的越多，模型能记住的内容也就越多，但所消耗的内存也就越多。另外，现在的大模型其实还是记不住太多东西， 所以不建议设置成超过10000的数字。这里我直接保持了默认的4096。</p><p>然后是GPU卸载，这个翻译不好，英文显示的是GPU OFFLOAD，意思是你希望使用多少CPU，这个参数越小代表CPU压力大，越大代表GPU压力越大。如果设置为0，则是纯CPU推理，如果设置为最大值，则是纯GPU推理。<strong>一般情况下建议直接往最大值设置或者设置成最大值的90%让CPU也干点活</strong>。</p><p>第三个参数CPU Thread Pool Size是一个编程方面的名词，翻译过来是“CPU线程池大小”，理论上来说，这个参数越大性能也就越好。</p><p>线程池的最大值一般是你CPU支持的多线程数量，比如我的M3 MBA就只有8核，所以最大值只能设置为8。建议设置为最大值的80%，避免LM Studio吃满所有CPU导致你的电脑变卡，干不了其他事。</p><p>剩余参数我也不太懂，建议不要修改。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/a72d8aae62d4584841ed984b2291b4e1.png" alt="image.png"></p><p>点击右下角的确定加载模型，接下来就能像在线的网页一样和这些模型聊天了。所有的计算都是在你的机器本地运行的，不会有隐私问题啦！</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/7eef88623d6c1d911ef9778d7752904f.png" alt="image.png"></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/8f3a6772d9d0346c20fffef238a5db0e.png" alt="image.png"></p><h3 id="什么是token-x2F-s（token每秒）"><a href="#什么是token-x2F-s（token每秒）" class="headerlink" title="什么是token&#x2F;s（token每秒）"></a>什么是token&#x2F;s（token每秒）</h3><p>在lmstudio的回复中能看到你当前使用的模型的token生成速度<code>tok/sec</code>，也就是每秒能生成几个token。慕雪其实也不太懂这方面的知识，但是可以简单将每秒的token数理解为每秒本地的大模型能生成几个字。</p><p>一般要14token&#x2F;s才能符合人类阅读的速度，你可以根据这个指标来衡量你的电脑能支撑得起多少B的大模型。</p><h3 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h3><p>下面给出慕雪使用过的设备lmstudio部署本地通义千问模型的性能<code>tok/sec</code>，仅供参考</p><table><thead><tr><th>主机</th><th>模型</th><th>量化</th><th>生成速度(tok&#x2F;sec)</th></tr></thead><tbody><tr><td>M3 MACBOOK AIR 16GB</td><td>Qwen2.5-7B-Instruct-GGUF</td><td>q2_k</td><td>18</td></tr><tr><td></td><td>Qwen2.5-3B-Instruct-GGUF</td><td>q2_k</td><td>38</td></tr><tr><td></td><td>Qwen2.5-Coder-1.5B-Instruct-GGUF</td><td>q2_k</td><td>63</td></tr><tr><td></td><td>Qwen2.5-Coder-7B-Instruct-GGUF</td><td>q2_k</td><td>18</td></tr><tr><td>5700X&#x2F;7800XT&#x2F;32GB</td><td>Qwen1.5-14B-Instruct-GGUF</td><td>q2_k</td><td>36</td></tr><tr><td></td><td>Qwen1.5-7B-Instruct-GGUF</td><td>q2_k</td><td>66</td></tr><tr><td></td><td>Qwen1.5-32B-Instruct-GGUF</td><td>q2_k</td><td>6.3</td></tr><tr><td></td><td>Qwen2.5-Coder-7B-Instruct-GGUF</td><td>q2_k</td><td>68</td></tr></tbody></table><h2 id="拓展：构建本地知识库"><a href="#拓展：构建本地知识库" class="headerlink" title="拓展：构建本地知识库"></a>拓展：构建本地知识库</h2><p>构建本地知识库需要下载Anything LLM软件：<a target="_blank" rel="noopener" href="https://anythingllm.com/download">anythingllm.com&#x2F;download</a>，参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ci421v7xZ/">Qwen2本地部署和接入知识库 支持N卡&#x2F;A卡&#x2F;纯CPU_哔哩哔哩_bilibili</a>。</p><p>慕雪尝试过，目前效果不咋样，用<code>Qwen2.5-3B-Instruct-GGUF</code>即便是很小的文档也分析不明白，<strong>个人认为处于不可用阶段</strong>。也有可能是慕雪的配置有问题，但是懒得折腾了。</p><p>如果你感兴趣，可以依据视频的教程自己尝试一下，本文就不演示啦！</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/3021867508/">https://blog.musnow.top/posts/3021867508/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a></div><div class="post_share"><div class="social-share" data-image="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1891619455/" title="【AI】在思源笔记中使用LM Studio部署的本地AI"><img class="cover" src="https://img.musnow.top/i/2025/01/7fa398d4f8635e8b1f8bdc6e3248eabe.png" onerror='onerror=null,src="/img/404.jpg"' alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【AI】在思源笔记中使用LM Studio部署的本地AI</div></div></a></div><div class="next-post pull-right"><a href="/posts/2922671846/" title="【Docker】安装Answer以及配置html代码片段"><img class="cover" src="https://img.musnow.top/i/2024/12/23e7fe039ea67edeb9f2d2d0eba83da8.png" onerror='onerror=null,src="/img/404.jpg"' alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【Docker】安装Answer以及配置html代码片段</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1891619455/" title="【AI】在思源笔记中使用LM Studio部署的本地AI"><img class="cover" src="https://img.musnow.top/i/2025/01/7fa398d4f8635e8b1f8bdc6e3248eabe.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-19</div><div class="title">【AI】在思源笔记中使用LM Studio部署的本地AI</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/favicon.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">慕雪年华</div><div class="author-info__description">爱折腾的代码初学者</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDLM-Stdio%E5%92%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text">下载LM Stdio和大模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LM-Studio%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE"><span class="toc-text">LM Studio配置使用通义千问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">创建模型文件路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%9E%8B"><span class="toc-text">使用本地模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFtoken-x2F-s%EF%BC%88token%E6%AF%8F%E7%A7%92%EF%BC%89"><span class="toc-text">什么是token&#x2F;s（token每秒）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%8F%82%E8%80%83"><span class="toc-text">性能参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%EF%BC%9A%E6%9E%84%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="toc-text">拓展：构建本地知识库</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/5825720428/" title="【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）">【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）</a><time datetime="2025-04-10T12:29:36.000Z" title="发表于 2025-04-10 20:29:36">2025-04-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9762190903/" title="【SLAM】使用ROS的camera_calibration工具标定D435相机">【SLAM】使用ROS的camera_calibration工具标定D435相机</a><time datetime="2025-04-07T00:09:24.000Z" title="发表于 2025-04-07 08:09:24">2025-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9149643829/" title="【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机">【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机</a><time datetime="2025-04-06T09:09:24.000Z" title="发表于 2025-04-06 17:09:24">2025-04-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8572288919/" title="【SLAM】使用realsense-viewer对Realsense D435进行自校准">【SLAM】使用realsense-viewer对Realsense D435进行自校准</a><time datetime="2025-04-06T00:51:08.000Z" title="发表于 2025-04-06 08:51:08">2025-04-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image:url(/img/main/mothra.webp)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a><br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a><br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/main.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.3/lazyload.iife.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
-  }
-}
-
-function panguInit () {
-  if (true){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
-  } else {
-    panguFn()
-  }
-}
-
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      tags: 'ams'
-    },
-    chtml: {
-      scale: 1.1
-    },
-    options: {
-      renderActions: {
-        findScript: [10, doc => {
-          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
-            const display = !!node.type.match(/; *mode=display/)
-            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
-            const text = document.createTextNode('')
-            node.parentNode.replaceChild(text, node)
-            math.start = {node: text, delim: '', n: 0}
-            math.end = {node: text, delim: '', n: 0}
-            doc.math.push(math)
+<p>创建好了文件夹之后，在lmstudio的modules页面，选择上级目录作为模型文件的根目录，这样就能显示出模型文件了。按上文给出的例子，需要将<code>D:\Program Files\GPT</code>选择为模型文件根目录。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/86a03f4917f5ef5ef7af64893a441936.png" alt="image.png"></p>
+<p>在mac电脑上也是同理，也需要按这个层级去创建文件夹和放置模型文件。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/c4e7d2fcb0cb6cf76b65d3d71a083202.png" alt="image.png"></p>
+<p>只要文件路径ok，最终就能在lmstudio的页面看到你刚刚下载的本地模型。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/b6b62d344c5617682eace30dd2bf4aae.png" alt="image.png"></p>
+<h3 id="使用本地模型"><a href="#使用本地模型" class="headerlink" title="使用本地模型"></a>使用本地模型</h3><p>接下来就能正常使用啦！进入lmstdio的chat聊天页面，在顶栏选择本地模型，会弹出设置页面让你选择。首先第一个设置上下文长度是这个模型能记住的上下文数量，设置的越多，模型能记住的内容也就越多，但所消耗的内存也就越多。另外，现在的大模型其实还是记不住太多东西， 所以不建议设置成超过10000的数字。这里我直接保持了默认的4096。</p>
+<p>然后是GPU卸载，这个翻译不好，英文显示的是GPU OFFLOAD，意思是你希望使用多少CPU，这个参数越小代表CPU压力大，越大代表GPU压力越大。如果设置为0，则是纯CPU推理，如果设置为最大值，则是纯GPU推理。<strong>一般情况下建议直接往最大值设置或者设置成最大值的90%让CPU也干点活</strong>。</p>
+<p>第三个参数CPU Thread Pool Size是一个编程方面的名词，翻译过来是“CPU线程池大小”，理论上来说，这个参数越大性能也就越好。</p>
+<p>线程池的最大值一般是你CPU支持的多线程数量，比如我的M3 MBA就只有8核，所以最大值只能设置为8。建议设置为最大值的80%，避免LM Studio吃满所有CPU导致你的电脑变卡，干不了其他事。</p>
+<p>剩余参数我也不太懂，建议不要修改。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/a72d8aae62d4584841ed984b2291b4e1.png" alt="image.png"></p>
+<p>点击右下角的确定加载模型，接下来就能像在线的网页一样和这些模型聊天了。所有的计算都是在你的机器本地运行的，不会有隐私问题啦！</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/7eef88623d6c1d911ef9778d7752904f.png" alt="image.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/01/8f3a6772d9d0346c20fffef238a5db0e.png" alt="image.png"></p>
+<h3 id="什么是token-s（token每秒）"><a href="#什么是token-s（token每秒）" class="headerlink" title="什么是token&#x2F;s（token每秒）"></a>什么是token&#x2F;s（token每秒）</h3><p>在lmstudio的回复中能看到你当前使用的模型的token生成速度<code>tok/sec</code>，也就是每秒能生成几个token。慕雪其实也不太懂这方面的知识，但是可以简单将每秒的token数理解为每秒本地的大模型能生成几个字。</p>
+<p>一般要14token&#x2F;s才能符合人类阅读的速度，你可以根据这个指标来衡量你的电脑能支撑得起多少B的大模型。</p>
+<h3 id="性能参考"><a href="#性能参考" class="headerlink" title="性能参考"></a>性能参考</h3><p>下面给出慕雪使用过的设备lmstudio部署本地通义千问模型的性能<code>tok/sec</code>，仅供参考</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>模型</th>
+<th>量化</th>
+<th>生成速度(tok&#x2F;sec)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M3 MACBOOK AIR 16GB</td>
+<td>Qwen2.5-7B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>18</td>
+</tr>
+<tr>
+<td></td>
+<td>Qwen2.5-3B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>38</td>
+</tr>
+<tr>
+<td></td>
+<td>Qwen2.5-Coder-1.5B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>63</td>
+</tr>
+<tr>
+<td></td>
+<td>Qwen2.5-Coder-7B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>18</td>
+</tr>
+<tr>
+<td>5700X&#x2F;7800XT&#x2F;32GB</td>
+<td>Qwen1.5-14B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>36</td>
+</tr>
+<tr>
+<td></td>
+<td>Qwen1.5-7B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>66</td>
+</tr>
+<tr>
+<td></td>
+<td>Qwen1.5-32B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>6.3</td>
+</tr>
+<tr>
+<td></td>
+<td>Qwen2.5-Coder-7B-Instruct-GGUF</td>
+<td>q2_k</td>
+<td>68</td>
+</tr>
+</tbody></table>
+<h2 id="拓展：构建本地知识库"><a href="#拓展：构建本地知识库" class="headerlink" title="拓展：构建本地知识库"></a>拓展：构建本地知识库</h2><p>构建本地知识库需要下载Anything LLM软件：<a target="_blank" rel="noopener" href="https://anythingllm.com/download">anythingllm.com&#x2F;download</a>，参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ci421v7xZ/">Qwen2本地部署和接入知识库 支持N卡&#x2F;A卡&#x2F;纯CPU_哔哩哔哩_bilibili</a>。</p>
+<p>慕雪尝试过，目前效果不咋样，用<code>Qwen2.5-3B-Instruct-GGUF</code>即便是很小的文档也分析不明白，<strong>个人认为处于不可用阶段</strong>。也有可能是慕雪的配置有问题，但是懒得折腾了。</p>
+<p>如果你感兴趣，可以依据视频的教程自己尝试一下，本文就不演示啦！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/3021867508/">https://blog.musnow.top/posts/3021867508/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a></div><div class="post-share"><div class="social-share" data-image="https://img.musnow.top/i/2025/01/1fef55282538e7e036a1c83880e9c20f.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"/></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/2922671846/" title="【Docker】安装Answer以及配置html代码片段"><img class="cover" src="https://img.musnow.top/i/2024/12/23e7fe039ea67edeb9f2d2d0eba83da8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【Docker】安装Answer以及配置html代码片段</div></div><div class="info-2"><div class="info-item-1">Docker安装Answer以及配置html代码片段</div></div></div></a><a class="pagination-related" href="/posts/1891619455/" title="【AI】在思源笔记中使用LM Studio部署的本地AI"><img class="cover" src="https://img.musnow.top/i/2025/01/7fa398d4f8635e8b1f8bdc6e3248eabe.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【AI】在思源笔记中使用LM Studio部署的本地AI</div></div><div class="info-2"><div class="info-item-1">如何在思源笔记中使用本地部署的LM Studio大模型提供的api</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/2831928244/" title="【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？"><img class="cover" src="https://img.musnow.top/i/2025/04/fef69c3cdacdc7927b494ed945c9210a.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2">【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？</div></div><div class="info-2"><div class="info-item-1">本文介绍了MCP大模型上下文协议的的概念，并对比了MCP协议和function call的区别，同时用python sdk为例介绍了mcp的使用方式。</div></div></div></a><a class="pagination-related" href="/posts/2725694758/" title="【MCP】了解远程MCP调用背后使用的SSE协议"><img class="cover" src="https://img.musnow.top/i/2025/04/815180df9842b41001a215e6d4b373d2.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-20</div><div class="info-item-2">【MCP】了解远程MCP调用背后使用的SSE协议</div></div><div class="info-2"><div class="info-item-1">本文介绍了远程MCP使用的SSE协议，通过wireshark抓包的方式了解MCP客户端和服务端之间通过SSE协议交互涉及到的请求与响应。</div></div></div></a><a class="pagination-related" href="/posts/4192678800/" title="【Python】使用uv管理python虚拟环境"><img class="cover" src="https://img.musnow.top/i/2025/04/aaa8558a5e2d0fa98f7e21687a22c62a.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-14</div><div class="info-item-2">【Python】使用uv管理python虚拟环境</div></div><div class="info-2"><div class="info-item-1">本文介绍了python虚拟环境管理工具uv，包括uv的作用、uv的常用命令等等。</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDLM-Stdio%E5%92%8C%E5%A4%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text">下载LM Stdio和大模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LM-Studio%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8%E9%80%9A%E4%B9%89%E5%8D%83%E9%97%AE"><span class="toc-text">LM Studio配置使用通义千问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">创建模型文件路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%9E%8B"><span class="toc-text">使用本地模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFtoken-s%EF%BC%88token%E6%AF%8F%E7%A7%92%EF%BC%89"><span class="toc-text">什么是token&#x2F;s（token每秒）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%8F%82%E8%80%83"><span class="toc-text">性能参考</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%EF%BC%9A%E6%9E%84%E5%BB%BA%E6%9C%AC%E5%9C%B0%E7%9F%A5%E8%AF%86%E5%BA%93"><span class="toc-text">拓展：构建本地知识库</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9085567599/" title="【Mac】拒绝parallels toolbox，从我做起！">【Mac】拒绝parallels toolbox，从我做起！</a><time datetime="2025-05-26T00:57:24.000Z" title="发表于 2025-05-26 08:57:24">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7827607861/" title="【Hexo】将代码块中tab替换为空格（修改tab_replace）">【Hexo】将代码块中tab替换为空格（修改tab_replace）</a><time datetime="2025-05-16T02:00:57.000Z" title="发表于 2025-05-16 10:00:57">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2725694758/" title="【MCP】了解远程MCP调用背后使用的SSE协议">【MCP】了解远程MCP调用背后使用的SSE协议</a><time datetime="2025-04-20T06:47:57.000Z" title="发表于 2025-04-20 14:47:57">2025-04-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2831928244/" title="【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？">【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？</a><time datetime="2025-04-19T00:56:01.000Z" title="发表于 2025-04-19 08:56:01">2025-04-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
           }
-        }, '']
+        }
       }
+
+      const script = document.createElement('script')
+      script.src = '/pluginsSrc/mathjax/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
     }
   }
-  
-  const script = document.createElement('script')
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
-  script.id = 'MathJax-script'
-  script.async = true
-  document.head.appendChild(script)
-} else {
-  MathJax.startup.document.state(0)
-  MathJax.texReset()
-  MathJax.typesetPromise()
-}</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    Array.from($mermaid).forEach((item, index) => {
+    ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
       const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
+      const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
       }
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
     })
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.2/mermaid.min.js').then(runMermaid)
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
   }
 
-  btf.addModeChange('mermaid', runMermaid)
-
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>function loadArtalk () {
-  function initArtalk () {
-    window.artalkItem = new Artalk(Object.assign({
-      el: '#artalk-wrap',
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
       server: 'https://artk.musnow.top',
       site: 'mublog',
-      pageKey: location.pathname,
       darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
-      countEl: '.artalk-count'
-    },null))
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
 
     if (GLOBAL_CONFIG.lightbox === 'null') return
-    window.artalkItem.use(ctx => {
-      ctx.on('list-loaded', () => {
-        ctx.getCommentList().forEach(comment => {
-          const $content = comment.getRender().$content
-          btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
-        })
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
       })
     })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
   }
 
-  if (typeof window.artalkItem === 'object') initArtalk()
-  else {
-    getCSS('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.css').then(()=>{
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.js').then(initArtalk)
-    })
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('/pluginsSrc/artalk/dist/Artalk.css')
+      await btf.getScript('/pluginsSrc/artalk/dist/Artalk.js')
+      initArtalk(el, pageKey)
+    }
   }
-}
 
-function artalkChangeMode (theme) {
-  const artalkWrap = document.getElementById('artalk-wrap')
-  if (!(artalkWrap && artalkWrap.children.length)) return
-  const isDark = theme === 'dark'
-  window.artalkItem.setDarkMode(isDark)
-}
-
-btf.addModeChange('artalk', artalkChangeMode)
-
-if ('Artalk' === 'Artalk' || !false) {
-  if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
-  else loadArtalk()
-} else {
-  function loadOtherComment () {
-    loadArtalk()
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
   }
-}</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/click-heart.min.js" async mobile="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> 数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/search/local-search.min.js"></script></div></div></body></html>
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,13 +1,113 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>慕雪的寒舍 - 雪下了一夜</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="爱折腾的代码初学者"><meta property="og:type" content="website"><meta property="og:title" content="慕雪的寒舍"><meta property="og:url" content="https://blog.musnow.top/page/26/index.html"><meta property="og:site_name" content="慕雪的寒舍"><meta property="og:description" content="爱折腾的代码初学者"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.musnow.top/favicon.jpg"><meta property="article:author" content="慕雪年华"><meta property="article:tag" content="慕雪"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.musnow.top/favicon.jpg"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/page/26/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>慕雪的寒舍 - 雪下了一夜</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="爱折腾的代码初学者">
+<meta property="og:type" content="website">
+<meta property="og:title" content="慕雪的寒舍">
+<meta property="og:url" content="https://blog.musnow.top/page/26/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="爱折腾的代码初学者">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.musnow.top/favicon.jpg">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="慕雪">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.musnow.top/favicon.jpg"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/page/26/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
-  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离上次更新本文已经过去了","messageNext":"天，文章部分内容可能已经过时，请注意甄别"},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
@@ -25,149 +125,115 @@
   copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
-      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
     rightside: true,
   },
   autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"慕雪的寒舍",isPost:!1,isHome:!0,isHighlightShrink:!1,isToc:!1,postUpdate:"2025-04-12 13:36:18"}</script><noscript><style type="text/css">#nav{opacity:1}.justified-gallery img{opacity:1}#post-meta time,#recent-posts time{display:inline!important}</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '慕雪的寒舍',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"});</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image: url(/img/main/op32.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">慕雪的寒舍</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/1996139841/" title="【docker】通过配置文件，修改已有容器的端口映射"><img class="post-bg" src="/img/bg/gm35.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【docker】通过配置文件，修改已有容器的端口映射"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/1996139841/" title="【docker】通过配置文件，修改已有容器的端口映射">【docker】通过配置文件，修改已有容器的端口映射</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-11T11:45:33.000Z" title="发表于 2023-03-11 19:45:33">2023-03-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/1996139841/#post-comment"><span class="artalk-count" data-page-key="/posts/1996139841/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">通过配置文件，修改已有容器的端口映射。包含如何找到绿联nas中docker的配置路径</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/1472038549/" title="【js】用html+javascript静态页面实现伪重定向"><img class="post-bg" src="https://img.musnow.top/i/2023/05/6475618b2445f.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【js】用html+javascript静态页面实现伪重定向"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/1472038549/" title="【js】用html+javascript静态页面实现伪重定向">【js】用html+javascript静态页面实现伪重定向</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-10T11:50:31.000Z" title="发表于 2023-03-10 19:50:31">2023-03-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">编程工具</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/1472038549/#post-comment"><span class="artalk-count" data-page-key="/posts/1472038549/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">javascript代码实现一个伪重定向   1.前言本站的域名之前有修改过，但一些朋友的友链，和开往里面的链接尚未更新。旧的域名又米有备案，不能解析到国内服务器上用nginx进行30x转发。 这时候我就想到了一招，用js的代码来实现一个url的切换，相当于一个伪重定向。因为是静态文件，能直接部署到netlify等平台上。 百度了一下js是否支持这种语法，嘿，支持！ 那不直接开整！ 2.代码关于http的30x状态码，其代表站点域名或路径更改  301重定向：永久 302重定向：临时  html代码部分很简单，设置body和站点标题都为301重定向，告诉访问者，站点已经换了新的域名 12345678&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;title&gt;301 Moved Permanently&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;center&gt;&lt;h1&gt;301 Moved...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/783373963/" title="【Python】pip下载使用国内镜像源"><img class="post-bg" src="https://img.musnow.top/i/2023/05/6455c5de07cf4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Python】pip下载使用国内镜像源"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/783373963/" title="【Python】pip下载使用国内镜像源">【Python】pip下载使用国内镜像源</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-10T00:31:00.000Z" title="发表于 2023-03-10 08:31:00">2023-03-10</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Python/">Python</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/783373963/#post-comment"><span class="artalk-count" data-page-key="/posts/783373963/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">pip下载使用国内镜像源   1.如何使用在直接用pip安装包的时候，有时候会非常非常慢 可以用下面的命令，在安装的时候使用清华的镜像源 1-i https://pypi.tuna.tsinghua.edu.cn/simple  比如下面的操作 1pip3.10 install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple  速度直接起飞 2.修改配置文件2.1 linuxLinux系统，在用户的家目录下创建一个.pip文件夹，并在里面创建一个pip.conf 12mkdir ~/.piptouch ~/.pip/pip.conf  创建后，在pip.conf文件里面写入如下内容 1234[global]index-url = https://pypi.tuna.tsinghua.edu.cn/simple[install]trusted-host = https://pypi.tuna.tsinghua.edu.cn  保存后，查看是否配置成功 123$ pip3.10 config...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/2203891398/" title="【Linux】浏览器写代码！部署code-server远程vscode网页"><img class="post-bg" src="https://img.musnow.top/i/2023/03/6409edd1712e7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Linux】浏览器写代码！部署code-server远程vscode网页"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2203891398/" title="【Linux】浏览器写代码！部署code-server远程vscode网页">【Linux】浏览器写代码！部署code-server远程vscode网页</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-09T13:45:33.000Z" title="发表于 2023-03-09 21:45:33">2023-03-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">编程工具</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/2203891398/#post-comment"><span class="artalk-count" data-page-key="/posts/2203891398/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">部署code-server远程vscode网页，在浏览器上写代码！   参考文档 https://developer.aliyun.com/article/876967#slide-7 1.什么是code-server？注意，这不是在linux系统上安装vscode软件（和windows一样的vscode客户端）  开源仓库 https://github.com/coder/code-server  code-server是一个社区项目（非微软官方）其作用是在你的linux主机（云服务器）上部署一个可以在浏览器上访问的vscode页面，类似官方的vscode.dev  微软官方推出的vscode网页版 https://vscode.dev/ 它可以通过浏览器的api访问你电脑上的本地文件，此时浏览器就是一个vscode客户端   code-server同理，其访问的是你linux服务器上的文件，作用类似于vscode插件remote ssh，让我们可以用浏览器，在任何电脑、平板上进行远程开发，无须下载vscode客户端或者ssh软件！  1.1...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/2589797340/" title="【Docker】限制已运行容器的Cpu和内存"><img class="post-bg" src="/img/bg/gm2.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Docker】限制已运行容器的Cpu和内存"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2589797340/" title="【Docker】限制已运行容器的Cpu和内存">【Docker】限制已运行容器的Cpu和内存</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-06T09:45:33.000Z" title="发表于 2023-03-06 17:45:33">2023-03-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/2589797340/#post-comment"><span class="artalk-count" data-page-key="/posts/2589797340/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">docker限制已运行容器的Cpu和内存   1.问题描述最近云服务器的内存经常不够用，而且是莫名其妙的增多，在腾讯云的控制台里面看，4gb 的内存占用了3.2 gb，就卡到连 ssh 都连不上了  PS: 已换过网络和设备，确认不是用户端网络问题导致无法ssh   实在没辙了，只能把我的几个不热门的kook-bot移植到replit白嫖，再限制一下lsky图床docker镜像的内存用量  其实主要是nsfw-api的内存用量，我发现有人故意给我的图床上传h图。lsky后台由于鉴黄不通过，不允许上传，也看不到是谁干的。隔这压力测试呢？ 我的图床基本只对自己的博客使用。开放游客上传，也只是方便大家临时上传一些图片，还请大家手下留情！！！😥  这个操作我做了几次，也算是一个高频操作了。在此记录一下如何更改一个正在运行中容器的内存限制 2.修改内存限制先使用ps命令查看当前容器和对应的id 1docker ps  可以看到，lsky图床和nsfw的镜像分别是第二个和第三个  再用stats命令查看当前的状态 1docker stats   可以看到，图床的内存没有进行限制，nsfw...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/809108065/" title="【Linux】修改linux下的时区和系统时间"><img class="post-bg" src="/img/bg/gm28.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Linux】修改linux下的时区和系统时间"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/809108065/" title="【Linux】修改linux下的时区和系统时间">【Linux】修改linux下的时区和系统时间</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-04T01:30:55.000Z" title="发表于 2023-03-04 09:30:55">2023-03-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Linux/">Linux</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/809108065/#post-comment"><span class="artalk-count" data-page-key="/posts/809108065/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">用配置文件，修改linux系统下的时区（所用系统 CentOS8）   1.问题来源在linux上使用python的logging模块的时候，发现了一个问题，那就是模块里面的%(asctime)s打印的时间并非东八区的时间，而是格林尼治时间，比东八区的时间少了8小时 对于日志来说，这怎么行？总不能每次看日志的时候，自己手动给时间加8小时吧！那样对debug来说可不是什么方便事！ 2.解决百度了一下后，发现是我系统的时区问题。这个Centos系统是用docker安装的，内部的时区没有正常设置 1date  通过date命令可以查看系统当前的时间 1Sat Mar  4 01:29:59 UTC 2023  会发现是3月4日的凌晨1点，但实际上我是在上午9点写下的这篇博客  这就需要我们修改时区了！  刚开始，我尝试用tzselect命令进行时区的选择，再选择了上海时区后，系统的时间还是有问题。然后发现，需要修改文件配置，才能让时间生效 123/etc/timezone # 时区的配置/etc/localtime # 时间/usr/share/zoneinfo/Asia...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/3348986841/" title="【Python】解决SSL certificate problem unable to get local issuer certificate"><img class="post-bg" src="https://img.musnow.top/i/2023/02/63f80f61bd112.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Python】解决SSL certificate problem unable to get local issuer certificate"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/3348986841/" title="【Python】解决SSL certificate problem unable to get local issuer certificate">【Python】解决SSL certificate problem unable to get local issuer certificate</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-24T01:19:00.000Z" title="发表于 2023-02-24 09:19:00">2023-02-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Python/">Python</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/3348986841/#post-comment"><span class="artalk-count" data-page-key="/posts/3348986841/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">CentOS8 出现 SSL certificate problem: unable to get local issuer certificate 解决办法</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/336198679/" title="【Nas】绿联安装CentOS8容器"><img class="post-bg" src="/img/bg/gm4.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Nas】绿联安装CentOS8容器"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/336198679/" title="【Nas】绿联安装CentOS8容器">【Nas】绿联安装CentOS8容器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-23T14:25:57.000Z" title="发表于 2023-02-23 22:25:57">2023-02-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/336198679/#post-comment"><span class="artalk-count" data-page-key="/posts/336198679/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">绿联安装CentOS8容器   1.创建容器先在客户端安装容器，随后用xshell进入绿联的ssh  绿联如何开启ssh参考视频；2023年11月后，新版本的绿联直接把远程调试打开，给出的调试密钥就是ssh的密码。绿联的ssh端口是922  执行如下命令，以特权模式创建一个centos容器，并将容器内的22端口映射给主机的22222端口；如果你是希望在centos容器上进行网络编程开发，请多映射几个端口，以免到时候没办法访问项目的尴尬情况！ 123456docker run -d \    -p 22222:22 \    --name centos \    --privileged=true \    centos:latest \    /usr/sbin/init  搞定了之后，进绿联客户端，停止容器运行，设置一个文件路径给容器内部，方便docker容器和nas资料互传（不设置也不是不行）  注意，在客户端配置的时候，需要把所有能给的选项（-i -t...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/1296728696/" title="【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载"><img class="post-bg" src="/img/bg/gm38.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/1296728696/" title="【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载">【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-23T09:45:33.000Z" title="发表于 2023-02-23 17:45:33">2023-02-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/1296728696/#post-comment"><span class="artalk-count" data-page-key="/posts/1296728696/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">本站经常搬运一些其他博主文章，主要是为了持久化访问。避免日后他人删文or原文无法访问；所有搬运的文章都会写明原文地址，并且不会展示本站的copyright_info   下文所出现的场景，是我在linux上使用docker安装centos容器时出现的！  ✨在学习使用 docker 技术过程中，基于 centos 镜像自定义新的镜像，其中基础镜像 centos 需要提前安装好 vim 和 net-tools，然而在刚开始通过 yum -y install vim 安装 vim 时，便出现了错误提示信息： Error: Failed to download metadata for repo &#39;appstream&#39;: Cannot prepare internal mirrorlist: No URLs in mirrorlist  ✨上面的报错信息意思是，从仓库 ‘appstream’ 下载元数据失败：由于镜像列表中没有 URL，不能准备内部镜像列表。 问题分析 ✨第一种可能的情况便是网络连接问题。检查是否可以连接外部网络，可以使用 ping baidu.com...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/306129693/" title="【C++】C++11中局部static变量的线程安全问题 | 转载"><img class="post-bg" src="/img/bg/gm40.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【C++】C++11中局部static变量的线程安全问题 | 转载"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/306129693/" title="【C++】C++11中局部static变量的线程安全问题 | 转载">【C++】C++11中局部static变量的线程安全问题 | 转载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-20T13:13:46.000Z" title="发表于 2023-02-20 21:13:46">2023-02-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Cpp/">Cpp</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/306129693/#post-comment"><span class="artalk-count" data-page-key="/posts/306129693/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">C++11中局部static变量的线程安全问题</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/25/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#content-inner">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/#content-inner">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/#content-inner">45</a><a class="extend next" rel="next" href="/page/27/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9085567599/" title="【Mac】拒绝parallels toolbox，从我做起！">【Mac】拒绝parallels toolbox，从我做起！</a><time datetime="2025-05-26T00:57:24.000Z" title="发表于 2025-05-26 08:57:24">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7827607861/" title="【Hexo】将代码块中tab替换为空格（修改tab_replace）">【Hexo】将代码块中tab替换为空格（修改tab_replace）</a><time datetime="2025-05-16T02:00:57.000Z" title="发表于 2025-05-16 10:00:57">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2725694758/" title="【MCP】了解远程MCP调用背后使用的SSE协议">【MCP】了解远程MCP调用背后使用的SSE协议</a><time datetime="2025-04-20T06:47:57.000Z" title="发表于 2025-04-20 14:47:57">2025-04-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2831928244/" title="【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？">【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？</a><time datetime="2025-04-19T00:56:01.000Z" title="发表于 2025-04-19 08:56:01">2025-04-19</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"><span class="card-category-list-name">差生文具多</span><span class="card-category-list-count">96</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/"><span class="card-category-list-name">Docker真好玩</span><span class="card-category-list-count">24</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"><span class="card-category-list-name">博客建站</span><span class="card-category-list-count">16</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%9B%BE%E5%BA%8A/"><span class="card-category-list-name">图床</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"><span class="card-category-list-name">电脑使用小贴士</span><span class="card-category-list-count">16</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/"><span class="card-category-list-name">笔记软件</span><span class="card-category-list-count">7</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/" style="font-size: 1.34em; color: rgb(50, 50, 50);">博客建站<sup>26</sup></a><a href="/tags/Hexo/" style="font-size: 1.31em; color: rgb(50, 135, 144);">Hexo<sup>22</sup></a><a href="/tags/Linux/" style="font-size: 1.45em; color: rgb(197, 85, 165);">Linux<sup>143</sup></a><a href="/tags/git/" style="font-size: 1.29em; color: rgb(51, 122, 57);">git<sup>16</sup></a><a href="/tags/vim/" style="font-size: 1.15em; color: rgb(50, 126, 157);">vim<sup>3</sup></a><a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size: 1.2em; color: rgb(50, 191, 60);">进程<sup>7</sup></a><a href="/tags/%E7%BA%BF%E7%A8%8B/" style="font-size: 1.2em; color: rgb(149, 192, 179);">线程<sup>7</sup></a><a href="/tags/%E9%98%BF%E7%8B%B8%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" style="font-size: 1.23em; color: rgb(188, 126, 50);">阿狸开发日志<sup>11</sup></a><a href="/tags/Python/" style="font-size: 1.37em; color: rgb(52, 104, 172);">Python<sup>36</sup></a><a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.23em; color: rgb(67, 148, 152);">计算机网络<sup>11</sup></a><a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.42em; color: rgb(57, 59, 116);">C语言<sup>94</sup></a><a href="/tags/nginx/" style="font-size: 1.26em; color: rgb(50, 52, 80);">nginx<sup>14</sup></a><a href="/tags/http/" style="font-size: 1.18em; color: rgb(81, 102, 185);">http<sup>4</sup></a><a href="/tags/Cpp/" style="font-size: 1.4em; color: rgb(150, 63, 185);">Cpp<sup>62</sup></a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(r){"use strict";!function(){var t=window,s=document,e=r,c="".concat("https:"===s.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),i=s.createElement("script"),n=s.getElementsByTagName("script")[0];i.type="text/javascript",i.setAttribute("charset","UTF-8"),i.async=!0,i.src=c,i.id="LA_COLLECT",e.d=i;function o(){t.LA.ids.push(e)}t.LA?t.LA.ids&&o():(t.LA=r,t.LA.ids=[],o()),n.parentNode.insertBefore(i,n)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/favicon.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header" style="background-image:url(/img/main/op32.webp)"><nav id="nav"><span id="blog-info"><a href="/" title="慕雪的寒舍"><img class="site-icon" src="/favicon.jpg"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">慕雪的寒舍</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/2589797340/" title="【Docker】限制已运行容器的Cpu和内存"><img class="post-bg" src="/img/bg/gm4.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Docker】限制已运行容器的Cpu和内存"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2589797340/" title="【Docker】限制已运行容器的Cpu和内存">【Docker】限制已运行容器的Cpu和内存</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-06T09:45:33.000Z" title="发表于 2023-03-06 17:45:33">2023-03-06</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/2589797340/#post-comment"><span class="artalk-count" data-page-key="/posts/2589797340/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">docker限制已运行容器的Cpu和内存 1.问题描述最近云服务器的内存经常不够用，而且是莫名其妙的增多，在腾讯云的控制台里面看，4gb 的内存占用了3.2 gb，就卡到连 ssh 都连不上了 PS: 已换过网络和设备，确认不是用户端网络问题导致无法ssh 实在没辙了，只能把我的几个不热门的kook-bot移植到replit白嫖，再限制一下lsky图床docker镜像的内存用量 其实主要是nsfw-api的内存用量，我发现有人故意给我的图床上传h图。lsky后台由于鉴黄不通过，不允许上传，也看不到是谁干的。隔这压力测试呢？ 我的图床基本只对自己的博客使用。开放游客上传，也只是方便大 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/809108065/" title="【Linux】修改linux下的时区和系统时间"><img class="post-bg" src="/img/bg/gm7.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Linux】修改linux下的时区和系统时间"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/809108065/" title="【Linux】修改linux下的时区和系统时间">【Linux】修改linux下的时区和系统时间</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-04T01:30:55.000Z" title="发表于 2023-03-04 09:30:55">2023-03-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Linux/">Linux</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/809108065/#post-comment"><span class="artalk-count" data-page-key="/posts/809108065/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">用配置文件，修改linux系统下的时区（所用系统 CentOS8） 1.问题来源在linux上使用python的logging模块的时候，发现了一个问题，那就是模块里面的%(asctime)s打印的时间并非东八区的时间，而是格林尼治时间，比东八区的时间少了8小时 对于日志来说，这怎么行？总不能每次看日志的时候，自己手动给时间加8小时吧！那样对debug来说可不是什么方便事！ 2.解决百度了一下后，发现是我系统的时区问题。这个Centos系统是用docker安装的，内部的时区没有正常设置 1date 通过date命令可以查看系统当前的时间 1Sat Mar 4 01:29:59 UTC ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/3348986841/" title="【Python】解决SSL certificate problem unable to get local issuer certificate"><img class="post-bg" src="https://img.musnow.top/i/2023/02/63f80f61bd112.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Python】解决SSL certificate problem unable to get local issuer certificate"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/3348986841/" title="【Python】解决SSL certificate problem unable to get local issuer certificate">【Python】解决SSL certificate problem unable to get local issuer certificate</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-24T01:19:00.000Z" title="发表于 2023-02-24 09:19:00">2023-02-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Python/">Python</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/3348986841/#post-comment"><span class="artalk-count" data-page-key="/posts/3348986841/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">CentOS8 出现 SSL certificate problem: unable to get local issuer certificate 解决办法</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/336198679/" title="【Nas】绿联安装CentOS8容器"><img class="post-bg" src="/img/bg/gm12.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Nas】绿联安装CentOS8容器"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/336198679/" title="【Nas】绿联安装CentOS8容器">【Nas】绿联安装CentOS8容器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-23T14:25:57.000Z" title="发表于 2023-02-23 22:25:57">2023-02-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/336198679/#post-comment"><span class="artalk-count" data-page-key="/posts/336198679/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">绿联安装CentOS8容器 1.创建容器先在客户端安装容器，随后用xshell进入绿联的ssh 绿联如何开启ssh参考视频；2023年11月后，新版本的绿联直接把远程调试打开，给出的调试密钥就是ssh的密码。绿联的ssh端口是922 执行如下命令，以特权模式创建一个centos容器，并将容器内的22端口映射给主机的22222端口；如果你是希望在centos容器上进行网络编程开发，请多映射几个端口，以免到时候没办法访问项目的尴尬情况！ 123456docker run -d \	-p 22222:22 \	--name centos \	--privileged=true \	cento ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/1296728696/" title="【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载"><img class="post-bg" src="/img/bg/gm13.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/1296728696/" title="【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载">【Docker】配置CentOS容器时出现 Error Failed to download metadata for repo 'appstream' Cannot prepare internal mirrorlist | 转载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-23T09:45:33.000Z" title="发表于 2023-02-23 17:45:33">2023-02-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/">Docker真好玩</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/1296728696/#post-comment"><span class="artalk-count" data-page-key="/posts/1296728696/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">本站经常搬运一些其他博主文章，主要是为了持久化访问。避免日后他人删文or原文无法访问；所有搬运的文章都会写明原文地址，并且不会展示本站的copyright_info 下文所出现的场景，是我在linux上使用docker安装centos容器时出现的！ ✨在学习使用 docker 技术过程中，基于 centos 镜像自定义新的镜像，其中基础镜像 centos 需要提前安装好 vim 和 net-tools，然而在刚开始通过 yum -y install vim 安装 vim 时，便出现了错误提示信息： Error: Failed to download metadata for repo & ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/306129693/" title="【C++】C++11中局部static变量的线程安全问题 | 转载"><img class="post-bg" src="/img/bg/gm19.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【C++】C++11中局部static变量的线程安全问题 | 转载"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/306129693/" title="【C++】C++11中局部static变量的线程安全问题 | 转载">【C++】C++11中局部static变量的线程安全问题 | 转载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-20T13:13:46.000Z" title="发表于 2023-02-20 21:13:46">2023-02-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Cpp/">Cpp</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/306129693/#post-comment"><span class="artalk-count" data-page-key="/posts/306129693/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">C++11中局部static变量的线程安全问题</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/2721043914/" title="【Curl】通过curl模拟referer获取到有防盗链的图片"><img class="post-bg" src="/img/bg/gm23.png" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【Curl】通过curl模拟referer获取到有防盗链的图片"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2721043914/" title="【Curl】通过curl模拟referer获取到有防盗链的图片">【Curl】通过curl模拟referer获取到有防盗链的图片</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-20T04:20:31.000Z" title="发表于 2023-02-20 12:20:31">2023-02-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">编程工具</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/2721043914/#post-comment"><span class="artalk-count" data-page-key="/posts/2721043914/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">本文所描述操作仅供学习curl命令，请勿用于盗刷他人图床等违规操作！🙅‍♀️ 1.说明当我想把51la添加到我的导航站点，却发现它的icon图标有防盗链，禁止空referer访问的； 这点完全可以理解，为了防止他人盗刷本站的图片，通常我们都需要给图片地址加上防盗链。 其实51la提供了自己的icon，但这里提供的icon像素特别低，只有16*16，在我的导航站点上的显示就没有那么友好了 所以我才想把稍微清晰一点的icon图标下载下来 2.curl使用 参考 https://www.ruanyifeng.com/blog/2019/09/curl-reference.html 要避 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/1249427441/" title="【C++】thread|mutex|atomic|condition_variable"><img class="post-bg" src="/img/bg/gm1.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【C++】thread|mutex|atomic|condition_variable"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/1249427441/" title="【C++】thread|mutex|atomic|condition_variable">【C++】thread|mutex|atomic|condition_variable</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-19T15:30:46.000Z" title="发表于 2023-02-19 23:30:46">2023-02-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Cpp/">Cpp</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/1249427441/#post-comment"><span class="artalk-count" data-page-key="/posts/1249427441/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">本篇博客，让我们来认识一下C++中的线程操作 所用编译器：vs2019 阅读本文前，建议先了解线程的概念 👉 线程概念 1.基本介绍在不同的操作系统，windows、linux、mac上，都会对多线程操作提供自己的系统调用接口 为什么C++需要封装一个线程？直接用系统的接口不好吗？ 在Linux文件博客中，已经谈过了这一点：对于C++、python、java这些跨平台的语言来说，如果直接用系统的接口，是可以实现对应操作的。但是，这样会导致代码只能在某一个特定平台，甚至是某一个版本的特定操作系统上才能正常运行，直接与跨平台的特性相违背。 解决的办法呢，就是对系统的接口套一个语言级别的软 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/1805390619/" title="【网络】http(s)协议 | content-length详解 | 转载"><img class="post-bg" src="/img/bg/gm19.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【网络】http(s)协议 | content-length详解 | 转载"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/1805390619/" title="【网络】http(s)协议 | content-length详解 | 转载">【网络】http(s)协议 | content-length详解 | 转载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-15T04:30:55.000Z" title="发表于 2023-02-15 12:30:55">2023-02-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/1805390619/#post-comment"><span class="artalk-count" data-page-key="/posts/1805390619/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">本文通过一个线上实例，详细介绍http协议中的content-length字段。 前言http协议是互联网中最重要的协议之一，虽然看上去很简单，但是实际中经常遇到问题，我们就已经遇到好几次了。有长连接相关的，有报文解析相关的。对http协议不能一知半解，必须透彻理解才行。 本文通过一个线上实例，详细介绍http协议中的content-length字段。 问题我们的手机App在做更新时会从服务器上下载的一些资源，一般都是一些小文件，更新的代码差不多是下面这样的： 12345678910111213141516static void update() throws IOException &# ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/2885791654/" title="【网络】http(s)协议 | 介绍"><img class="post-bg" src="/img/bg/gm14.jpg" onerror='this.onerror=null,this.src="/img/404.jpg"' alt="【网络】http(s)协议 | 介绍"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2885791654/" title="【网络】http(s)协议 | 介绍">【网络】http(s)协议 | 介绍</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-02-15T03:30:55.000Z" title="发表于 2023-02-15 11:30:55">2023-02-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-comments"></i><a href="/posts/2885791654/#post-comment"><span class="artalk-count" data-page-key="/posts/2885791654/"><i class="fa-solid fa-spinner fa-spin"></i></span></a><span class="article-meta-label"> 条评论</span></span></div><div class="content">已经学习过自己定制一个协议了，现在就来看看当下广泛使用的http协议吧 1.介绍 超文本传输协议（Hyper Text Transfer Protocol，HTTP）是一个简单的请求-响应协议，它通常运行在TCP之上。它指定了客户端可能发送给服务器什么样的消息以及得到什么样的响应。 http和https是当下最通用的协议之一，我们访问的大部分网页用的都是这个协议； 1https://www.bilibili.com/ 这两个协议主要的差别，那就是http是用明文传输数据的，我们的数据在互联网裸奔，可能有安全问题；相比之下，https传输数据的过程会对数据进行加密，但这也不代表https ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/25/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/#content-inner">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/#content-inner">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/#content-inner">44</a><a class="extend next" rel="next" href="/page/27/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/favicon.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">慕雪年华</div><div class="author-info__description">爱折腾的代码初学者</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/5825720428/" title="【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）">【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）</a><time datetime="2025-04-10T12:29:36.000Z" title="发表于 2025-04-10 20:29:36">2025-04-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9762190903/" title="【SLAM】使用ROS的camera_calibration工具标定D435相机">【SLAM】使用ROS的camera_calibration工具标定D435相机</a><time datetime="2025-04-07T00:09:24.000Z" title="发表于 2025-04-07 08:09:24">2025-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9149643829/" title="【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机">【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机</a><time datetime="2025-04-06T09:09:24.000Z" title="发表于 2025-04-06 17:09:24">2025-04-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8572288919/" title="【SLAM】使用realsense-viewer对Realsense D435进行自校准">【SLAM】使用realsense-viewer对Realsense D435进行自校准</a><time datetime="2025-04-06T00:51:08.000Z" title="发表于 2025-04-06 08:51:08">2025-04-06</time></div></div></div></div><div class="card-widget" id="card-newest-comments"><div class="item-headline"><i class="fas fa-comment-dots"></i><span>最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i> <span>分类</span> <a class="card-more-btn" href="/categories/" title="查看更多"><i class="fas fa-angle-right"></i></a></div><ul class="card-category-list" id="aside-cat-list"><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/"><span class="card-category-list-name">差生文具多</span><span class="card-category-list-count">94</span></a><ul class="card-category-list child"><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/Docker%E7%9C%9F%E5%A5%BD%E7%8E%A9/"><span class="card-category-list-name">Docker真好玩</span><span class="card-category-list-count">24</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/"><span class="card-category-list-name">博客建站</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%9B%BE%E5%BA%8A/"><span class="card-category-list-name">图床</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%94%B5%E8%84%91%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%B4%B4%E5%A3%AB/"><span class="card-category-list-name">电脑使用小贴士</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/"><span class="card-category-list-name">笔记软件</span><span class="card-category-list-count">7</span></a></li></ul></li></ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/" style="font-size:1.38em;color:#302664">博客建站<sup>25</sup></a><a href="/tags/Linux/" style="font-size:1.45em;color:#604c32">Linux<sup>143</sup></a><a href="/tags/Python/" style="font-size:1.42em;color:#014433">Python<sup>34</sup></a><a href="/tags/vscode/" style="font-size:1.18em;color:#11221a">vscode<sup>6</sup></a><a href="/tags/%E9%98%BF%E7%8B%B8%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/" style="font-size:1.25em;color:#7304bc">阿狸开发日志<sup>11</sup></a><a href="/tags/git/" style="font-size:1.28em;color:#8b6b3c">git<sup>16</sup></a><a href="/tags/Kook/" style="font-size:1.32em;color:#826d2c">Kook<sup>17</sup></a><a href="/tags/API/" style="font-size:1.15em;color:#006172">API<sup>3</sup></a><a href="/tags/%E5%9B%BE%E5%BA%8A/" style="font-size:1.28em;color:#835e4a">图床<sup>16</sup></a><a href="/tags/CentOS/" style="font-size:1.25em;color:#be00a4">CentOS<sup>11</sup></a><a href="/tags/mysql/" style="font-size:1.35em;color:#ac2e7a">mysql<sup>21</sup></a><a href="/tags/sqlite3/" style="font-size:1.15em;color:#575d6e">sqlite3<sup>3</sup></a><a href="/tags/vim/" style="font-size:1.15em;color:#c83744">vim<sup>3</sup></a><a href="/tags/%E8%BF%9B%E7%A8%8B/" style="font-size:1.22em;color:#3a019e">进程<sup>7</sup></a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多"> <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/04/"><span class="card-archive-list-date">四月 2025</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/03/"><span class="card-archive-list-date">三月 2025</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/02/"><span class="card-archive-list-date">二月 2025</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/12/"><span class="card-archive-list-date">十二月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/11/"><span class="card-archive-list-date">十一月 2024</span><span class="card-archive-list-count">3</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">439</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishdate="2022-04-15T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">1218.3k</div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastpushdate="2025-04-12T05:36:17.119Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image:url(/img/main/mothra.webp)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a><br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a><br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/main.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.3/lazyload.iife.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
-  }
-}
-
-function panguInit () {
-  if (true){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
-  } else {
-    panguFn()
-  }
-}
-
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">10</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">6</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">7</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">443</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2022-04-15T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">1235.7k</div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-05-26T01:39:07.700Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
   const getArtalkCount = async() => {
     try {
       const eleGroup = document.querySelectorAll('#recent-posts .artalk-count')
       const keyArray = Array.from(eleGroup).map(i => i.getAttribute('data-page-key'))
 
       const headerList = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Origin': window.location.origin
-        },
-        body: new URLSearchParams({
-          'site_name': 'mublog',
-          'type':'page_comment',
-          'page_keys': keyArray
-        })
+        method: 'GET',
       }
 
-      const res = await fetch('https://artk.musnow.top/api/stat', headerList)
+      const searchParams = new URLSearchParams({
+        'site_name': 'mublog',
+        'page_keys': keyArray
+      })
+
+      const res = await fetch(`https://artk.musnow.top/api/v2/stats/page_comment?${searchParams}`, headerList)
       const result = await res.json()
 
       keyArray.forEach((key, index) => {
@@ -180,7 +246,7 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
 
   window.pjax ? getArtalkCount() : window.addEventListener('load', getArtalkCount)
 })()</script><script>window.typedJSFn = {
-  init: (str) => {
+  init: str => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,
       startDelay: 300,
@@ -189,169 +255,217 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-
       backSpeed: 50,
     }, null))
   },
-  run: (subtitleType) => {
+  run: subtitleType => {
     if (true) {
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.16/typed.umd.min.js').then(subtitleType)
+        btf.getScript('/pluginsSrc/typed.js/dist/typed.umd.js').then(subtitleType)
       }
     } else {
       subtitleType()
     }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = [].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
   }
-}</script><script>function subtitleType () {
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
   fetch('https://v1.hitokoto.cn')
     .then(response => response.json())
     .then(data => {
-      if (true) {
-        const from = '出自 ' + data.from
-        const sub = []
-        sub.unshift(data.hitokoto, from)
-        typedJSFn.init(sub)
-      } else {
-        document.getElementById('subtitle').textContent = data.hitokoto
-      }
+      const from = '出自 ' + data.from
+      typedJSFn.processSubtitle(data.hitokoto, [from])
+    })
+    .catch(err => {
+      console.error('Failed to get the Hitokoto API:', err)
+      typedJSFn.processSubtitle([])
     })
 }
-typedJSFn.run(subtitleType)</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
+typedJSFn.run(subtitleType)
+</script><script>(() => {
+  const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    Array.from($mermaid).forEach((item, index) => {
+    ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
       const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
+      const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
       }
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
     })
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.2/mermaid.min.js').then(runMermaid)
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
   }
 
-  btf.addModeChange('mermaid', runMermaid)
-
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script></div><script>window.addEventListener('load', () => {
-  const changeContent = (content) => {
+})()</script></div><script>window.newestComments = {
+  changeContent: content => {
     if (content === '') return content
 
     content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
     content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
     content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
-    content = content.replace(/<[^>]+>/g,"") // remove html tag
+    content = content.replace(/<code>.*?<\/code>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g, "") // remove html tag
 
     if (content.length > 150) {
-      content = content.substring(0,150) + '...'
+      content = content.substring(0, 150) + '...'
     }
     return content
-  }
+  },
 
-  const generateHtml = array => {
+  generateHtml: (array, ele) => {
     let result = ''
 
     if (array.length) {
       for (let i = 0; i < array.length; i++) {
-        result += '<div class=\'aside-list-item\'>'
+        result += '<div class="aside-list-item">'
 
-        if (false) {
-          const name = 'data-lazy-src'
-          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        if (false && array[i].avatar) {
+          const imgAttr = 'data-lazy-src'
+          const lazyloadNative = ''
+          result += `<a href="${array[i].url}" class="thumbnail"><img ${imgAttr}="${array[i].avatar}" alt="${array[i].nick}" ${lazyloadNative}></a>`
         }
 
-        result += `<div class='content'>
-        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
-        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        result += `<div class="content">
+        <a class="comment" href="${array[i].url}" title="${array[i].content}">${array[i].content}</a>
+        <div class="name"><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
         </div></div>`
       }
     } else {
-      result += '没有评论'
+      result += '暂无评论'
     }
 
-    let $dom = document.querySelector('#card-newest-comments .aside-list')
-    $dom.innerHTML= result
+    ele.innerHTML = result
     window.lazyLoadInstance && window.lazyLoadInstance.update()
-    window.pjax && window.pjax.refresh($dom)
-  }
+    window.pjax && window.pjax.refresh(ele)
+  },
 
-  const getSetting = async () => {
-    try {
-      const res = await fetch('https://artk.musnow.top/api/conf', { method: 'GET' })
-      return await res.json()
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const headerList = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Origin': window.location.origin
-    },
-    body: new URLSearchParams({
-      'site_name': 'mublog',
-      'limit': '4',
-      'type':'latest_comments'
-    })
-  }
-
-  const getComment = async () => {
-    try {
-      const res = await fetch('https://artk.musnow.top/api/stat', headerList)
-      const result = await res.json()
-      const avatarStr = await getSetting()
-      const { mirror, params, default:defaults } = avatarStr.data.frontend_conf.gravatar
-      const avatarCdn = false || mirror
-      let avatarDefault = false || params || defaults
-      avatarDefault = avatarDefault.startsWith('d=') ? avatarDefault : `d=${avatarDefault}`
-      const artalk = result.data.map(function (e) {
-        return {
-          'avatar': `${avatarCdn}${e.email_encrypted}?${avatarDefault}`,
-          'content': changeContent(e.content_marked),
-          'nick': e.nick,
-          'url': e.page_url,
-          'date': e.date,
-        }
-      })
-      saveToLocal.set('artalk-newest-comments', JSON.stringify(artalk), 10/(60*24))
-      generateHtml(artalk)
-    } catch (e) {
-      console.log(e)
-      const $dom = document.querySelector('#card-newest-comments .aside-list')
-      $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
-    }
-  }
-
-  const newestCommentInit = () => {
-    if (document.querySelector('#card-newest-comments .aside-list')) {
-      const data = saveToLocal.get('artalk-newest-comments')
+  newestCommentInit: (name, getComment) => {
+    const $dom = document.querySelector('#card-newest-comments .aside-list')
+    if ($dom) {
+      const data = btf.saveToLocal.get(name)
       if (data) {
-        generateHtml(JSON.parse(data))
+        newestComments.generateHtml(JSON.parse(data), $dom)
       } else {
-        getComment()
+        getComment($dom)
       }
     }
+  },
+
+  run: (name, getComment) => {
+    newestComments.newestCommentInit(name, getComment)
+    btf.addGlobalFn('pjaxComplete', () => newestComments.newestCommentInit(name, getComment), name)
+  }
+}</script><script>window.addEventListener('load', () => {
+  const keyName = 'artalk-newest-comments'
+  const { changeContent, generateHtml, run } = window.newestComments
+
+  const getAvatarValue = async () => {
+    const predefinedAvatarCdn = ''
+    const predefinedAvatarDefault = ''
+
+    const avatarDefaultFormat = e => e.startsWith('d=') ? e : `d=${e}`
+
+    if (predefinedAvatarCdn && predefinedAvatarDefault) {
+      return { avatarCdn: predefinedAvatarCdn, avatarDefault: avatarDefaultFormat(predefinedAvatarDefault) }
+    }
+
+    try {
+      const res = await fetch('https://artk.musnow.top/api/v2/conf')
+      const result = await res.json()
+      const { mirror, params, default: defaults } = result.frontend_conf.gravatar
+      const avatarCdn = predefinedAvatarCdn || mirror
+      let avatarDefault = avatarDefaultFormat(predefinedAvatarDefault || params || defaults)
+      return { avatarCdn, avatarDefault}
+    } catch (e) {
+      console.error(e)
+      return { avatarCdn: predefinedAvatarCdn, avatarDefault: avatarDefaultFormat(predefinedAvatarDefault) }
+    }
   }
 
-  newestCommentInit()
-  document.addEventListener('pjax:complete', newestCommentInit)
-})</script><script src="/js/domain_check.js"></script><script id="click-heart" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/click-heart.min.js" async mobile="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> 数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/search/local-search.min.js"></script></div></div></body></html>
+  const searchParams = new URLSearchParams({
+    'site_name': 'mublog',
+    'limit': '10', // Fetch more comments to filter pending comments
+  })
+
+  const getComment = async (ele) => {
+    try {
+      const res = await fetch(`https://artk.musnow.top/api/v2/stats/latest_comments?${searchParams}`)
+      const result = await res.json()
+      const { avatarCdn, avatarDefault } = await getAvatarValue()
+      const artalk = result.data
+        .filter(e => !e.is_pending) // Filter pending comments
+        .slice(0, 5) // Limit the number of comments
+        .map(e => {
+          const avatar = avatarCdn && e.email_encrypted ? `${avatarCdn}${e.email_encrypted}?${avatarDefault}` : ''
+          return {
+            'avatar': avatar,
+            'content': changeContent(e.content_marked),
+            'nick': e.nick,
+            'url': e.page_url,
+            'date': e.date,
+          }
+        })
+      btf.saveToLocal.set(keyName, JSON.stringify(artalk), 10/(60*24))
+      generateHtml(artalk, ele)
+    } catch (e) {
+      console.log(e)
+      ele.textContent= "无法获取评论，请确认相关配置是否正确"
+    }
+  }
+
+  run(keyName, getComment)
+})</script><script src="/js/domain_check.js"></script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

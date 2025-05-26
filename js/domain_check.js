@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 获取当前页面的域名
     const currentDomain = window.location.hostname;
+    console.log("doamin_check:", currentDomain);
     // 判断当前域名是否在域名列表中
     if (currentDomain == 'localhost') {
         // console.log('本地测试localhost域名');

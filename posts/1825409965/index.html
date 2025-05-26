@@ -1,13 +1,132 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细） | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如果你想搭建一个和本站类似的个人博客，那就需要图床来辅助"><meta property="og:type" content="article"><meta property="og:title" content="【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）"><meta property="og:url" content="https://blog.musnow.top/posts/1825409965/index.html"><meta property="og:site_name" content="慕雪的寒舍"><meta property="og:description" content="如果你想搭建一个和本站类似的个人博客，那就需要图床来辅助"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.musnow.top/img/bg/gm2.jpg"><meta property="article:published_time" content="2022-01-11T08:29:28.000Z"><meta property="article:modified_time" content="2024-10-30T13:12:16.000Z"><meta property="article:author" content="慕雪年华"><meta property="article:tag" content="博客建站"><meta property="article:tag" content="图床"><meta property="article:tag" content="typora"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm2.jpg"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/1825409965/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细） | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="如果你想搭建一个和本站类似的个人博客，那就需要图床来辅助">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）">
+<meta property="og:url" content="https://blog.musnow.top/posts/1825409965/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="如果你想搭建一个和本站类似的个人博客，那就需要图床来辅助">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.musnow.top/img/bg/gm25.webp">
+<meta property="article:published_time" content="2022-01-11T08:29:28.000Z">
+<meta property="article:modified_time" content="2024-10-30T13:12:16.000Z">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="博客建站">
+<meta property="article:tag" content="图床">
+<meta property="article:tag" content="typora">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm25.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）",
+  "url": "https://blog.musnow.top/posts/1825409965/",
+  "image": "https://blog.musnow.top/img/bg/gm25.webp",
+  "datePublished": "2022-01-11T08:29:28.000Z",
+  "dateModified": "2024-10-30T13:12:16.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "慕雪年华",
+      "url": "https://blog.musnow.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/1825409965/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
-  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离上次更新本文已经过去了","messageNext":"天，文章部分内容可能已经过时，请注意甄别"},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
@@ -25,244 +144,365 @@
   copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
-      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
     rightside: true,
   },
   autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）",isPost:!0,isHome:!1,isHighlightShrink:!1,isToc:!0,postUpdate:"2024-10-30 21:12:16"}</script><noscript><style type="text/css">#nav{opacity:1}.justified-gallery img{opacity:1}#post-meta time,#recent-posts time{display:inline!important}</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"});</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/bg/gm25.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a><a class="nav-page-title" href="/"><span class="site-name">【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-11T08:29:28.000Z" title="发表于 2022-01-11 16:29:28">2022-01-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-30T13:12:16.000Z" title="更新于 2024-10-30 21:12:16">2024-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%9B%BE%E5%BA%8A/">图床</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;距离上次更新本文已经过去了&quot;,&quot;messageNext&quot;:&quot;天，文章部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2024-10-30 21:12:16&quot;}" hidden></div><p>如果你想搭建一个和本站类似的个人博客，那就需要图床来辅助</p>
+<span id="more"></span>
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+<p>[TOC]</p>
+<h2 id="为什么要搭建博客图床"><a href="#为什么要搭建博客图床" class="headerlink" title="为什么要搭建博客图床?"></a>为什么要搭建博客图床?</h2><p>以CSDN为例，我们可以选择使用大部分blog平台通用的<strong>markdown语法</strong>进行博客创作</p>
+<p>虽然CSDN自带的编辑器已经能满足我们95%的<strong>写作需求</strong></p>
+<p>但是Typora在markdown语法编辑上能给你提供更好的<strong>写作体验</strong></p>
+<p>所以我选择了以<strong>Typora+Picgo+图床</strong>的方式来进行博客创作</p>
+<hr>
+<p>而在本地的markdown文件.md中，图片是以“外链”这一形式存在的</p>
+<ul>
+<li>Office word中，图片是直接插入docx文件里面</li>
+<li>Markdown中，图片只是一个本地&#x2F;联网的地址</li>
+</ul>
+<p>如图，在markdown里面，图片显示的其实是一个本地的地址</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/03/6416eb726a7ce.png" alt="image-20230319190059184"></p>
+<p>也就是说，如果我们使用<strong>本地markdown编译器</strong>（如typora）来编辑MD文件的时候，如果MD里面插入的图片的源文件被移动或者删除了，我们的MD文档里面对应的图片也无法显示出来。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/03/6416eb9480208.png" alt="image-20230319190140520"></p>
+<p>同时，如果我们用本地编辑器写好了一篇博客，想把它上传到CSDN上。<strong>CSDN是无法自动转存文件里面的图片</strong>的。因为这个图片只是一个你硬盘里面的文件路径，他也没办法<strong>越权</strong>跑到你电脑里面找文件呀！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-i1aotHJh-1679223552739)(./Snipaste_2023-03-19_18-58-37.png)]</span><br></pre></td></tr></table></figure>
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
+<h3 id="什么是图床？"><a href="#什么是图床？" class="headerlink" title="什么是图床？"></a>什么是图床？</h3><p>在我们往typora里插入图片的时候，PicGO自动上传图片到<code>图床</code>，并返回一个图片的<code>链接</code></p>
+<blockquote>
+<p>这时候你的图片就是一个<strong>网络的链接(网址)</strong>，不再是本地路径。<br>你也可以在任何有网络的地方、用任何设备访问这张图片了！</p>
+</blockquote>
+<p>即便是本地的那张图片<strong>移动or删除</strong>，也不会影响图床里的这张图片。</p>
+<p>同理，typora里面的图片也就不会失效了，CSDN也能正常从网络上将你的图片下载下来，我们的博客也能很方便的从typora拷贝到CSDN上发布。</p>
+<hr>
+<p>接下来就是如何搭建<strong>阿里云OSS图床</strong>的教学了！</p>
+<p>前排提醒，阿里云图床需要<strong>付费</strong>💴，但价格非常便宜！ </p>
+<blockquote>
+<p>如果你想白嫖，也可以考虑用gitee作为你的图床。但是gitee有单仓库文件大小限制(600mb)。后续图片多了，转移图床的成本更高。还不如一开始就选个好的平台，不是嘛？</p>
+<p>typora+picgo+gitee图床配置方法，看这个👉<a target="_blank" rel="noopener" href="https://fighter3.blog.csdn.net/article/details/110428374">【链接】</a></p>
+</blockquote>
+<p><code>22.03.26</code>更新：果然“免费的才是最贵的”，经过多个朋友的反馈，确认gitee图床已经崩溃，图片在gitee仓库内没有问题，但是<code>typora/picgo/obsidian</code>内都无法正常预览图片，CSDN也无法转存！可能是gitee更新了外链机制，新增了防盗链。</p>
+<p>还是建议大家更着本篇博客使用阿里云OSS吧！</p>
+<h2 id="1-准备软件"><a href="#1-准备软件" class="headerlink" title="1.准备软件"></a>1.准备软件</h2><h3 id="1-1Typora"><a href="#1-1Typora" class="headerlink" title="1.1Typora"></a>1.1Typora</h3><ul>
+<li>Typora：<a target="_blank" rel="noopener" href="https://typora.com.cn/">【中文官网】</a></li>
+</ul>
+<p>想必各位应该听很多博主安利过Typora这款软件，这里就不展开描述了</p>
+<p>新版本typora需要付费买断。可以考虑支持<strong>正版</strong>，也可以去找找<strong>旧版本安装包</strong></p>
+<blockquote>
+<p>参考这个视频👉<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1DZ4y1X7hA">【链接】</a></p>
+<p>如果你找到了旧版本安装包，需要确认typora版本<strong>高于0.9.86</strong></p>
+</blockquote>
+<h3 id="1-2Picgo"><a href="#1-2Picgo" class="headerlink" title="1.2Picgo"></a>1.2Picgo</h3><ul>
+<li>PicGo：<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">【Github地址】</a></li>
+</ul>
+<p>找到对应安装包，下载安装即可</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111936591.png" alt="image-20220111193636551"></p>
+<h2 id="2-配置阿里云OSS"><a href="#2-配置阿里云OSS" class="headerlink" title="2.配置阿里云OSS"></a>2.配置阿里云OSS</h2><p>在浏览器搜索<strong>阿里云OSS</strong>，即可找到官网</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.aliyun.com/product/oss">https://www.aliyun.com/product/oss</a></p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111938446.png" alt="image-20220111193847214"></p>
+<h3 id="2-1注册-开通对象储存"><a href="#2-1注册-开通对象储存" class="headerlink" title="2.1注册,开通对象储存"></a>2.1注册,开通对象储存</h3><p>注册账户并实名后，进入你的<code>控制台</code></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111946181.png" alt="image-20220111194645144"></p>
+<p>选择<code>对象储存</code>并开通</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111945477.png" alt="image-20220111194540431"></p>
+<h3 id="2-2创建bucket"><a href="#2-2创建bucket" class="headerlink" title="2.2创建bucket"></a>2.2创建bucket</h3><p>在左侧选择概览，然后在右侧创建一个新的bucket</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111950036.png" alt="image-20220111195034924"></p>
+<p><strong>注意：</strong> </p>
+<ul>
+<li>Bucket名字<strong>不能</strong>有大写字母</li>
+<li>服务器就近选择</li>
+<li>图床选择<code>标准存储</code></li>
+<li>读写权限<code>公共读</code></li>
+</ul>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111957897.png" alt="image-20220111195753835"></p>
+<p>创建完成后，你的bucket应该就出现在了左侧</p>
+<h3 id="2-3找到你的地域节点"><a href="#2-3找到你的地域节点" class="headerlink" title="2.3找到你的地域节点"></a>2.3找到你的地域节点</h3><p>点击你的<strong>bucket名</strong></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112002286.png" alt="image-20220111200207252"></p>
+<p>然后点击bucket下的<code>概览</code></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112003531.png" alt="image-20220111200304506"></p>
+<p>在<code>访问域名</code>一栏找到你的地域节点，后面会用到</p>
+<blockquote>
+<p>如图，只需要复制<code>oss-cn-shenzhen</code>即可，不需要后面的<code>.aliyuncs.com</code></p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112005649.png" alt="image-20220111200522615"></p>
+<h3 id="2-4找到你的Key"><a href="#2-4找到你的Key" class="headerlink" title="2.4找到你的Key"></a>2.4找到你的Key</h3><p>来到右上角，鼠标放在你的头像上，在弹出的框里选择AccessKey管理</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112008734.png" alt="image-20220111200832708"></p>
+<p>在弹出的选项框里，选择“继续使用”</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112009317.png" alt="image-20220111200939292"></p>
+<p>进入后，创建一个<code>AccessKey</code></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112010057.png" alt="image-20220111201037036"></p>
+<p>在弹出的界面里，记住你的<code>accessKeyId</code>和<code>accessKeySecret</code></p>
+<hr>
+<h3 id="2-5给你的阿里云账户充值"><a href="#2-5给你的阿里云账户充值" class="headerlink" title="2.5给你的阿里云账户充值"></a>2.5给你的阿里云账户充值</h3><h4 id="2-5-1收费问题"><a href="#2-5-1收费问题" class="headerlink" title="2.5.1收费问题"></a>2.5.1收费问题</h4><p>阿里云OSS的各项收费是<strong>独立</strong>的！</p>
+<p>对于<strong>图床</strong>而言，有两种收费形式</p>
+<ul>
+<li>以<strong>充值的方式</strong>使用<strong>储存容量</strong>以及<strong>流量</strong>(默认状态)</li>
+<li>按年&#x2F;月收费，购买一定存储包。<strong>流量额外收费</strong></li>
+</ul>
+<p>也就是说，即便你购买了下图的存储包，你依旧要为<strong>访问图床的流量</strong>付钱！</p>
+<img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112014396.png" alt="image-20220104200946233" style="zoom:80%;" />
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(r){"use strict";!function(){var t=window,s=document,e=r,c="".concat("https:"===s.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),i=s.createElement("script"),n=s.getElementsByTagName("script")[0];i.type="text/javascript",i.setAttribute("charset","UTF-8"),i.async=!0,i.src=c,i.id="LA_COLLECT",e.d=i;function o(){t.LA.ids.push(e)}t.LA?t.LA.ids&&o():(t.LA=r,t.LA.ids=[],o()),n.parentNode.insertBefore(i,n)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/favicon.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image:url(/img/bg/gm2.jpg)"><nav id="nav"><span id="blog-info"><a href="/" title="慕雪的寒舍"><img class="site-icon" src="/favicon.jpg"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-11T08:29:28.000Z" title="发表于 2022-01-11 16:29:28">2022-01-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-30T13:12:16.000Z" title="更新于 2024-10-30 21:12:16">2024-10-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/">差生文具多</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%AE%E7%94%9F%E6%96%87%E5%85%B7%E5%A4%9A/%E5%9B%BE%E5%BA%8A/">图床</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span data-flag-title="【教程】Typora+PicGo+阿里云OSS搭建博客图床（超详细）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>如果你想搭建一个和本站类似的个人博客，那就需要图床来辅助</p><span id="more"></span><p>[TOC]</p><h2 id="为什么要搭建博客图床"><a href="#为什么要搭建博客图床" class="headerlink" title="为什么要搭建博客图床?"></a>为什么要搭建博客图床?</h2><p>以CSDN为例，我们可以选择使用大部分blog平台通用的<strong>markdown语法</strong>进行博客创作</p><p>虽然CSDN自带的编辑器已经能满足我们95%的<strong>写作需求</strong></p><p>但是Typora在markdown语法编辑上能给你提供更好的<strong>写作体验</strong></p><p>所以我选择了以<strong>Typora+Picgo+图床</strong>的方式来进行博客创作</p><hr><p>而在本地的markdown文件.md中，图片是以“外链”这一形式存在的</p><ul><li>Office word中，图片是直接插入docx文件里面</li><li>Markdown中，图片只是一个本地&#x2F;联网的地址</li></ul><p>如图，在markdown里面，图片显示的其实是一个本地的地址</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/03/6416eb726a7ce.png" alt="image-20230319190059184"></p><p>也就是说，如果我们使用<strong>本地markdown编译器</strong>（如typora）来编辑MD文件的时候，如果MD里面插入的图片的源文件被移动或者删除了，我们的MD文档里面对应的图片也无法显示出来。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/03/6416eb9480208.png" alt="image-20230319190140520"></p><p>同时，如果我们用本地编辑器写好了一篇博客，想把它上传到CSDN上。<strong>CSDN是无法自动转存文件里面的图片</strong>的。因为这个图片只是一个你硬盘里面的文件路径，他也没办法<strong>越权</strong>跑到你电脑里面找文件呀！</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-i1aotHJh-1679223552739)(./Snipaste_2023-03-19_18-58-37.png)]</span><br></pre></td></tr></table></figure><h3 id="什么是图床？"><a href="#什么是图床？" class="headerlink" title="什么是图床？"></a>什么是图床？</h3><p>在我们往typora里插入图片的时候，PicGO自动上传图片到<code>图床</code>，并返回一个图片的<code>链接</code></p><blockquote><p>这时候你的图片就是一个**网络的链接(网址)**，不再是本地路径。<br>你也可以在任何有网络的地方、用任何设备访问这张图片了！</p></blockquote><p>即便是本地的那张图片<strong>移动or删除</strong>，也不会影响图床里的这张图片。</p><p>同理，typora里面的图片也就不会失效了，CSDN也能正常从网络上将你的图片下载下来，我们的博客也能很方便的从typora拷贝到CSDN上发布。</p><hr><p>接下来就是如何搭建<strong>阿里云OSS图床</strong>的教学了！</p><p>前排提醒，阿里云图床需要<strong>付费</strong>💴，但价格非常便宜！</p><blockquote><p>如果你想白嫖，也可以考虑用gitee作为你的图床。但是gitee有单仓库文件大小限制(600mb)。后续图片多了，转移图床的成本更高。还不如一开始就选个好的平台，不是嘛？</p><p>typora+picgo+gitee图床配置方法，看这个👉<a target="_blank" rel="noopener" href="https://fighter3.blog.csdn.net/article/details/110428374">【链接】</a></p></blockquote><p><code>22.03.26</code>更新：果然“免费的才是最贵的”，经过多个朋友的反馈，确认gitee图床已经崩溃，图片在gitee仓库内没有问题，但是<code>typora/picgo/obsidian</code>内都无法正常预览图片，CSDN也无法转存！可能是gitee更新了外链机制，新增了防盗链。</p><p>还是建议大家更着本篇博客使用阿里云OSS吧！</p><h2 id="1-准备软件"><a href="#1-准备软件" class="headerlink" title="1.准备软件"></a>1.准备软件</h2><h3 id="1-1Typora"><a href="#1-1Typora" class="headerlink" title="1.1Typora"></a>1.1Typora</h3><ul><li>Typora：<a target="_blank" rel="noopener" href="https://typora.com.cn/">【中文官网】</a></li></ul><p>想必各位应该听很多博主安利过Typora这款软件，这里就不展开描述了</p><p>新版本typora需要付费买断。可以考虑支持<strong>正版</strong>，也可以去找找<strong>旧版本安装包</strong></p><blockquote><p>参考这个视频👉<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1DZ4y1X7hA">【链接】</a></p><p>如果你找到了旧版本安装包，需要确认typora版本<strong>高于0.9.86</strong></p></blockquote><h3 id="1-2Picgo"><a href="#1-2Picgo" class="headerlink" title="1.2Picgo"></a>1.2Picgo</h3><ul><li>PicGo：<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">【Github地址】</a></li></ul><p>找到对应安装包，下载安装即可</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111936591.png" alt="image-20220111193636551"></p><h2 id="2-配置阿里云OSS"><a href="#2-配置阿里云OSS" class="headerlink" title="2.配置阿里云OSS"></a>2.配置阿里云OSS</h2><p>在浏览器搜索<strong>阿里云OSS</strong>，即可找到官网</p><blockquote><p><a target="_blank" rel="noopener" href="https://www.aliyun.com/product/oss">https://www.aliyun.com/product/oss</a></p></blockquote><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111938446.png" alt="image-20220111193847214"></p><h3 id="2-1注册-开通对象储存"><a href="#2-1注册-开通对象储存" class="headerlink" title="2.1注册,开通对象储存"></a>2.1注册,开通对象储存</h3><p>注册账户并实名后，进入你的<code>控制台</code></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111946181.png" alt="image-20220111194645144"></p><p>选择<code>对象储存</code>并开通</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111945477.png" alt="image-20220111194540431"></p><h3 id="2-2创建bucket"><a href="#2-2创建bucket" class="headerlink" title="2.2创建bucket"></a>2.2创建bucket</h3><p>在左侧选择概览，然后在右侧创建一个新的bucket</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111950036.png" alt="image-20220111195034924"></p><p><strong>注意：</strong></p><ul><li>Bucket名字<strong>不能</strong>有大写字母</li><li>服务器就近选择</li><li>图床选择<code>标准存储</code></li><li>读写权限<code>公共读</code></li></ul><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201111957897.png" alt="image-20220111195753835"></p><p>创建完成后，你的bucket应该就出现在了左侧</p><h3 id="2-3找到你的地域节点"><a href="#2-3找到你的地域节点" class="headerlink" title="2.3找到你的地域节点"></a>2.3找到你的地域节点</h3><p>点击你的<strong>bucket名</strong></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112002286.png" alt="image-20220111200207252"></p><p>然后点击bucket下的<code>概览</code></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112003531.png" alt="image-20220111200304506"></p><p>在<code>访问域名</code>一栏找到你的地域节点，后面会用到</p><blockquote><p>如图，只需要复制<code>oss-cn-shenzhen</code>即可，不需要后面的<code>.aliyuncs.com</code></p></blockquote><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112005649.png" alt="image-20220111200522615"></p><h3 id="2-4找到你的Key"><a href="#2-4找到你的Key" class="headerlink" title="2.4找到你的Key"></a>2.4找到你的Key</h3><p>来到右上角，鼠标放在你的头像上，在弹出的框里选择AccessKey管理</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112008734.png" alt="image-20220111200832708"></p><p>在弹出的选项框里，选择“继续使用”</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112009317.png" alt="image-20220111200939292"></p><p>进入后，创建一个<code>AccessKey</code></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112010057.png" alt="image-20220111201037036"></p><p>在弹出的界面里，记住你的<code>accessKeyId</code>和<code>accessKeySecret</code></p><hr><h3 id="2-5给你的阿里云账户充值"><a href="#2-5给你的阿里云账户充值" class="headerlink" title="2.5给你的阿里云账户充值"></a>2.5给你的阿里云账户充值</h3><h4 id="2-5-1收费问题"><a href="#2-5-1收费问题" class="headerlink" title="2.5.1收费问题"></a>2.5.1收费问题</h4><p>阿里云OSS的各项收费是<strong>独立</strong>的！</p><p>对于<strong>图床</strong>而言，有两种收费形式</p><ul><li>以<strong>充值的方式</strong>使用<strong>储存容量</strong>以及<strong>流量</strong>(默认状态)</li><li>按年&#x2F;月收费，购买一定存储包。<strong>流量额外收费</strong></li></ul><p>也就是说，即便你购买了下图的存储包，你依旧要为<strong>访问图床的流量</strong>付钱！</p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112014396.png" alt="image-20220104200946233" style="zoom:80%"><p>下图是在默认状态下，容量和流量收费的价格</p><blockquote><p>图床使用的是<strong>标准型</strong>，请勿购买其他类型</p></blockquote><ul><li>储存容量：0.12元&#x2F;GB&#x2F;月</li><li>图片<strong>上传</strong>到阿里OSS流量：免费</li><li><strong>外网流出</strong>流量(如typora访问图床图片)：闲时0.25元&#x2F;GB，<strong>忙</strong>时0.50元&#x2F;GB</li></ul><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112014375.png" alt="image-20220104193905591" style="zoom:80%"><p>仔细算算，我们图床的数据量其实很小的</p><blockquote><p>0.12元&#x2F;1GB&#x2F;1个月，一年就是1.44元，<strong>远低于40GB的9元收费！</strong></p><p>截图&#x2F;照片以平均0.5mb&#x2F;张估算，1gb可存放超过1600张图片！</p><p>数据低于7GB的情况下直接充值，以GB付费其实比<strong>购买储存包</strong>更加值得！</p></blockquote><h4 id="2-5-2注意事项"><a href="#2-5-2注意事项" class="headerlink" title="2.5.2注意事项"></a>2.5.2注意事项</h4><ul><li>记得给阿里云账户充值！！别到时候欠费停用了！！</li><li>刚开始作图床的时候，直接充值使用即可，<strong>无需购买容量包</strong>！</li></ul><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112013842.png" alt="image-20220111201309818"></p><p>到这里，我们阿里云OSS基本配置完毕了😎</p><h2 id="3-配置picgo"><a href="#3-配置picgo" class="headerlink" title="3.配置picgo"></a>3.配置picgo</h2><p>下载并打开picgo后，在你windows的<strong>状态栏</strong>里找到picgo的图标，打开picgo的主界面</p><p><strong><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112031907.png" alt="image-20220111203136884"></strong></p><p>mac的arm芯片用户可以用piclist，和picgo不能说很相似，只能说一模一样。下载安装了之后，也是在mac的状态栏里面找到piclist的图标，点击打开主窗口，打开软件设置界面。</p><p>piclist：<a target="_blank" rel="noopener" href="https://github.com/Kuingsmile/PicList">https://github.com/Kuingsmile/PicList</a>，官网：<a target="_blank" rel="noopener" href="https://piclist.cn/">https://piclist.cn/</a>。</p><h3 id="3-1图床设置"><a href="#3-1图床设置" class="headerlink" title="3.1图床设置"></a>3.1图床设置</h3><p>在图床设置里面选择<code>阿里云OSS</code>，依照以下步骤填写信息</p><ul><li><strong>设定Keyld</strong>：填写刚刚获得的<code>AccessKeyID</code>；</li><li><strong>设定KeySecret</strong>：填写<code>AccessKeyIDSecret</code>（注意，直接从OSS控制台中复制keysecret有概率会出现空格or回车，建议先复制到记事本中，再复制到picgo中）</li><li><strong>设定储存空间名</strong>：填写<strong>bucket名称</strong>。不是浏览器里的域名；</li><li><strong>指定存储路径</strong>：其实就是自定义一个<strong>文件夹</strong>的名字，以<code>/</code>结尾. 它会<strong>自动</strong>在你的bucket里面创建一个文件夹，并把图片上传进去；</li></ul><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112033937.png" alt="image-20220111203313899"></p><p><strong>弄完之后，记得“确定”，并点击“设置为默认图床”</strong>！</p><h3 id="3-2picgo设置"><a href="#3-2picgo设置" class="headerlink" title="3.2picgo设置"></a>3.2picgo设置</h3><p>在设置里打开<code>时间戳重命名</code>和<code>上传后自动复制URL</code>这两个功能。</p><p>时间戳重命名：以上传时间来重命名图片，避免同名的图片无法上传（该设置不影响本地图片名）</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112041605.png" alt="image-20220111204114564"></p><h3 id="3-3picgo重命名插件配置"><a href="#3-3picgo重命名插件配置" class="headerlink" title="3.3picgo重命名插件配置"></a>3.3picgo重命名插件配置</h3><p>上文提到的picgo“时间戳重命名“选项，并不是完全的好用，因为他会出现同一张图片被多次上传的问题。举个例子，当我在10点10分上传了图片a，过了一会，10点12分，我又在另外一篇文章引用了这个图片a，此时picgo因为采用时间戳重命名，这个图片a会被命名成两个不同的名字，最终的结果就是a在你的图床里面被保存了两次，占用额外的空间。</p><p>要想解决这个问题，我们需要引入一个概念：哈希、md5；</p><p>所谓哈希，是一种编程中的数据结构思想，其方式是利用一些公式，将我们存储在计算机中的一个文件或者任何二进制流转换成一个固定长度的字符串。md5是哈希的其中一种算法，转换出来的字符串长度为32位。</p><p>哈希拥有一个特性：相同的字节数据，计算出来的哈希字符串结果一致。所以，只要计算出来的字符串结果相同，我们就可以认为这两个文件是相同的文件。</p><ul><li>图片a在第一次使用哈希算法计算的时候，得到的结果是123456；第二次图片a再用相同的哈希算法计算，得到的结果还是123456；</li><li>文本文件<code>text.txt</code>，第一次用哈希算法计算的时候，得到的结果是abcd；第二次用相同哈希算法计算，得到的结果是abcd；第三次，我们修改了<code>test.txt</code>，得到的结果就变成了adck了，此时哈希结果不同，说明该文件和前两个文件已经不是同一个文件了；</li></ul><p>上述只是哈希的最基础的一个概念，我们只需要记住，当两个文件使用相同的哈希算法，计算出来的哈希结果相同的时候，就可以认为他们是相同的文件。</p><blockquote><p>哈希算法可能会出现”哈希碰撞“问题，即两个完全不同的文件，却计算出来相同的哈希结果的<code>冲突</code>问题。但是这个不是我们当前需要考虑的问题，即便是md5算法，能产生两个冲突的文件也是很难很难的。对于我们个人使用来说，更是完全不可能了。</p></blockquote><p>所以，借用哈希的思想，我们可以修改picgo上传图片时候重命名的配置，让其用哈希结果来命名。这样，即便图片a被我们在不同的时间被上传，它最终也会匹配成相同名字的文件路径，在云端图床里面也只会存储一份。</p><p>实现这个需求，需要安装picgo的插件<code>rename-image</code>，作者是puppet。</p><blockquote><p>picgo安装插件需要借助npm，如果你之前配置过hexo博客，那就是已经安装过node.js了。如果没有，则还需要根据提示，去node的官网上安装node.js，才能在picgo中安装插件。node.js官网：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a>。</p></blockquote><p>如果插件下载很慢，是因为npm默认使用的海外的下载源，用如下方式修改为国内的镜像源，二选一即可。将命令复制后，去电脑的CMD终端里面执行就可以了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">淘宝的</span><br><span class="line">npm config set registry https://registry.npmmirror.com</span><br><span class="line">或者阿里云的</span><br><span class="line">npm config set registry https://npm.aliyun.com</span><br></pre></td></tr></table></figure><p>在下图所示插件界面，搜索<code>rename-image</code>，下载插件。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/10/f339cb8a949037d489277e5f0cb03efb.png" alt="image.png"></p><p>随后点击插件图标旁边的齿轮，进入插件的设置界面。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/10/227dff61165f344644d4a5635fe0d486.png" alt="image.png"></p><p>使用如下方式进行配置，图床配置名可以随便写，路径格式配置为<code>&#123;Y&#125;/&#123;m&#125;/&#123;hash&#125;</code>，这样最终上传到云端的图片就是<code>图床地址/2024/10/图片文件哈希.图片文件后缀</code>了。能保证我们每个月上传到云端的图片，都不会冲突，只会在云端保留一份。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/10/c43790fe4dcf4d10c878e4d3a6eff1b1.png" alt="image.png"></p><p>点击确定，配置完成。记得去picgo的配置中将“时间戳重命名”功能关闭，避免picgo的功能和插件的功能冲突。</p><h2 id="4-配置typora"><a href="#4-配置typora" class="headerlink" title="4.配置typora"></a>4.配置typora</h2><p>进入typora主界面，点击左上角的“文件-偏好设置”</p><ul><li>选择<code>图像</code></li><li>插入图片时<code>上传图片</code></li><li>下面的选项全勾上（第二项对网络位置的图片可钩可不钩，主要是避免同一张图片被多次上传）</li><li>上传服务选择<code>PicGo(app)</code></li><li>PicGo路径：找到picgo的安装路径，<strong>不是安装包的路径！！！！</strong></li></ul><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201041930644.png" alt="image-20220104193025600"><h2 id="5-测试是否成功"><a href="#5-测试是否成功" class="headerlink" title="5.测试是否成功"></a>5.测试是否成功</h2><h3 id="5-1-typora自带上传测试"><a href="#5-1-typora自带上传测试" class="headerlink" title="5.1 typora自带上传测试"></a>5.1 typora自带上传测试</h3><p>设置完毕后，我们点击<code>验证图片上传选项</code>，如果弹出以下弹窗，我们的图床就搞定了！😀</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112051663.png" alt="image-20220111205131635"></p><p>如果出错了，建议先自己看看picgo的日志里面为什么报错，检查一下配置有没有出错。</p><p>如果看不明白日志的报错，就去picgo的github仓库开一个issue问。对于picgo的错误我也不是很清楚，来问我是浪费你的时间🙅‍♀️</p><p>如果你在<strong>检查过picgo配置内容和阿里云OSS设置</strong>、重启picgo、重启电脑后仍然无法成功上传。还可以参考这篇博客的配置方法👉 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qian-chang/p/13669613.html">很不幸，原文已被删除</a></p><hr><h3 id="5-2-复制图片测试上传"><a href="#5-2-复制图片测试上传" class="headerlink" title="5.2 复制图片测试上传"></a>5.2 复制图片测试上传</h3><p>最后新建一个文件，验证图片是否正常上传。</p><p>日常写作的时候，我们只需要<code>复制</code>图片，在typora里面<code>粘贴</code>即可，无需拖动！</p><p>当你的图片链接显示为<strong>阿里云的网络链接</strong>，而不是本地路径时</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112053227.png" alt="image-20220111205318201"></p><h2 id="6-大功告成！"><a href="#6-大功告成！" class="headerlink" title="6.大功告成！"></a>6.大功告成！</h2><p>到这里，我们的图床就大获全胜！开始你的创作吧！🧐</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/1825409965/">https://blog.musnow.top/posts/1825409965/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/">博客建站</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a><a class="post-meta__tags" href="/tags/typora/">typora</a></div><div class="post_share"><div class="social-share" data-image="/img/bg/gm2.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3113579721/" title="【C语言】指针进阶第一站，字符指针&amp;typedef关键字"><img class="cover" src="/img/bg/gm6.jpg" onerror='onerror=null,src="/img/404.jpg"' alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【C语言】指针进阶第一站，字符指针&amp;typedef关键字</div></div></a></div><div class="next-post pull-right"><a href="/posts/3650400098/" title="【C语言】浮点数在内存中的存储（详解）"><img class="cover" src="/img/bg/gm1.jpg" onerror='onerror=null,src="/img/404.jpg"' alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【C语言】浮点数在内存中的存储（详解）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4215614474/" title="【图床】博客表情包"><img class="cover" src="https://img.musnow.top/i/2023/02/202211031201961.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-23</div><div class="title">【图床】博客表情包</div></div></a></div><div><a href="/posts/1758576550/" title="【日志】又拍云CDN被恶意请求"><img class="cover" src="https://img.musnow.top/i/2023/03/6424f0c047909.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-30</div><div class="title">【日志】又拍云CDN被恶意请求</div></div></a></div><div><a href="/posts/923376033/" title="【图床】通过Cloudflare的自定义主机名服务代理图床域名"><img class="cover" src="https://img.musnow.top/i/2023/12/44ad244bf4ee3f94cddb51153ca3d68f.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-16</div><div class="title">【图床】通过Cloudflare的自定义主机名服务代理图床域名</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/favicon.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">慕雪年华</div><div class="author-info__description">爱折腾的代码初学者</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A"><span class="toc-text">为什么要搭建博客图床?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%BE%E5%BA%8A%EF%BC%9F"><span class="toc-text">什么是图床？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E8%BD%AF%E4%BB%B6"><span class="toc-text">1.准备软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1Typora"><span class="toc-text">1.1Typora</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2Picgo"><span class="toc-text">1.2Picgo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91OSS"><span class="toc-text">2.配置阿里云OSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E6%B3%A8%E5%86%8C-%E5%BC%80%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%82%A8%E5%AD%98"><span class="toc-text">2.1注册,开通对象储存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E5%88%9B%E5%BB%BAbucket"><span class="toc-text">2.2创建bucket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3%E6%89%BE%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9C%B0%E5%9F%9F%E8%8A%82%E7%82%B9"><span class="toc-text">2.3找到你的地域节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4%E6%89%BE%E5%88%B0%E4%BD%A0%E7%9A%84Key"><span class="toc-text">2.4找到你的Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5%E7%BB%99%E4%BD%A0%E7%9A%84%E9%98%BF%E9%87%8C%E4%BA%91%E8%B4%A6%E6%88%B7%E5%85%85%E5%80%BC"><span class="toc-text">2.5给你的阿里云账户充值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1%E6%94%B6%E8%B4%B9%E9%97%AE%E9%A2%98"><span class="toc-text">2.5.1收费问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">2.5.2注意事项</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AEpicgo"><span class="toc-text">3.配置picgo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E5%9B%BE%E5%BA%8A%E8%AE%BE%E7%BD%AE"><span class="toc-text">3.1图床设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2picgo%E8%AE%BE%E7%BD%AE"><span class="toc-text">3.2picgo设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3picgo%E9%87%8D%E5%91%BD%E5%90%8D%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">3.3picgo重命名插件配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AEtypora"><span class="toc-text">4.配置typora</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-text">5.测试是否成功</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-typora%E8%87%AA%E5%B8%A6%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95"><span class="toc-text">5.1 typora自带上传测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%A4%8D%E5%88%B6%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0"><span class="toc-text">5.2 复制图片测试上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90%EF%BC%81"><span class="toc-text">6.大功告成！</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/5825720428/" title="【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）">【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）</a><time datetime="2025-04-10T12:29:36.000Z" title="发表于 2025-04-10 20:29:36">2025-04-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9762190903/" title="【SLAM】使用ROS的camera_calibration工具标定D435相机">【SLAM】使用ROS的camera_calibration工具标定D435相机</a><time datetime="2025-04-07T00:09:24.000Z" title="发表于 2025-04-07 08:09:24">2025-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9149643829/" title="【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机">【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机</a><time datetime="2025-04-06T09:09:24.000Z" title="发表于 2025-04-06 17:09:24">2025-04-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8572288919/" title="【SLAM】使用realsense-viewer对Realsense D435进行自校准">【SLAM】使用realsense-viewer对Realsense D435进行自校准</a><time datetime="2025-04-06T00:51:08.000Z" title="发表于 2025-04-06 08:51:08">2025-04-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image:url(/img/main/mothra.webp)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a><br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a><br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/main.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.3/lazyload.iife.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
-  }
-}
+<p>下图是在默认状态下，容量和流量收费的价格</p>
+<blockquote>
+<p>图床使用的是<strong>标准型</strong>，请勿购买其他类型</p>
+</blockquote>
+<ul>
+<li>储存容量：0.12元&#x2F;GB&#x2F;月</li>
+<li>图片<strong>上传</strong>到阿里OSS流量：免费</li>
+<li><strong>外网流出</strong>流量(如typora访问图床图片)：闲时0.25元&#x2F;GB，<strong>忙</strong>时0.50元&#x2F;GB</li>
+</ul>
+<img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112014375.png" alt="image-20220104193905591" style="zoom:80%;" />
 
-function panguInit () {
-  if (true){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
-  } else {
-    panguFn()
-  }
-}
+<p>仔细算算，我们图床的数据量其实很小的</p>
+<blockquote>
+<p>0.12元&#x2F;1GB&#x2F;1个月，一年就是1.44元，<strong>远低于40GB的9元收费！</strong></p>
+<p>截图&#x2F;照片以平均0.5mb&#x2F;张估算，1gb可存放超过1600张图片！</p>
+<p>数据低于7GB的情况下直接充值，以GB付费其实比<strong>购买储存包</strong>更加值得！</p>
+</blockquote>
+<h4 id="2-5-2注意事项"><a href="#2-5-2注意事项" class="headerlink" title="2.5.2注意事项"></a>2.5.2注意事项</h4><ul>
+<li>记得给阿里云账户充值！！别到时候欠费停用了！！</li>
+<li>刚开始作图床的时候，直接充值使用即可，<strong>无需购买容量包</strong>！</li>
+</ul>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112013842.png" alt="image-20220111201309818"></p>
+<p>到这里，我们阿里云OSS基本配置完毕了😎</p>
+<h2 id="3-配置picgo"><a href="#3-配置picgo" class="headerlink" title="3.配置picgo"></a>3.配置picgo</h2><p>下载并打开picgo后，在你windows的<strong>状态栏</strong>里找到picgo的图标，打开picgo的主界面</p>
+<p><strong><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112031907.png" alt="image-20220111203136884"></strong></p>
+<p>mac的arm芯片用户可以用piclist，和picgo不能说很相似，只能说一模一样。下载安装了之后，也是在mac的状态栏里面找到piclist的图标，点击打开主窗口，打开软件设置界面。</p>
+<p>piclist：<a target="_blank" rel="noopener" href="https://github.com/Kuingsmile/PicList">https://github.com/Kuingsmile/PicList</a>，官网：<a target="_blank" rel="noopener" href="https://piclist.cn/">https://piclist.cn/</a>。</p>
+<h3 id="3-1图床设置"><a href="#3-1图床设置" class="headerlink" title="3.1图床设置"></a>3.1图床设置</h3><p>在图床设置里面选择<code>阿里云OSS</code>，依照以下步骤填写信息</p>
+<ul>
+<li><strong>设定Keyld</strong>：填写刚刚获得的<code>AccessKeyID</code>；</li>
+<li><strong>设定KeySecret</strong>：填写<code>AccessKeyIDSecret</code>（注意，直接从OSS控制台中复制keysecret有概率会出现空格or回车，建议先复制到记事本中，再复制到picgo中）</li>
+<li><strong>设定储存空间名</strong>：填写<strong>bucket名称</strong>。不是浏览器里的域名；</li>
+<li><strong>指定存储路径</strong>：其实就是自定义一个<strong>文件夹</strong>的名字，以<code>/</code>结尾. 它会<strong>自动</strong>在你的bucket里面创建一个文件夹，并把图片上传进去；</li>
+</ul>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112033937.png" alt="image-20220111203313899"></p>
+<p><strong>弄完之后，记得“确定”，并点击“设置为默认图床”</strong>！</p>
+<h3 id="3-2picgo设置"><a href="#3-2picgo设置" class="headerlink" title="3.2picgo设置"></a>3.2picgo设置</h3><p>在设置里打开<code>时间戳重命名</code>和<code>上传后自动复制URL</code>这两个功能。</p>
+<p>时间戳重命名：以上传时间来重命名图片，避免同名的图片无法上传（该设置不影响本地图片名）</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112041605.png" alt="image-20220111204114564"></p>
+<h3 id="3-3picgo重命名插件配置"><a href="#3-3picgo重命名插件配置" class="headerlink" title="3.3picgo重命名插件配置"></a>3.3picgo重命名插件配置</h3><p>上文提到的picgo“时间戳重命名“选项，并不是完全的好用，因为他会出现同一张图片被多次上传的问题。举个例子，当我在10点10分上传了图片a，过了一会，10点12分，我又在另外一篇文章引用了这个图片a，此时picgo因为采用时间戳重命名，这个图片a会被命名成两个不同的名字，最终的结果就是a在你的图床里面被保存了两次，占用额外的空间。</p>
+<p>要想解决这个问题，我们需要引入一个概念：哈希、md5；</p>
+<p>所谓哈希，是一种编程中的数据结构思想，其方式是利用一些公式，将我们存储在计算机中的一个文件或者任何二进制流转换成一个固定长度的字符串。md5是哈希的其中一种算法，转换出来的字符串长度为32位。</p>
+<p>哈希拥有一个特性：相同的字节数据，计算出来的哈希字符串结果一致。所以，只要计算出来的字符串结果相同，我们就可以认为这两个文件是相同的文件。</p>
+<ul>
+<li>图片a在第一次使用哈希算法计算的时候，得到的结果是123456；第二次图片a再用相同的哈希算法计算，得到的结果还是123456；</li>
+<li>文本文件<code>text.txt</code>，第一次用哈希算法计算的时候，得到的结果是abcd；第二次用相同哈希算法计算，得到的结果是abcd；第三次，我们修改了<code>test.txt</code>，得到的结果就变成了adck了，此时哈希结果不同，说明该文件和前两个文件已经不是同一个文件了；</li>
+</ul>
+<p>上述只是哈希的最基础的一个概念，我们只需要记住，当两个文件使用相同的哈希算法，计算出来的哈希结果相同的时候，就可以认为他们是相同的文件。</p>
+<blockquote>
+<p>哈希算法可能会出现”哈希碰撞“问题，即两个完全不同的文件，却计算出来相同的哈希结果的<code>冲突</code>问题。但是这个不是我们当前需要考虑的问题，即便是md5算法，能产生两个冲突的文件也是很难很难的。对于我们个人使用来说，更是完全不可能了。</p>
+</blockquote>
+<p>所以，借用哈希的思想，我们可以修改picgo上传图片时候重命名的配置，让其用哈希结果来命名。这样，即便图片a被我们在不同的时间被上传，它最终也会匹配成相同名字的文件路径，在云端图床里面也只会存储一份。</p>
+<p>实现这个需求，需要安装picgo的插件<code>rename-image</code>，作者是puppet。</p>
+<blockquote>
+<p>picgo安装插件需要借助npm，如果你之前配置过hexo博客，那就是已经安装过node.js了。如果没有，则还需要根据提示，去node的官网上安装node.js，才能在picgo中安装插件。node.js官网：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a>。</p>
+</blockquote>
+<p>如果插件下载很慢，是因为npm默认使用的海外的下载源，用如下方式修改为国内的镜像源，二选一即可。将命令复制后，去电脑的CMD终端里面执行就可以了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">淘宝的</span><br><span class="line">npm config set registry https://registry.npmmirror.com</span><br><span class="line">或者阿里云的</span><br><span class="line">npm config set registry https://npm.aliyun.com</span><br></pre></td></tr></table></figure>
 
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      tags: 'ams'
-    },
-    chtml: {
-      scale: 1.1
-    },
-    options: {
-      renderActions: {
-        findScript: [10, doc => {
-          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
-            const display = !!node.type.match(/; *mode=display/)
-            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
-            const text = document.createTextNode('')
-            node.parentNode.replaceChild(text, node)
-            math.start = {node: text, delim: '', n: 0}
-            math.end = {node: text, delim: '', n: 0}
-            doc.math.push(math)
+<p>在下图所示插件界面，搜索<code>rename-image</code>，下载插件。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/10/f339cb8a949037d489277e5f0cb03efb.png" alt="image.png"></p>
+<p>随后点击插件图标旁边的齿轮，进入插件的设置界面。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/10/227dff61165f344644d4a5635fe0d486.png" alt="image.png"></p>
+<p>使用如下方式进行配置，图床配置名可以随便写，路径格式配置为<code>&#123;Y&#125;/&#123;m&#125;/&#123;hash&#125;</code>，这样最终上传到云端的图片就是<code>图床地址/2024/10/图片文件哈希.图片文件后缀</code>了。能保证我们每个月上传到云端的图片，都不会冲突，只会在云端保留一份。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/10/c43790fe4dcf4d10c878e4d3a6eff1b1.png" alt="image.png"></p>
+<p>点击确定，配置完成。记得去picgo的配置中将“时间戳重命名”功能关闭，避免picgo的功能和插件的功能冲突。</p>
+<h2 id="4-配置typora"><a href="#4-配置typora" class="headerlink" title="4.配置typora"></a>4.配置typora</h2><p>进入typora主界面，点击左上角的“文件-偏好设置”</p>
+<ul>
+<li>选择<code>图像</code></li>
+<li>插入图片时<code>上传图片</code></li>
+<li>下面的选项全勾上（第二项对网络位置的图片可钩可不钩，主要是避免同一张图片被多次上传）</li>
+<li>上传服务选择<code>PicGo(app)</code></li>
+<li>PicGo路径：找到picgo的安装路径，<strong>不是安装包的路径！！！！</strong></li>
+</ul>
+<img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201041930644.png" alt="image-20220104193025600"/>
+
+<h2 id="5-测试是否成功"><a href="#5-测试是否成功" class="headerlink" title="5.测试是否成功"></a>5.测试是否成功</h2><h3 id="5-1-typora自带上传测试"><a href="#5-1-typora自带上传测试" class="headerlink" title="5.1 typora自带上传测试"></a>5.1 typora自带上传测试</h3><p>设置完毕后，我们点击<code>验证图片上传选项</code>，如果弹出以下弹窗，我们的图床就搞定了！😀</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112051663.png" alt="image-20220111205131635"></p>
+<p>如果出错了，建议先自己看看picgo的日志里面为什么报错，检查一下配置有没有出错。</p>
+<p>如果看不明白日志的报错，就去picgo的github仓库开一个issue问。对于picgo的错误我也不是很清楚，来问我是浪费你的时间🙅‍♀️</p>
+<p>如果你在<strong>检查过picgo配置内容和阿里云OSS设置</strong>、重启picgo、重启电脑后仍然无法成功上传。还可以参考这篇博客的配置方法👉 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qian-chang/p/13669613.html">很不幸，原文已被删除</a></p>
+<hr>
+<h3 id="5-2-复制图片测试上传"><a href="#5-2-复制图片测试上传" class="headerlink" title="5.2 复制图片测试上传"></a>5.2 复制图片测试上传</h3><p>最后新建一个文件，验证图片是否正常上传。</p>
+<p>日常写作的时候，我们只需要<code>复制</code>图片，在typora里面<code>粘贴</code>即可，无需拖动！</p>
+<p>当你的图片链接显示为<strong>阿里云的网络链接</strong>，而不是本地路径时</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202201112053227.png" alt="image-20220111205318201"></p>
+<h2 id="6-大功告成！"><a href="#6-大功告成！" class="headerlink" title="6.大功告成！"></a>6.大功告成！</h2><p>到这里，我们的图床就大获全胜！开始你的创作吧！🧐</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/1825409965/">https://blog.musnow.top/posts/1825409965/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%99/">博客建站</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E5%BA%8A/">图床</a><a class="post-meta__tags" href="/tags/typora/">typora</a></div><div class="post-share"><div class="social-share" data-image="/img/bg/gm25.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"/></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3650400098/" title="【C语言】浮点数在内存中的存储（详解）"><img class="cover" src="/img/bg/gm14.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【C语言】浮点数在内存中的存储（详解）</div></div><div class="info-2"><div class="info-item-1">[TOC] 引言 本文首发于 ❄️慕雪的寒舍  markdown语法小知识点写在前面，markdown语法的小知识点 如何实现文字变红且加上了底色？如hello world markdown语法如下即可！ 1`hello world`  以及页内跳转 12&lt;span id=&quot;jump&quot;&gt;这一句话没啥用&lt;/span&gt;[回到开头](#jump)  正题之前学习完了整形、字符类型在内存中的存储，今天让我们来看看float类型！  整数类型👉【int】 字符类型👉【char】  常见的浮点数123.141591E10  浮点数家族包括float、double、long double 类型。 而浮点数表示的范围是在头文件&lt;float.h&gt;里面定义的。 需要了解的是  如果你打出3.14，编译器默认是double类型的。若想让他为float类型，则要在前面加f； 1E10是科学计数法，代表1.0×10^10  代码引例先来看看下面这串代码 1234567891011int main()&#123;    int n = 9;   ...</div></div></div></a><a class="pagination-related" href="/posts/3113579721/" title="【C语言】指针进阶第一站，字符指针&amp;typedef关键字"><img class="cover" src="/img/bg/gm40.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【C语言】指针进阶第一站，字符指针&typedef关键字</div></div><div class="info-2"><div class="info-item-1">[TOC]  紧张刺激的寒假学习开始啦！  简单回顾一下指针的概念  内存会划分以字节为单位的空间，每一个字节都有一个编号（地址&#x2F;指针）  指针变量可以存放这个地址&#x2F;指针   注：我们日常所说的指针，一般是指针变量  下面让我们坐上指针进阶的🚌，来到第一站！字符指针 1字符指针1.1代码示例112345678int main()&#123;    char ch = &#x27;w&#x27;;    char* p= &amp;ch;        char* pa = &quot;abcdef&quot;;    return 0;&#125;   字符变量ch里面存放了字符w 字符指针p里面存放了ch的地址  指针变量pa里面存放了abcdef字符串的地址，我们并没有对这个字符串进行初始化。而是直接把它放进了指针变量pa里面。 和前两行的字符w不同，abcdef是存储在内存中的只读数据区，无法修改，即便通过指针也无法修改。 为了避免理解出错，我们一般会加上const修饰 1const char* pa =...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4215614474/" title="【图床】博客表情包"><img class="cover" src="https://img.musnow.top/i/2023/02/202211031201961.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-12-23</div><div class="info-item-2">【图床】博客表情包</div></div><div class="info-2"><div class="info-item-1">这里是博客中可以用到的表情包列表，一并上传，避免多次上传占用阿里云空间; 大家觉得不错的可以保存下来😁但是不要恶意使用！   表情包                                       </div></div></div></a><a class="pagination-related" href="/posts/1758576550/" title="【日志】又拍云CDN被恶意请求"><img class="cover" src="https://img.musnow.top/i/2023/03/6424f0c047909.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-30</div><div class="info-item-2">【日志】又拍云CDN被恶意请求</div></div><div class="info-2"><div class="info-item-1">自23.03.23起，图床CDN遭到了持续一周的恶意请求！</div></div></div></a><a class="pagination-related" href="/posts/923376033/" title="【图床】通过Cloudflare的自定义主机名服务代理图床域名"><img class="cover" src="https://img.musnow.top/i/2023/12/44ad244bf4ee3f94cddb51153ca3d68f.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-16</div><div class="info-item-2">【图床】通过Cloudflare的自定义主机名服务代理图床域名</div></div><div class="info-2"><div class="info-item-1">通过Cloudflare的SAAS自定义主机名服务代理图床域名</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A"><span class="toc-text">为什么要搭建博客图床?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%BE%E5%BA%8A%EF%BC%9F"><span class="toc-text">什么是图床？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E8%BD%AF%E4%BB%B6"><span class="toc-text">1.准备软件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1Typora"><span class="toc-text">1.1Typora</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2Picgo"><span class="toc-text">1.2Picgo</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E4%BA%91OSS"><span class="toc-text">2.配置阿里云OSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E6%B3%A8%E5%86%8C-%E5%BC%80%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%82%A8%E5%AD%98"><span class="toc-text">2.1注册,开通对象储存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2%E5%88%9B%E5%BB%BAbucket"><span class="toc-text">2.2创建bucket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3%E6%89%BE%E5%88%B0%E4%BD%A0%E7%9A%84%E5%9C%B0%E5%9F%9F%E8%8A%82%E7%82%B9"><span class="toc-text">2.3找到你的地域节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4%E6%89%BE%E5%88%B0%E4%BD%A0%E7%9A%84Key"><span class="toc-text">2.4找到你的Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5%E7%BB%99%E4%BD%A0%E7%9A%84%E9%98%BF%E9%87%8C%E4%BA%91%E8%B4%A6%E6%88%B7%E5%85%85%E5%80%BC"><span class="toc-text">2.5给你的阿里云账户充值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1%E6%94%B6%E8%B4%B9%E9%97%AE%E9%A2%98"><span class="toc-text">2.5.1收费问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">2.5.2注意事项</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AEpicgo"><span class="toc-text">3.配置picgo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E5%9B%BE%E5%BA%8A%E8%AE%BE%E7%BD%AE"><span class="toc-text">3.1图床设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2picgo%E8%AE%BE%E7%BD%AE"><span class="toc-text">3.2picgo设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3picgo%E9%87%8D%E5%91%BD%E5%90%8D%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-text">3.3picgo重命名插件配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AEtypora"><span class="toc-text">4.配置typora</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-text">5.测试是否成功</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-typora%E8%87%AA%E5%B8%A6%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95"><span class="toc-text">5.1 typora自带上传测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%A4%8D%E5%88%B6%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0"><span class="toc-text">5.2 复制图片测试上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90%EF%BC%81"><span class="toc-text">6.大功告成！</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9085567599/" title="【Mac】拒绝parallels toolbox，从我做起！">【Mac】拒绝parallels toolbox，从我做起！</a><time datetime="2025-05-26T00:57:24.000Z" title="发表于 2025-05-26 08:57:24">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7827607861/" title="【Hexo】将代码块中tab替换为空格（修改tab_replace）">【Hexo】将代码块中tab替换为空格（修改tab_replace）</a><time datetime="2025-05-16T02:00:57.000Z" title="发表于 2025-05-16 10:00:57">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2725694758/" title="【MCP】了解远程MCP调用背后使用的SSE协议">【MCP】了解远程MCP调用背后使用的SSE协议</a><time datetime="2025-04-20T06:47:57.000Z" title="发表于 2025-04-20 14:47:57">2025-04-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2831928244/" title="【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？">【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？</a><time datetime="2025-04-19T00:56:01.000Z" title="发表于 2025-04-19 08:56:01">2025-04-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
           }
-        }, '']
+        }
       }
+
+      const script = document.createElement('script')
+      script.src = '/pluginsSrc/mathjax/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
     }
   }
-  
-  const script = document.createElement('script')
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
-  script.id = 'MathJax-script'
-  script.async = true
-  document.head.appendChild(script)
-} else {
-  MathJax.startup.document.state(0)
-  MathJax.texReset()
-  MathJax.typesetPromise()
-}</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    Array.from($mermaid).forEach((item, index) => {
+    ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
       const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
+      const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
       }
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
     })
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.2/mermaid.min.js').then(runMermaid)
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
   }
 
-  btf.addModeChange('mermaid', runMermaid)
-
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>function loadArtalk () {
-  function initArtalk () {
-    window.artalkItem = new Artalk(Object.assign({
-      el: '#artalk-wrap',
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
       server: 'https://artk.musnow.top',
       site: 'mublog',
-      pageKey: location.pathname,
       darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
-      countEl: '.artalk-count'
-    },null))
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
 
     if (GLOBAL_CONFIG.lightbox === 'null') return
-    window.artalkItem.use(ctx => {
-      ctx.on('list-loaded', () => {
-        ctx.getCommentList().forEach(comment => {
-          const $content = comment.getRender().$content
-          btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
-        })
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
       })
     })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
   }
 
-  if (typeof window.artalkItem === 'object') initArtalk()
-  else {
-    getCSS('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.css').then(()=>{
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.js').then(initArtalk)
-    })
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('/pluginsSrc/artalk/dist/Artalk.css')
+      await btf.getScript('/pluginsSrc/artalk/dist/Artalk.js')
+      initArtalk(el, pageKey)
+    }
   }
-}
 
-function artalkChangeMode (theme) {
-  const artalkWrap = document.getElementById('artalk-wrap')
-  if (!(artalkWrap && artalkWrap.children.length)) return
-  const isDark = theme === 'dark'
-  window.artalkItem.setDarkMode(isDark)
-}
-
-btf.addModeChange('artalk', artalkChangeMode)
-
-if ('Artalk' === 'Artalk' || !false) {
-  if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
-  else loadArtalk()
-} else {
-  function loadOtherComment () {
-    loadArtalk()
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
   }
-}</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/click-heart.min.js" async mobile="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> 数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/search/local-search.min.js"></script></div></div></body></html>
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

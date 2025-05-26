@@ -1,13 +1,130 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>【C++】凝视C++的第一眼 | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从今天开始，正式步入C++学习的大门啦！"><meta property="og:type" content="article"><meta property="og:title" content="【C++】凝视C++的第一眼"><meta property="og:url" content="https://blog.musnow.top/posts/1070210667/index.html"><meta property="og:site_name" content="慕雪的寒舍"><meta property="og:description" content="从今天开始，正式步入C++学习的大门啦！"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.musnow.top/img/bg/gm12.jpg"><meta property="article:published_time" content="2022-04-29T06:15:28.000Z"><meta property="article:modified_time" content="2023-03-29T08:18:13.000Z"><meta property="article:author" content="慕雪年华"><meta property="article:tag" content="Cpp"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm12.jpg"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/1070210667/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【C++】凝视C++的第一眼 | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="从今天开始，正式步入C++学习的大门啦！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C++】凝视C++的第一眼">
+<meta property="og:url" content="https://blog.musnow.top/posts/1070210667/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="从今天开始，正式步入C++学习的大门啦！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.musnow.top/img/bg/gm26.webp">
+<meta property="article:published_time" content="2022-04-29T06:15:28.000Z">
+<meta property="article:modified_time" content="2023-03-29T08:18:13.000Z">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="Cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm26.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【C++】凝视C++的第一眼",
+  "url": "https://blog.musnow.top/posts/1070210667/",
+  "image": "https://blog.musnow.top/img/bg/gm26.webp",
+  "datePublished": "2022-04-29T06:15:28.000Z",
+  "dateModified": "2023-03-29T08:18:13.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "慕雪年华",
+      "url": "https://blog.musnow.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/1070210667/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
-  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离上次更新本文已经过去了","messageNext":"天，文章部分内容可能已经过时，请注意甄别"},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
@@ -25,244 +142,508 @@
   copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
-      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
     rightside: true,
   },
   autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"【C++】凝视C++的第一眼",isPost:!0,isHome:!1,isHighlightShrink:!1,isToc:!0,postUpdate:"2023-03-29 16:18:13"}</script><noscript><style type="text/css">#nav{opacity:1}.justified-gallery img{opacity:1}#post-meta time,#recent-posts time{display:inline!important}</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【C++】凝视C++的第一眼',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"});</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/bg/gm26.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a><a class="nav-page-title" href="/"><span class="site-name">【C++】凝视C++的第一眼</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【C++】凝视C++的第一眼</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-29T06:15:28.000Z" title="发表于 2022-04-29 14:15:28">2022-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-29T08:18:13.000Z" title="更新于 2023-03-29 16:18:13">2023-03-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Cpp/">Cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;距离上次更新本文已经过去了&quot;,&quot;messageNext&quot;:&quot;天，文章部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2023-03-29 16:18:13&quot;}" hidden></div><p>从今天开始，正式步入C++学习的大门啦！</p>
+<span id="more"></span>
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+<p>C++的博客主要是我个人学习的<strong>学习笔记</strong>，刚开始会记一些比较零碎的小知识点，可能没有之前C语言的博客那么系统化😂</p>
+<p>笔记中可能有错误的地方，欢迎大家指出！</p>
+<blockquote>
+<p>感谢你关注<strong>慕雪</strong>，欢迎来我的寒舍坐坐<a href="https://blog.musnow.top/">❄慕雪的寒舍</a></p>
+</blockquote>
+<p>[TOC]</p>
+<h2 id="1-C-简介"><a href="#1-C-简介" class="headerlink" title="1.C++简介"></a>1.C++简介</h2><blockquote>
+<p>你可以通过菜鸟教程网来学习C++👉<a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-intro.html">传送门</a></p>
+</blockquote>
+<p>C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。</p>
+<p>C++ 被认为是一种<strong>中级</strong>语言，它综合了高级语言和低级语言的特点。</p>
+<p>C++ 是由 Bjarne Stroustrup 于 1979 年在新泽西州美利山贝尔实验室开始设计开发的。C++ 进一步扩充和完善了 C 语言，最初命名为带类的C，后来在 1983 年更名为 C++。</p>
+<p>C++ 是 <strong>C 的一个超集</strong>，事实上，任何合法的 C 程序都是合法的 C++ 程序。</p>
+<hr>
+<h2 id="2-C-关键字"><a href="#2-C-关键字" class="headerlink" title="2.C++关键字"></a>2.C++关键字</h2><p>C语言有32个关键字，C++在它们的基础上进行了扩容，共有63个关键字</p>
+<table>
+<thead>
+<tr>
+<th>asm</th>
+<th>else</th>
+<th>new</th>
+<th>this</th>
+<th>auto</th>
+<th>enum</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>operator</td>
+<td>throw</td>
+<td>bool</td>
+<td>explicit</td>
+<td>private</td>
+<td>true</td>
+</tr>
+<tr>
+<td>break</td>
+<td>export</td>
+<td>protected</td>
+<td>try</td>
+<td>case</td>
+<td>extern</td>
+</tr>
+<tr>
+<td>public</td>
+<td>typedef</td>
+<td>catch</td>
+<td>false</td>
+<td>register</td>
+<td>typeid</td>
+</tr>
+<tr>
+<td>char</td>
+<td>float</td>
+<td>reinterpret_cast</td>
+<td>typename</td>
+<td>class</td>
+<td>for</td>
+</tr>
+<tr>
+<td>return</td>
+<td>union</td>
+<td>const</td>
+<td>friend</td>
+<td>short</td>
+<td>unsigned</td>
+</tr>
+<tr>
+<td>const_cast</td>
+<td>goto</td>
+<td>signed</td>
+<td>using</td>
+<td>continue</td>
+<td>if</td>
+</tr>
+<tr>
+<td>default</td>
+<td>inline</td>
+<td>sizeof</td>
+<td>virtual</td>
+<td>static</td>
+<td>void</td>
+</tr>
+<tr>
+<td>do</td>
+<td>long</td>
+<td>struct</td>
+<td>wchar_t</td>
+<td>delete</td>
+<td>int</td>
+</tr>
+<tr>
+<td>static_cast</td>
+<td>volatile</td>
+<td>double</td>
+<td>mutable</td>
+<td>switch</td>
+<td>while</td>
+</tr>
+<tr>
+<td>dynamic_cast</td>
+<td>namespace</td>
+<td>template</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>如果你想查看它们的完整介绍，可以参考这篇教程👉<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/cpp-keyword-intro.html">传送门</a></p>
+</blockquote>
+<p>这里只做一个基本的认识，后续会一一学习这些关键字</p>
+<hr>
+<h2 id="3-安装你的C-环境"><a href="#3-安装你的C-环境" class="headerlink" title="3.安装你的C++环境"></a>3.安装你的C++环境</h2><ul>
+<li>如果是windows系统，建议使用<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/">微软的VisualStudio</a>，不要用dev这种老式编译器！</li>
+<li>如果是mac系统，可以使用Xcode（我没有mac不知道具体情况）</li>
+<li>如果是linux系统，需要安装G++编译器</li>
+</ul>
+<p>利用我的树莓派，给大家演示一下linux环境安装G++编译器</p>
+<p>下面这个语句是显示g++编译器的版本，如果你弹出了和我一样的页面，说明你的linux系统里面已经有这个编译器了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -v</span><br></pre></td></tr></table></figure>
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291053682.png" alt="image-20220429105312608"></p>
+<p>如果没有，我们可以使用下面这个语句来整一个<code>g++</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install g++</span><br></pre></td></tr></table></figure>
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(r){"use strict";!function(){var t=window,s=document,e=r,c="".concat("https:"===s.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),i=s.createElement("script"),n=s.getElementsByTagName("script")[0];i.type="text/javascript",i.setAttribute("charset","UTF-8"),i.async=!0,i.src=c,i.id="LA_COLLECT",e.d=i;function o(){t.LA.ids.push(e)}t.LA?t.LA.ids&&o():(t.LA=r,t.LA.ids=[],o()),n.parentNode.insertBefore(i,n)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/favicon.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image:url(/img/bg/gm12.jpg)"><nav id="nav"><span id="blog-info"><a href="/" title="慕雪的寒舍"><img class="site-icon" src="/favicon.jpg"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【C++】凝视C++的第一眼</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-29T06:15:28.000Z" title="发表于 2022-04-29 14:15:28">2022-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-29T08:18:13.000Z" title="更新于 2023-03-29 16:18:13">2023-03-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Cpp/">Cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span data-flag-title="【C++】凝视C++的第一眼"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>从今天开始，正式步入C++学习的大门啦！</p><span id="more"></span><p>C++的博客主要是我个人学习的<strong>学习笔记</strong>，刚开始会记一些比较零碎的小知识点，可能没有之前C语言的博客那么系统化😂</p><p>笔记中可能有错误的地方，欢迎大家指出！</p><blockquote><p>感谢你关注<strong>慕雪</strong>，欢迎来我的寒舍坐坐<a href="https://blog.musnow.top/">❄慕雪的寒舍</a></p></blockquote><p>[TOC]</p><h2 id="1-C-简介"><a href="#1-C-简介" class="headerlink" title="1.C++简介"></a>1.C++简介</h2><blockquote><p>你可以通过菜鸟教程网来学习C++👉<a target="_blank" rel="noopener" href="https://www.runoob.com/cplusplus/cpp-intro.html">传送门</a></p></blockquote><p>C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。</p><p>C++ 被认为是一种<strong>中级</strong>语言，它综合了高级语言和低级语言的特点。</p><p>C++ 是由 Bjarne Stroustrup 于 1979 年在新泽西州美利山贝尔实验室开始设计开发的。C++ 进一步扩充和完善了 C 语言，最初命名为带类的C，后来在 1983 年更名为 C++。</p><p>C++ 是 <strong>C 的一个超集</strong>，事实上，任何合法的 C 程序都是合法的 C++ 程序。</p><hr><h2 id="2-C-关键字"><a href="#2-C-关键字" class="headerlink" title="2.C++关键字"></a>2.C++关键字</h2><p>C语言有32个关键字，C++在它们的基础上进行了扩容，共有63个关键字</p><table><thead><tr><th>asm</th><th>else</th><th>new</th><th>this</th><th>auto</th><th>enum</th></tr></thead><tbody><tr><td>operator</td><td>throw</td><td>bool</td><td>explicit</td><td>private</td><td>true</td></tr><tr><td>break</td><td>export</td><td>protected</td><td>try</td><td>case</td><td>extern</td></tr><tr><td>public</td><td>typedef</td><td>catch</td><td>false</td><td>register</td><td>typeid</td></tr><tr><td>char</td><td>float</td><td>reinterpret_cast</td><td>typename</td><td>class</td><td>for</td></tr><tr><td>return</td><td>union</td><td>const</td><td>friend</td><td>short</td><td>unsigned</td></tr><tr><td>const_cast</td><td>goto</td><td>signed</td><td>using</td><td>continue</td><td>if</td></tr><tr><td>default</td><td>inline</td><td>sizeof</td><td>virtual</td><td>static</td><td>void</td></tr><tr><td>do</td><td>long</td><td>struct</td><td>wchar_t</td><td>delete</td><td>int</td></tr><tr><td>static_cast</td><td>volatile</td><td>double</td><td>mutable</td><td>switch</td><td>while</td></tr><tr><td>dynamic_cast</td><td>namespace</td><td>template</td><td></td><td></td><td></td></tr></tbody></table><blockquote><p>如果你想查看它们的完整介绍，可以参考这篇教程👉<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/cpp-keyword-intro.html">传送门</a></p></blockquote><p>这里只做一个基本的认识，后续会一一学习这些关键字</p><hr><h2 id="3-安装你的C-环境"><a href="#3-安装你的C-环境" class="headerlink" title="3.安装你的C++环境"></a>3.安装你的C++环境</h2><ul><li>如果是windows系统，建议使用<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/">微软的VisualStudio</a>，不要用dev这种老式编译器！</li><li>如果是mac系统，可以使用Xcode（我没有mac不知道具体情况）</li><li>如果是linux系统，需要安装G++编译器</li></ul><p>利用我的树莓派，给大家演示一下linux环境安装G++编译器</p><p>下面这个语句是显示g++编译器的版本，如果你弹出了和我一样的页面，说明你的linux系统里面已经有这个编译器了</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -v</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291053682.png" alt="image-20220429105312608"></p><p>如果没有，我们可以使用下面这个语句来整一个<code>g++</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install g++</span><br></pre></td></tr></table></figure><p>你也可以用这个语句来验证你的G++是否已经安装</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291055125.png" alt="image-20220429105527074"></p><p>下载完成后，就可以愉快的使用你的G++编译器了</p><blockquote><p>如果你的下载很慢，可能要考虑换源（即更换一个软件下载源）</p><p><strong>树莓派实验室</strong>详细记录了国内比较好用的源，也有换源教程👉<a target="_blank" rel="noopener" href="https://shumeipai.nxez.com/2013/08/31/raspbian-chinese-software-source.html">传送门</a></p></blockquote><hr><h2 id="4-C-的输入输出"><a href="#4-C-的输入输出" class="headerlink" title="4.C++的输入输出"></a>4.C++的输入输出</h2><h3 id="4-1cout和cin样例"><a href="#4-1cout和cin样例" class="headerlink" title="4.1cout和cin样例"></a>4.1cout和cin样例</h3><p>老规矩，向这个世界问个好吧！</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291101374.png" alt="image-20220429110109339"></p><p>这里出现的<code>endl</code>是“end of line”的缩写，结束一行，相当于C语言中的<code>\n</code></p><p>因为C++的编译器是完成兼容C语言的，所以你可以用<code>&quot;\n&quot;</code>来替换<code>endl</code></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291106382.png" alt="image-20220429110631349"></p><hr><p><code>cout</code>是流提取操作符，对应的，也有流插入操作符<code>cin</code>。你可以理解为它们就是C++中的printf和scanf</p><p>注意这里的<strong>箭头方向</strong>，不要弄错了</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291104412.png" alt="image-20220429110421373"></p><h3 id="4-2头文件"><a href="#4-2头文件" class="headerlink" title="4.2头文件"></a>4.2头文件</h3><p>使用这两个“库函数”时，必须要要包含<code>iostream</code>头文件以及std标准命名空间</p><p>在<code>cplusplus.com</code>上搜索，可以看到<code>iostream</code>是标准输入输出流的库</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291110343.png" alt="image-20220429111025314"></p><h3 id="4-3和C语言的不同"><a href="#4-3和C语言的不同" class="headerlink" title="4.3和C语言的不同"></a>4.3和C语言的不同</h3><p>使用C++来输入输出更加方便，因为我们不需要增加<strong>格式控制符</strong>（<code>%d %c %f</code>这种）</p><p>因为编译器会自己判断它们的类型</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291113822.png" alt="image-20220429111339782"></p><p>同样的，我们可以使用连续的<code>&gt;&gt;</code>来输入多个数据</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291128002.png" alt="image-20220429112824978"></p><h3 id="4-4浮点数默认保留5位小数"><a href="#4-4浮点数默认保留5位小数" class="headerlink" title="4.4浮点数默认保留5位小数"></a>4.4浮点数默认保留5位小数</h3><p>通过两个程序的测试，我们可以看到C++中默认保留小数是5位，而<strong>C语言中是6位</strong></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291128955.png" alt="image-20220429112851922"></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291128947.png" alt="image-20220429112802912"></p><p>那么问题来了，如果我想控制输出格式，让它输出<strong>小数点后两位</strong>可以怎么做呢？</p><p>很简单，直接调用<code>printf</code>和<code>%.2f</code>不就完事了？</p><blockquote><p>C++中也有自己的格式控制方式，但是那个比printf更复杂</p></blockquote><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291130784.png" alt="image-20220429113049750"></p><p>而且在C++中打印低于5位的浮点数，并不会像C语言一样后补0</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291207810.png" alt="image-20220429120709773"></p><p><font color="Red">注意注意！</font>如果在C++程序中使用printf，就不能在printf里面写<code>endl</code>啦！</p><hr><h2 id="5-命名空间"><a href="#5-命名空间" class="headerlink" title="5.命名空间"></a>5.命名空间</h2><p>在输入输出函数中，有这么一个语句</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br></pre></td></tr></table></figure><p>前面已经提到过，std是”标准命名空间”</p><p>那什么是命名空间呢？</p><hr><h3 id="5-1简单介绍"><a href="#5-1简单介绍" class="headerlink" title="5.1简单介绍"></a>5.1简单介绍</h3><p>在main函数中，如果出现了两个相同名字的参数，编译器会报错</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291214150.png" alt="image-20220429121458107"></p><blockquote><p>假设一个班级上有两个同名的同学，为了区分他们俩人，我们会使用一些附加的条件来称呼二者。比如性别、家庭住址、甚至是成绩</p></blockquote><p>C++中的命名空间就是用来干这个事的</p><p>在<strong>项目合作</strong>的时候，命名空间很有用，可以有效避免两个人写的程序中出现同样名字的变量而导致冲突的情况</p><h3 id="5-2设置一个命名空间"><a href="#5-2设置一个命名空间" class="headerlink" title="5.2设置一个命名空间"></a>5.2设置一个命名空间</h3><p>比如现在我们设置一个命名空间，把<code>int a</code>放入其中</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>可以看到，这个时候编译程序就不会报错了</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291218008.png" alt="image-20220429121810966"></p><p>但是程序打印的是main函数中的double类型a，如果我们想用<code>muxue</code>中的<code>int a</code>要怎么操作呢？</p><p>只需要在变量名之前用<code>::</code>来指定命名空间就可以了</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291220698.png" alt="image-20220429122021654"></p><p>当然，我们也可以使用<code>using namespace muxue;</code>来直接展开这个命名空间中的所有东西</p><blockquote><p>但是这样不太好！后面会提到</p></blockquote><p>如果你定义了<strong>两个相同名字的命名空间</strong>，在编译程序的时候，编译器会合并他们</p><hr><h4 id="5-2-1嵌套定义命名空间"><a href="#5-2-1嵌套定义命名空间" class="headerlink" title="5.2.1嵌套定义命名空间"></a>5.2.1嵌套定义命名空间</h4><p>定义命名空间就和C语言的结构体很类似，是可以嵌套定义另外一个命名空间的</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//命名空间</span></span><br><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//嵌套定义命名空间</span></span><br><span class="line">	<span class="keyword">namespace</span> happy &#123;</span><br><span class="line">		<span class="type">int</span> b = <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">double</span> a = <span class="number">3.14</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; muxue::a &lt;&lt;endl;</span><br><span class="line">	cout &lt;&lt; muxue::happy::b &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291259015.png" alt="image-20220429125952967"></p><p>直接展开两个命名空间后，就不需要这样写输出函数了</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291307320.png" alt="image-20220429130715269"></p><hr><p>我们还可以在已有命名空间中嵌套定义一个命名空间，里面包含另外一个a</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//嵌套定义命名空间</span></span><br><span class="line">	<span class="keyword">namespace</span> happy &#123;</span><br><span class="line">		<span class="type">int</span> a = <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这时候如果使用<code>using namespace muxue;</code>，在main函数中会默认打印<strong>外层命名空间</strong>中的a</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291303873.png" alt="image-20220429130350841"></p><p>但如果你比较喜欢作死，把内层命名空间也展开了，就会出现冲突</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue::happy;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291304817.png" alt="image-20220429130409776"></p><hr><p>除了<strong>嵌套定义</strong>中这种<strong>冲突</strong>的情况，我们直接展开命名空间时，还会遇到其他冲突</p><h3 id="5-3全部展开可能遇到的问题"><a href="#5-3全部展开可能遇到的问题" class="headerlink" title="5.3全部展开可能遇到的问题"></a>5.3全部展开可能遇到的问题</h3><h4 id="5-3-1和库函数冲突"><a href="#5-3-1和库函数冲突" class="headerlink" title="5.3.1和库函数冲突"></a>5.3.1和库函数冲突</h4><p>比如下面这个情况，我们在<code>muxue</code>里面定义了一个int类型叫做rand，并在之后直接<code>using namespace</code>完整展开了这个命名空间</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="type">int</span> rand = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	a += <span class="number">1</span>;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	rand = <span class="number">10</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, rand);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后你就会发现，程序boom了！</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291244827.png" alt="image-20220429124426773"></p><p>这是因为在<code>&lt;stdlib.h&gt;</code>头文件中有一个生成随机数的rand函数，现在程序不知道你是要用命名空间中的变量rand，还是想调用这个<strong>库函数</strong>了！</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">muxue::rand = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, muxue::rand);</span><br></pre></td></tr></table></figure><p>这时候我们就要选择单独调用命名空间中的rand变量，而不是直接使用变量名</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291248017.png" alt="image-20220429124804989"></p><p>同时，顶部的<code>using namesapce</code>也需要做相应修改</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//using namespace muxue;</span></span><br><span class="line"><span class="keyword">using</span> muxue::a;</span><br></pre></td></tr></table></figure><h4 id="5-3-2和其他命名空间冲突"><a href="#5-3-2和其他命名空间冲突" class="headerlink" title="5.3.2和其他命名空间冲突"></a>5.3.2和其他命名空间冲突</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">	<span class="type">int</span> rand = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> haha &#123;</span><br><span class="line">	<span class="type">int</span> a = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> haha;</span><br></pre></td></tr></table></figure><p>假设两个命名空间中都有a变量，这时候程序也不知道你要调用哪一个a了，同样会报错</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291252953.png" alt="image-20220429125242919"></p><blockquote><p>这就好比班级里有俩个叫<strong>李华</strong>的人，本来一个是男的，一个是女的，咱们可以用<strong>性别</strong>区分</p><p>直接完整展开了命名空间，就好比让这两个李华都变成<strong>男生</strong></p><p>这不BBQ了吗？还怎么<strong>用性别</strong>判断谁是谁？</p></blockquote><p>所以在很多时候，尽量使用<code>::</code>单独展开某一个变量，而不是展开整个命名空间</p><p>这种冲突的情况，被称为<font color="Orange">命名空间污染</font></p><hr><h3 id="5-4避免命名空间污染"><a href="#5-4避免命名空间污染" class="headerlink" title="5.4避免命名空间污染"></a>5.4避免命名空间污染</h3><p>在菜鸟教程上，可以看到有大佬做了一个这样的笔记</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291221976.png" alt="image-20220429122114941"></p><p>是的，有的时候我们自定义的变量类型名会和std标准命名空间冲突，这时候直接在最前面<code>using namespace std;</code>就会出<code>5.3</code>中提到的问题</p><p>可cout和cin这两个家伙天天要用，总不能每一次使用的时候，都写一个<code>std::</code>吧？那样也太麻烦了！</p><p>别急，我们也可以单独展开这几个小家伙！</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> std::cin;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="keyword">using</span> std::endl;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291226291.png" alt="image-20220429122624247"></p><p>其他一些问题在之前<code>5.2</code>和<code>5.3</code>都已经提到过了，这里就不再说啦！</p><p>个人理解，即便C++有命名空间这个好东西，在定义变量的时候最好还是保持一个良好的编程习惯，<strong>不用关键字和库函数名作为变量名</strong></p><h3 id="5-5-指定全局作用域"><a href="#5-5-指定全局作用域" class="headerlink" title="5.5 ::指定全局作用域"></a>5.5 <code>::</code>指定全局作用域</h3><p>当我们默认使用<code>::</code>而不在前面添加命名空间的名字的时候，默认会指定到全局的命名空间。即便函数被另外一个命名空间所包裹，也是会调用全局作用域下的函数</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局</span></span><br><span class="line"><span class="type">void</span> _print()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;global print&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//命名空间</span></span><br><span class="line"><span class="keyword">namespace</span> muxue</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> _print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;namespace muxue print&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">testNamespace</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ::_print();<span class="comment">//调用全局作用域的函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    muxue::_print();<span class="comment">//调用命名空间内的print</span></span><br><span class="line">    muxue::<span class="built_in">testNamespace</span>();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>打印的结果如下</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202209202114027.png" alt="image-20220920211415931"></p><hr><h2 id="6-缺省参数"><a href="#6-缺省参数" class="headerlink" title="6.缺省参数"></a>6.缺省参数</h2><p>缺省参数是函数在定义的时候，给指定的参数一个默认值，<strong>如果没有指定实参，就会使用这个默认值</strong>。比如：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//缺省参数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a = <span class="number">10</span>,<span class="type">int</span> b = <span class="number">20</span>)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; a + b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">1</span>, m = <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">Add</span>(n, m);<span class="comment">//指定了实参</span></span><br><span class="line">	<span class="built_in">Add</span>();<span class="comment">//没有指定</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291323288.png" alt="image-20220429132302242"></p><p>除了这两种方式外，我们还可以<strong>只给该函数传一个实参</strong></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291324816.png" alt="image-20220429132406777"></p><p>但是像下面这样，想给函数中的b传一个参数是不可以的</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291324332.png" alt="image-20220429132447278"></p><h3 id="6-1全缺省和半缺省"><a href="#6-1全缺省和半缺省" class="headerlink" title="6.1全缺省和半缺省"></a>6.1全缺省和半缺省</h3><ul><li>像上面这种，函数中的所有形参都设定了缺省值的，叫做<strong>全缺省</strong></li><li>函数中只有一部分设置了缺省值的，叫做<strong>半缺省</strong></li></ul><p>注意：设置缺省参数的时候，必须<strong>从右往左</strong>设置，不能出现中间空一个的情况</p><hr><h4 id="6-1-1全缺省"><a href="#6-1-1全缺省" class="headerlink" title="6.1.1全缺省"></a>6.1.1全缺省</h4><p>比如这么一个有3个参数的函数，我们全部设置了缺省值，就是<strong>全缺省</strong></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print</span><span class="params">(<span class="type">int</span> a = <span class="number">10</span>, <span class="type">int</span> b = <span class="number">20</span>,<span class="type">int</span> c=<span class="number">30</span>)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>我们可以直接传3个值，进行对应的打印，也可以只传两个、一个或者不传形参</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291333447.png" alt="image-20220429133330394"></p><p>这种<strong>中间间隔一个</strong>传参是不允许的</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291331465.png" alt="image-20220429133120425"></p><hr><h4 id="6-1-2半缺省"><a href="#6-1-2半缺省" class="headerlink" title="6.1.2半缺省"></a>6.1.2半缺省</h4><p>半缺省是缺省了一部分的函数</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b = <span class="number">20</span>, <span class="type">int</span> c = <span class="number">30</span>)</span> </span>&#123;</span><br><span class="line">	cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在调用的时候，我们就不能不传参数了</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291336319.png" alt="image-20220429133649270"></p><p>至少要传一个参数给我们的a</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291337470.png" alt="image-20220429133702436"></p><p>半缺省的函数可以是如下形式</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b = <span class="number">20</span>, <span class="type">int</span> c = <span class="number">30</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c = <span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure><p>但不能是这样</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a=<span class="number">10</span>, <span class="type">int</span> b, <span class="type">int</span> c = <span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure><p>因为这种情况会出现歧义，编译器不知道你的参数是给b还是给a</p><hr><h3 id="6-2缺省参数的应用"><a href="#6-2缺省参数的应用" class="headerlink" title="6.2缺省参数的应用"></a>6.2缺省参数的应用</h3><p>比如在创建一个顺序表的时候，我们可以利用缺省参数来设置<strong>默认长度</strong></p><p>这样就避免了单一默认长度<strong>导致的多次扩容</strong>（realloc扩容是有性能浪费的！）</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291344347.png" alt="image-20220429134452258"></p><blockquote><p>比如我知道我这次需要一个很长的顺序表，直接<strong>改默认长度</strong>不太合适。使用这种方法传一个新的长度值更加方便我们的动态管理！</p></blockquote><p>缺省参数是只有C++才支持的函数定义方式，这也是C++比C语言更优的体现</p><h3 id="6-3多文件编程中的缺省"><a href="#6-3多文件编程中的缺省" class="headerlink" title="6.3多文件编程中的缺省"></a>6.3多文件编程中的缺省</h3><p>使用多文件编程的时候，<strong>缺省值只需要在头文件中给出即可</strong></p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291350431.png" alt="image-20220429135027368"></p><p>不需要在<strong>函数定义的源文件</strong>中给出，编译器会报错</p><blockquote><p>假设函数的声明和定义中设定的缺省值不同，编译器就不知道要用哪一个缺省值</p></blockquote><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291352813.png" alt="image-20220429135208753"></p><p>调用函数，可以看到函数正确分配了不同的初始值</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291358503.png" alt="image-20220429135854460"></p><hr><h4 id="6-3-1错误情况"><a href="#6-3-1错误情况" class="headerlink" title="6.3.1错误情况"></a>6.3.1错误情况</h4><p>但如果我们在<strong>头文件中不包含缺省</strong>，函数就会报错，<strong>不支持我们只传1个参数</strong></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">InitArr</span><span class="params">(Qa* q, <span class="type">int</span> n)</span></span>;</span><br></pre></td></tr></table></figure><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291353218.png" alt="image-20220429135334165"></p><p>只要你的头文件中声明没有缺省， 在函数定义的源文件中加入缺省也是没用的！</p><blockquote><p>因为编译器展开头文件是在main函数中之上，在查找函数的时候，只会向上查找声明。所以函数的声明是<strong>以头文件为准</strong>！</p></blockquote><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291355941.png" alt="image-20220429135534869"></p><hr><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一篇C++的笔记就写这么多（其实已经有几千字了）</p><p>下一篇笔记是<strong>函数重载</strong>，可以让你感受到C++的更多花样！</p><blockquote><p>不会有人把博客看完了还不点赞吧？</p></blockquote><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291404927.gif" alt="QQ图片20220419102702"></p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/1070210667/">https://blog.musnow.top/posts/1070210667/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Cpp/">Cpp</a></div><div class="post_share"><div class="social-share" data-image="/img/bg/gm12.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/909882653/" title="【C++】函数重载的形式及其背后原理"><img class="cover" src="/img/bg/gm2.jpg" onerror='onerror=null,src="/img/404.jpg"' alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【C++】函数重载的形式及其背后原理</div></div></a></div><div class="next-post pull-right"><a href="/posts/3996153794/" title="【C语言】八大排序算法（带图详解）"><img class="cover" src="/img/bg/gm20.png" onerror='onerror=null,src="/img/404.jpg"' alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【C语言】八大排序算法（带图详解）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3198614716/" title="【C语言】static和extern的作用"><img class="cover" src="/img/bg/gm17.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-18</div><div class="title">【C语言】static和extern的作用</div></div></a></div><div><a href="/posts/909882653/" title="【C++】函数重载的形式及其背后原理"><img class="cover" src="/img/bg/gm2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-29</div><div class="title">【C++】函数重载的形式及其背后原理</div></div></a></div><div><a href="/posts/3945540971/" title="【C++】引用和内联函数"><img class="cover" src="/img/bg/gm4.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">【C++】引用和内联函数</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/favicon.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">慕雪年华</div><div class="author-info__description">爱折腾的代码初学者</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-C-%E7%AE%80%E4%BB%8B"><span class="toc-text">1.C++简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-C-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">2.C++关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E4%BD%A0%E7%9A%84C-%E7%8E%AF%E5%A2%83"><span class="toc-text">3.安装你的C++环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-C-%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-text">4.C++的输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1cout%E5%92%8Ccin%E6%A0%B7%E4%BE%8B"><span class="toc-text">4.1cout和cin样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-text">4.2头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3%E5%92%8CC%E8%AF%AD%E8%A8%80%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="toc-text">4.3和C语言的不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4%E6%B5%AE%E7%82%B9%E6%95%B0%E9%BB%98%E8%AE%A4%E4%BF%9D%E7%95%995%E4%BD%8D%E5%B0%8F%E6%95%B0"><span class="toc-text">4.4浮点数默认保留5位小数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">5.命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">5.1简单介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">5.2设置一个命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1%E5%B5%8C%E5%A5%97%E5%AE%9A%E4%B9%89%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">5.2.1嵌套定义命名空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3%E5%85%A8%E9%83%A8%E5%B1%95%E5%BC%80%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">5.3全部展开可能遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E5%86%B2%E7%AA%81"><span class="toc-text">5.3.1和库函数冲突</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2%E5%92%8C%E5%85%B6%E4%BB%96%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%86%B2%E7%AA%81"><span class="toc-text">5.3.2和其他命名空间冲突</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4%E9%81%BF%E5%85%8D%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E6%B1%A1%E6%9F%93"><span class="toc-text">5.4避免命名空间污染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E6%8C%87%E5%AE%9A%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">5.5 ::指定全局作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0"><span class="toc-text">6.缺省参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1%E5%85%A8%E7%BC%BA%E7%9C%81%E5%92%8C%E5%8D%8A%E7%BC%BA%E7%9C%81"><span class="toc-text">6.1全缺省和半缺省</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1%E5%85%A8%E7%BC%BA%E7%9C%81"><span class="toc-text">6.1.1全缺省</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2%E5%8D%8A%E7%BC%BA%E7%9C%81"><span class="toc-text">6.1.2半缺省</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">6.2缺省参数的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E7%BC%BA%E7%9C%81"><span class="toc-text">6.3多文件编程中的缺省</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1%E9%94%99%E8%AF%AF%E6%83%85%E5%86%B5"><span class="toc-text">6.3.1错误情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/5825720428/" title="【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）">【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）</a><time datetime="2025-04-10T12:29:36.000Z" title="发表于 2025-04-10 20:29:36">2025-04-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9762190903/" title="【SLAM】使用ROS的camera_calibration工具标定D435相机">【SLAM】使用ROS的camera_calibration工具标定D435相机</a><time datetime="2025-04-07T00:09:24.000Z" title="发表于 2025-04-07 08:09:24">2025-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9149643829/" title="【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机">【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机</a><time datetime="2025-04-06T09:09:24.000Z" title="发表于 2025-04-06 17:09:24">2025-04-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8572288919/" title="【SLAM】使用realsense-viewer对Realsense D435进行自校准">【SLAM】使用realsense-viewer对Realsense D435进行自校准</a><time datetime="2025-04-06T00:51:08.000Z" title="发表于 2025-04-06 08:51:08">2025-04-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image:url(/img/main/mothra.webp)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a><br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a><br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/main.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.3/lazyload.iife.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
-  }
-}
+<p>你也可以用这个语句来验证你的G++是否已经安装</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291055125.png" alt="image-20220429105527074"></p>
+<p>下载完成后，就可以愉快的使用你的G++编译器了</p>
+<blockquote>
+<p>如果你的下载很慢，可能要考虑换源（即更换一个软件下载源）</p>
+<p><strong>树莓派实验室</strong>详细记录了国内比较好用的源，也有换源教程👉<a target="_blank" rel="noopener" href="https://shumeipai.nxez.com/2013/08/31/raspbian-chinese-software-source.html">传送门</a></p>
+</blockquote>
+<hr>
+<h2 id="4-C-的输入输出"><a href="#4-C-的输入输出" class="headerlink" title="4.C++的输入输出"></a>4.C++的输入输出</h2><h3 id="4-1cout和cin样例"><a href="#4-1cout和cin样例" class="headerlink" title="4.1cout和cin样例"></a>4.1cout和cin样例</h3><p>老规矩，向这个世界问个好吧！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-function panguInit () {
-  if (true){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
-  } else {
-    panguFn()
-  }
-}
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291101374.png" alt="image-20220429110109339"></p>
+<p>这里出现的<code>endl</code>是“end of line”的缩写，结束一行，相当于C语言中的<code>\n</code></p>
+<p>因为C++的编译器是完成兼容C语言的，所以你可以用<code>&quot;\n&quot;</code>来替换<code>endl</code></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291106382.png" alt="image-20220429110631349"></p>
+<hr>
+<p><code>cout</code>是流提取操作符，对应的，也有流插入操作符<code>cin</code>。你可以理解为它们就是C++中的printf和scanf</p>
+<p>注意这里的<strong>箭头方向</strong>，不要弄错了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello, world!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    cin &gt;&gt; a;</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      tags: 'ams'
-    },
-    chtml: {
-      scale: 1.1
-    },
-    options: {
-      renderActions: {
-        findScript: [10, doc => {
-          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
-            const display = !!node.type.match(/; *mode=display/)
-            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
-            const text = document.createTextNode('')
-            node.parentNode.replaceChild(text, node)
-            math.start = {node: text, delim: '', n: 0}
-            math.end = {node: text, delim: '', n: 0}
-            doc.math.push(math)
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291104412.png" alt="image-20220429110421373"></p>
+<h3 id="4-2头文件"><a href="#4-2头文件" class="headerlink" title="4.2头文件"></a>4.2头文件</h3><p>使用这两个“库函数”时，必须要要包含<code>iostream</code>头文件以及std标准命名空间</p>
+<p>在<code>cplusplus.com</code>上搜索，可以看到<code>iostream</code>是标准输入输出流的库</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291110343.png" alt="image-20220429111025314"></p>
+<h3 id="4-3和C语言的不同"><a href="#4-3和C语言的不同" class="headerlink" title="4.3和C语言的不同"></a>4.3和C语言的不同</h3><p>使用C++来输入输出更加方便，因为我们不需要增加<strong>格式控制符</strong>（<code>%d %c %f</code>这种）</p>
+<p>因为编译器会自己判断它们的类型</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291113822.png" alt="image-20220429111339782"></p>
+<p>同样的，我们可以使用连续的<code>&gt;&gt;</code>来输入多个数据</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291128002.png" alt="image-20220429112824978"></p>
+<h3 id="4-4浮点数默认保留5位小数"><a href="#4-4浮点数默认保留5位小数" class="headerlink" title="4.4浮点数默认保留5位小数"></a>4.4浮点数默认保留5位小数</h3><p>通过两个程序的测试，我们可以看到C++中默认保留小数是5位，而<strong>C语言中是6位</strong></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291128955.png" alt="image-20220429112851922"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291128947.png" alt="image-20220429112802912"></p>
+<p>那么问题来了，如果我想控制输出格式，让它输出<strong>小数点后两位</strong>可以怎么做呢？</p>
+<p>很简单，直接调用<code>printf</code>和<code>%.2f</code>不就完事了？</p>
+<blockquote>
+<p>C++中也有自己的格式控制方式，但是那个比printf更复杂</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291130784.png" alt="image-20220429113049750"></p>
+<p>而且在C++中打印低于5位的浮点数，并不会像C语言一样后补0</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291207810.png" alt="image-20220429120709773"></p>
+<p><font color=Red>注意注意！</font>如果在C++程序中使用printf，就不能在printf里面写<code>endl</code>啦！</p>
+<hr>
+<h2 id="5-命名空间"><a href="#5-命名空间" class="headerlink" title="5.命名空间"></a>5.命名空间</h2><p>在输入输出函数中，有这么一个语句</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br></pre></td></tr></table></figure>
+
+<p>前面已经提到过，std是”标准命名空间”</p>
+<p>那什么是命名空间呢？</p>
+<hr>
+<h3 id="5-1简单介绍"><a href="#5-1简单介绍" class="headerlink" title="5.1简单介绍"></a>5.1简单介绍</h3><p>在main函数中，如果出现了两个相同名字的参数，编译器会报错</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291214150.png" alt="image-20220429121458107"></p>
+<blockquote>
+<p>假设一个班级上有两个同名的同学，为了区分他们俩人，我们会使用一些附加的条件来称呼二者。比如性别、家庭住址、甚至是成绩</p>
+</blockquote>
+<p>C++中的命名空间就是用来干这个事的</p>
+<p>在<strong>项目合作</strong>的时候，命名空间很有用，可以有效避免两个人写的程序中出现同样名字的变量而导致冲突的情况</p>
+<h3 id="5-2设置一个命名空间"><a href="#5-2设置一个命名空间" class="headerlink" title="5.2设置一个命名空间"></a>5.2设置一个命名空间</h3><p>比如现在我们设置一个命名空间，把<code>int a</code>放入其中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这个时候编译程序就不会报错了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291218008.png" alt="image-20220429121810966"></p>
+<p>但是程序打印的是main函数中的double类型a，如果我们想用<code>muxue</code>中的<code>int a</code>要怎么操作呢？</p>
+<p>只需要在变量名之前用<code>::</code>来指定命名空间就可以了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291220698.png" alt="image-20220429122021654"></p>
+<p>当然，我们也可以使用<code>using namespace muxue;</code>来直接展开这个命名空间中的所有东西</p>
+<blockquote>
+<p>但是这样不太好！后面会提到</p>
+</blockquote>
+<p>如果你定义了<strong>两个相同名字的命名空间</strong>，在编译程序的时候，编译器会合并他们</p>
+<hr>
+<h4 id="5-2-1嵌套定义命名空间"><a href="#5-2-1嵌套定义命名空间" class="headerlink" title="5.2.1嵌套定义命名空间"></a>5.2.1嵌套定义命名空间</h4><p>定义命名空间就和C语言的结构体很类似，是可以嵌套定义另外一个命名空间的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//命名空间</span></span><br><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//嵌套定义命名空间</span></span><br><span class="line">    <span class="keyword">namespace</span> happy &#123;</span><br><span class="line">        <span class="type">int</span> b = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">double</span> a = <span class="number">3.14</span>;</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; muxue::a &lt;&lt;endl;</span><br><span class="line">    cout &lt;&lt; muxue::happy::b &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291259015.png" alt="image-20220429125952967"></p>
+<p>直接展开两个命名空间后，就不需要这样写输出函数了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291307320.png" alt="image-20220429130715269"></p>
+<hr>
+<p>我们还可以在已有命名空间中嵌套定义一个命名空间，里面包含另外一个a</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//嵌套定义命名空间</span></span><br><span class="line">    <span class="keyword">namespace</span> happy &#123;</span><br><span class="line">        <span class="type">int</span> a = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候如果使用<code>using namespace muxue;</code>，在main函数中会默认打印<strong>外层命名空间</strong>中的a</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291303873.png" alt="image-20220429130350841"></p>
+<p>但如果你比较喜欢作死，把内层命名空间也展开了，就会出现冲突</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue::happy;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291304817.png" alt="image-20220429130409776"></p>
+<hr>
+<p>除了<strong>嵌套定义</strong>中这种<strong>冲突</strong>的情况，我们直接展开命名空间时，还会遇到其他冲突</p>
+<h3 id="5-3全部展开可能遇到的问题"><a href="#5-3全部展开可能遇到的问题" class="headerlink" title="5.3全部展开可能遇到的问题"></a>5.3全部展开可能遇到的问题</h3><h4 id="5-3-1和库函数冲突"><a href="#5-3-1和库函数冲突" class="headerlink" title="5.3.1和库函数冲突"></a>5.3.1和库函数冲突</h4><p>比如下面这个情况，我们在<code>muxue</code>里面定义了一个int类型叫做rand，并在之后直接<code>using namespace</code>完整展开了这个命名空间</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> rand = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    a += <span class="number">1</span>;</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    rand = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, rand);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后你就会发现，程序boom了！</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291244827.png" alt="image-20220429124426773"></p>
+<p>这是因为在<code>&lt;stdlib.h&gt;</code>头文件中有一个生成随机数的rand函数，现在程序不知道你是要用命名空间中的变量rand，还是想调用这个<strong>库函数</strong>了！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">muxue::rand = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, muxue::rand);</span><br></pre></td></tr></table></figure>
+
+<p>这时候我们就要选择单独调用命名空间中的rand变量，而不是直接使用变量名</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291248017.png" alt="image-20220429124804989"></p>
+<p>同时，顶部的<code>using namesapce</code>也需要做相应修改</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//using namespace muxue;</span></span><br><span class="line"><span class="keyword">using</span> muxue::a;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-3-2和其他命名空间冲突"><a href="#5-3-2和其他命名空间冲突" class="headerlink" title="5.3.2和其他命名空间冲突"></a>5.3.2和其他命名空间冲突</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> muxue &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> rand = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> haha &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> muxue;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> haha;</span><br></pre></td></tr></table></figure>
+
+<p>假设两个命名空间中都有a变量，这时候程序也不知道你要调用哪一个a了，同样会报错</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291252953.png" alt="image-20220429125242919"></p>
+<blockquote>
+<p>这就好比班级里有俩个叫<strong>李华</strong>的人，本来一个是男的，一个是女的，咱们可以用<strong>性别</strong>区分</p>
+<p>直接完整展开了命名空间，就好比让这两个李华都变成<strong>男生</strong></p>
+<p>这不BBQ了吗？还怎么<strong>用性别</strong>判断谁是谁？</p>
+</blockquote>
+<p>所以在很多时候，尽量使用<code>::</code>单独展开某一个变量，而不是展开整个命名空间</p>
+<p>这种冲突的情况，被称为<font color=Orange>命名空间污染</font></p>
+<hr>
+<h3 id="5-4避免命名空间污染"><a href="#5-4避免命名空间污染" class="headerlink" title="5.4避免命名空间污染"></a>5.4避免命名空间污染</h3><p>在菜鸟教程上，可以看到有大佬做了一个这样的笔记</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291221976.png" alt="image-20220429122114941"></p>
+<p>是的，有的时候我们自定义的变量类型名会和std标准命名空间冲突，这时候直接在最前面<code>using namespace std;</code>就会出<code>5.3</code>中提到的问题</p>
+<p>可cout和cin这两个家伙天天要用，总不能每一次使用的时候，都写一个<code>std::</code>吧？那样也太麻烦了！</p>
+<p>别急，我们也可以单独展开这几个小家伙！</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> std::cin;</span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="keyword">using</span> std::endl;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291226291.png" alt="image-20220429122624247"></p>
+<p>其他一些问题在之前<code>5.2</code>和<code>5.3</code>都已经提到过了，这里就不再说啦！</p>
+<p>个人理解，即便C++有命名空间这个好东西，在定义变量的时候最好还是保持一个良好的编程习惯，<strong>不用关键字和库函数名作为变量名</strong></p>
+<h3 id="5-5-指定全局作用域"><a href="#5-5-指定全局作用域" class="headerlink" title="5.5 ::指定全局作用域"></a>5.5 <code>::</code>指定全局作用域</h3><p>当我们默认使用<code>::</code>而不在前面添加命名空间的名字的时候，默认会指定到全局的命名空间。即便函数被另外一个命名空间所包裹，也是会调用全局作用域下的函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局</span></span><br><span class="line"><span class="type">void</span> _print()</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;global print&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//命名空间</span></span><br><span class="line"><span class="keyword">namespace</span> muxue</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> _print()</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;namespace muxue print&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">testNamespace</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ::_print();<span class="comment">//调用全局作用域的函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    muxue::_print();<span class="comment">//调用命名空间内的print</span></span><br><span class="line">    muxue::<span class="built_in">testNamespace</span>();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打印的结果如下</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202209202114027.png" alt="image-20220920211415931"></p>
+<hr>
+<h2 id="6-缺省参数"><a href="#6-缺省参数" class="headerlink" title="6.缺省参数"></a>6.缺省参数</h2><p>缺省参数是函数在定义的时候，给指定的参数一个默认值，<strong>如果没有指定实参，就会使用这个默认值</strong>。比如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//缺省参数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a = <span class="number">10</span>,<span class="type">int</span> b = <span class="number">20</span>)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; a + b &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">1</span>, m = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">Add</span>(n, m);<span class="comment">//指定了实参</span></span><br><span class="line">    <span class="built_in">Add</span>();<span class="comment">//没有指定</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291323288.png" alt="image-20220429132302242"></p>
+<p>除了这两种方式外，我们还可以<strong>只给该函数传一个实参</strong></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291324816.png" alt="image-20220429132406777"></p>
+<p>但是像下面这样，想给函数中的b传一个参数是不可以的</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291324332.png" alt="image-20220429132447278"></p>
+<h3 id="6-1全缺省和半缺省"><a href="#6-1全缺省和半缺省" class="headerlink" title="6.1全缺省和半缺省"></a>6.1全缺省和半缺省</h3><ul>
+<li>像上面这种，函数中的所有形参都设定了缺省值的，叫做<strong>全缺省</strong></li>
+<li>函数中只有一部分设置了缺省值的，叫做<strong>半缺省</strong></li>
+</ul>
+<p>注意：设置缺省参数的时候，必须<strong>从右往左</strong>设置，不能出现中间空一个的情况</p>
+<hr>
+<h4 id="6-1-1全缺省"><a href="#6-1-1全缺省" class="headerlink" title="6.1.1全缺省"></a>6.1.1全缺省</h4><p>比如这么一个有3个参数的函数，我们全部设置了缺省值，就是<strong>全缺省</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print</span><span class="params">(<span class="type">int</span> a = <span class="number">10</span>, <span class="type">int</span> b = <span class="number">20</span>,<span class="type">int</span> c=<span class="number">30</span>)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以直接传3个值，进行对应的打印，也可以只传两个、一个或者不传形参</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291333447.png" alt="image-20220429133330394"></p>
+<p>这种<strong>中间间隔一个</strong>传参是不允许的</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291331465.png" alt="image-20220429133120425"></p>
+<hr>
+<h4 id="6-1-2半缺省"><a href="#6-1-2半缺省" class="headerlink" title="6.1.2半缺省"></a>6.1.2半缺省</h4><p>半缺省是缺省了一部分的函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b = <span class="number">20</span>, <span class="type">int</span> c = <span class="number">30</span>)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; b &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在调用的时候，我们就不能不传参数了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291336319.png" alt="image-20220429133649270"></p>
+<p>至少要传一个参数给我们的a</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291337470.png" alt="image-20220429133702436"></p>
+<p>半缺省的函数可以是如下形式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b = <span class="number">20</span>, <span class="type">int</span> c = <span class="number">30</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c = <span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>但不能是这样</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Print2</span><span class="params">(<span class="type">int</span> a=<span class="number">10</span>, <span class="type">int</span> b, <span class="type">int</span> c = <span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>因为这种情况会出现歧义，编译器不知道你的参数是给b还是给a</p>
+<hr>
+<h3 id="6-2缺省参数的应用"><a href="#6-2缺省参数的应用" class="headerlink" title="6.2缺省参数的应用"></a>6.2缺省参数的应用</h3><p>比如在创建一个顺序表的时候，我们可以利用缺省参数来设置<strong>默认长度</strong></p>
+<p>这样就避免了单一默认长度<strong>导致的多次扩容</strong>（realloc扩容是有性能浪费的！）</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291344347.png" alt="image-20220429134452258"></p>
+<blockquote>
+<p>比如我知道我这次需要一个很长的顺序表，直接<strong>改默认长度</strong>不太合适。使用这种方法传一个新的长度值更加方便我们的动态管理！</p>
+</blockquote>
+<p>缺省参数是只有C++才支持的函数定义方式，这也是C++比C语言更优的体现</p>
+<h3 id="6-3多文件编程中的缺省"><a href="#6-3多文件编程中的缺省" class="headerlink" title="6.3多文件编程中的缺省"></a>6.3多文件编程中的缺省</h3><p>使用多文件编程的时候，<strong>缺省值只需要在头文件中给出即可</strong></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291350431.png" alt="image-20220429135027368"></p>
+<p>不需要在<strong>函数定义的源文件</strong>中给出，编译器会报错</p>
+<blockquote>
+<p>假设函数的声明和定义中设定的缺省值不同，编译器就不知道要用哪一个缺省值</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291352813.png" alt="image-20220429135208753"></p>
+<p>调用函数，可以看到函数正确分配了不同的初始值</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291358503.png" alt="image-20220429135854460"></p>
+<hr>
+<h4 id="6-3-1错误情况"><a href="#6-3-1错误情况" class="headerlink" title="6.3.1错误情况"></a>6.3.1错误情况</h4><p>但如果我们在<strong>头文件中不包含缺省</strong>，函数就会报错，<strong>不支持我们只传1个参数</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">InitArr</span><span class="params">(Qa* q, <span class="type">int</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291353218.png" alt="image-20220429135334165"></p>
+<p>只要你的头文件中声明没有缺省， 在函数定义的源文件中加入缺省也是没用的！</p>
+<blockquote>
+<p>因为编译器展开头文件是在main函数中之上，在查找函数的时候，只会向上查找声明。所以函数的声明是<strong>以头文件为准</strong>！</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291355941.png" alt="image-20220429135534869"></p>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>第一篇C++的笔记就写这么多（其实已经有几千字了）</p>
+<p>下一篇笔记是<strong>函数重载</strong>，可以让你感受到C++的更多花样！</p>
+<blockquote>
+<p>不会有人把博客看完了还不点赞吧？</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/02/202204291404927.gif" alt="QQ图片20220419102702"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/1070210667/">https://blog.musnow.top/posts/1070210667/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Cpp/">Cpp</a></div><div class="post-share"><div class="social-share" data-image="/img/bg/gm26.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"/></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3996153794/" title="【C语言】八大排序算法（带图详解）"><img class="cover" src="/img/bg/gm22.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【C语言】八大排序算法（带图详解）</div></div><div class="info-2"><div class="info-item-1">1. 前言如果你把本专栏从头看到这里，那么恭喜你，本篇博客已经是是初阶数据结构的收尾啦😁！让我们一起来学习一下，那些常见的排序算法！  本篇博客主要讲述八大排序🕵️‍♀️，桶排序&#x2F;基数排序可能会在后期补上！欢迎大家收藏本文！   在之前的学习中，我们已经接触过ez的冒泡排序，和通过堆实现的堆排序，本篇博客就不再详解这两个了！  有些排序的思路不是那么好懂，我的讲解也会有不到位的地方，欢迎在评论区提出你的疑惑或建议！🌭  [TOC] 2. 插入排序2.1....</div></div></div></a><a class="pagination-related" href="/posts/909882653/" title="【C++】函数重载的形式及其背后原理"><img class="cover" src="/img/bg/gm23.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【C++】函数重载的形式及其背后原理</div></div><div class="info-2"><div class="info-item-1">常言道：中国有俩球，谁都赢不了！这句话在不同的语境下有不同的意思 C++中，函数支持在同一作用域下声明几个功能类似的同名函数，但需要遵守以下规定……    形参个数不同 形参类型不同 形参类型的顺序不同 注意：只修改函数返回值不构成重载  编译器会在调用这些同名函数的时候，根据具体情况来选择不同的函数  [TOC] 1.函数重载的样式 上面提到了函数重载的3个规定，下面让我们来用具体示例认识一下它们  假设我们需要一个A+B的代码，如果每次都需要根据不同数据类型来写不同的函数去实现这个功能，未免有点太过繁杂。 在C++中，只需要修改函数的参数，即构成了函数重载，编译器就会自己选择对应的函数进行相加操作 1.1形参类型不同123456789101112131415161718//函数重载int Add(int a, int rb)&#123;    return a + b;&#125;long Add(long a, long b)&#123;    return a + b;&#125;double Add(double a, double b)&#123;   ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4231483511/" title="【项目】高并发内存池项目的学习"><img class="cover" src="https://img.musnow.top/i/2024/02/c03c4843d4f6b153fc536709b8864c05.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-20</div><div class="info-item-2">【项目】高并发内存池项目的学习</div></div><div class="info-2"><div class="info-item-1">高并发内存池项目的学习</div></div></div></a><a class="pagination-related" href="/posts/909882653/" title="【C++】函数重载的形式及其背后原理"><img class="cover" src="/img/bg/gm23.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-29</div><div class="info-item-2">【C++】函数重载的形式及其背后原理</div></div><div class="info-2"><div class="info-item-1">常言道：中国有俩球，谁都赢不了！这句话在不同的语境下有不同的意思 C++中，函数支持在同一作用域下声明几个功能类似的同名函数，但需要遵守以下规定……    形参个数不同 形参类型不同 形参类型的顺序不同 注意：只修改函数返回值不构成重载  编译器会在调用这些同名函数的时候，根据具体情况来选择不同的函数  [TOC] 1.函数重载的样式 上面提到了函数重载的3个规定，下面让我们来用具体示例认识一下它们  假设我们需要一个A+B的代码，如果每次都需要根据不同数据类型来写不同的函数去实现这个功能，未免有点太过繁杂。 在C++中，只需要修改函数的参数，即构成了函数重载，编译器就会自己选择对应的函数进行相加操作 1.1形参类型不同123456789101112131415161718//函数重载int Add(int a, int rb)&#123;    return a + b;&#125;long Add(long a, long b)&#123;    return a + b;&#125;double Add(double a, double b)&#123;   ...</div></div></div></a><a class="pagination-related" href="/posts/1752517657/" title="【C++】auto关键字、范围for、nullptr关键字"><img class="cover" src="/img/bg/gm25.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-12</div><div class="info-item-2">【C++】auto关键字、范围for、nullptr关键字</div></div><div class="info-2"><div class="info-item-1">本篇博客一起来继续学习C++的语法      auto关键字 nullptr关键字    范围for linux如何使用C++11规则   [TOC] 0.linux设置c++11在linux平台下想使用C++11标准有两个办法 方法1是在.cpp文件的最开头加入下面的这个语句 1#pragma GCC diagnostic error &quot;-std=c++11&quot;  但是这个方法哈，我发现加了它之后使用nullptr还是会报错，但是auto和typeid都可以使用了 方法2是在编译的时候在加上-std=c++11 1g++ -std=c++11 test.cpp -o test...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-C-%E7%AE%80%E4%BB%8B"><span class="toc-text">1.C++简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-C-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">2.C++关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E4%BD%A0%E7%9A%84C-%E7%8E%AF%E5%A2%83"><span class="toc-text">3.安装你的C++环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-C-%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-text">4.C++的输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1cout%E5%92%8Ccin%E6%A0%B7%E4%BE%8B"><span class="toc-text">4.1cout和cin样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="toc-text">4.2头文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3%E5%92%8CC%E8%AF%AD%E8%A8%80%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="toc-text">4.3和C语言的不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4%E6%B5%AE%E7%82%B9%E6%95%B0%E9%BB%98%E8%AE%A4%E4%BF%9D%E7%95%995%E4%BD%8D%E5%B0%8F%E6%95%B0"><span class="toc-text">4.4浮点数默认保留5位小数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">5.命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">5.1简单介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">5.2设置一个命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1%E5%B5%8C%E5%A5%97%E5%AE%9A%E4%B9%89%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">5.2.1嵌套定义命名空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3%E5%85%A8%E9%83%A8%E5%B1%95%E5%BC%80%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">5.3全部展开可能遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E5%86%B2%E7%AA%81"><span class="toc-text">5.3.1和库函数冲突</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2%E5%92%8C%E5%85%B6%E4%BB%96%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%86%B2%E7%AA%81"><span class="toc-text">5.3.2和其他命名空间冲突</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4%E9%81%BF%E5%85%8D%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E6%B1%A1%E6%9F%93"><span class="toc-text">5.4避免命名空间污染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E6%8C%87%E5%AE%9A%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">5.5 ::指定全局作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0"><span class="toc-text">6.缺省参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1%E5%85%A8%E7%BC%BA%E7%9C%81%E5%92%8C%E5%8D%8A%E7%BC%BA%E7%9C%81"><span class="toc-text">6.1全缺省和半缺省</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-1%E5%85%A8%E7%BC%BA%E7%9C%81"><span class="toc-text">6.1.1全缺省</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-1-2%E5%8D%8A%E7%BC%BA%E7%9C%81"><span class="toc-text">6.1.2半缺省</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">6.2缺省参数的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E7%BC%BA%E7%9C%81"><span class="toc-text">6.3多文件编程中的缺省</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1%E9%94%99%E8%AF%AF%E6%83%85%E5%86%B5"><span class="toc-text">6.3.1错误情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9085567599/" title="【Mac】拒绝parallels toolbox，从我做起！">【Mac】拒绝parallels toolbox，从我做起！</a><time datetime="2025-05-26T00:57:24.000Z" title="发表于 2025-05-26 08:57:24">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7827607861/" title="【Hexo】将代码块中tab替换为空格（修改tab_replace）">【Hexo】将代码块中tab替换为空格（修改tab_replace）</a><time datetime="2025-05-16T02:00:57.000Z" title="发表于 2025-05-16 10:00:57">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2725694758/" title="【MCP】了解远程MCP调用背后使用的SSE协议">【MCP】了解远程MCP调用背后使用的SSE协议</a><time datetime="2025-04-20T06:47:57.000Z" title="发表于 2025-04-20 14:47:57">2025-04-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2831928244/" title="【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？">【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？</a><time datetime="2025-04-19T00:56:01.000Z" title="发表于 2025-04-19 08:56:01">2025-04-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
           }
-        }, '']
+        }
       }
+
+      const script = document.createElement('script')
+      script.src = '/pluginsSrc/mathjax/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
     }
   }
-  
-  const script = document.createElement('script')
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
-  script.id = 'MathJax-script'
-  script.async = true
-  document.head.appendChild(script)
-} else {
-  MathJax.startup.document.state(0)
-  MathJax.texReset()
-  MathJax.typesetPromise()
-}</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    Array.from($mermaid).forEach((item, index) => {
+    ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
       const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
+      const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
       }
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
     })
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.2/mermaid.min.js').then(runMermaid)
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
   }
 
-  btf.addModeChange('mermaid', runMermaid)
-
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>function loadArtalk () {
-  function initArtalk () {
-    window.artalkItem = new Artalk(Object.assign({
-      el: '#artalk-wrap',
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
       server: 'https://artk.musnow.top',
       site: 'mublog',
-      pageKey: location.pathname,
       darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
-      countEl: '.artalk-count'
-    },null))
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
 
     if (GLOBAL_CONFIG.lightbox === 'null') return
-    window.artalkItem.use(ctx => {
-      ctx.on('list-loaded', () => {
-        ctx.getCommentList().forEach(comment => {
-          const $content = comment.getRender().$content
-          btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
-        })
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
       })
     })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
   }
 
-  if (typeof window.artalkItem === 'object') initArtalk()
-  else {
-    getCSS('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.css').then(()=>{
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.js').then(initArtalk)
-    })
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('/pluginsSrc/artalk/dist/Artalk.css')
+      await btf.getScript('/pluginsSrc/artalk/dist/Artalk.js')
+      initArtalk(el, pageKey)
+    }
   }
-}
 
-function artalkChangeMode (theme) {
-  const artalkWrap = document.getElementById('artalk-wrap')
-  if (!(artalkWrap && artalkWrap.children.length)) return
-  const isDark = theme === 'dark'
-  window.artalkItem.setDarkMode(isDark)
-}
-
-btf.addModeChange('artalk', artalkChangeMode)
-
-if ('Artalk' === 'Artalk' || !false) {
-  if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
-  else loadArtalk()
-} else {
-  function loadOtherComment () {
-    loadArtalk()
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
   }
-}</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/click-heart.min.js" async mobile="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> 数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/search/local-search.min.js"></script></div></div></body></html>
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

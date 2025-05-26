@@ -1,13 +1,131 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>【C语言】字符串 | 回顾C语言005 | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C语言的字符串"><meta property="og:type" content="article"><meta property="og:title" content="【C语言】字符串 | 回顾C语言005"><meta property="og:url" content="https://blog.musnow.top/posts/321211845/index.html"><meta property="og:site_name" content="慕雪的寒舍"><meta property="og:description" content="C语言的字符串"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.musnow.top/img/bg/gm7.png"><meta property="article:published_time" content="2024-07-27T22:07:48.000Z"><meta property="article:modified_time" content="2025-02-12T08:36:59.000Z"><meta property="article:author" content="慕雪年华"><meta property="article:tag" content="C语言"><meta property="article:tag" content="回顾C和Cpp"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm7.png"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/321211845/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload='this.media="all"'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.min.css" media="print" onload='this.media="all"'><script>const GLOBAL_CONFIG = {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【C语言】字符串 | 回顾C语言005 | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C语言的字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C语言】字符串 | 回顾C语言005">
+<meta property="og:url" content="https://blog.musnow.top/posts/321211845/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="C语言的字符串">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.musnow.top/img/bg/gm40.webp">
+<meta property="article:published_time" content="2024-07-27T22:07:48.000Z">
+<meta property="article:modified_time" content="2025-02-12T08:36:59.000Z">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="回顾C和Cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.musnow.top/img/bg/gm40.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【C语言】字符串 | 回顾C语言005",
+  "url": "https://blog.musnow.top/posts/321211845/",
+  "image": "https://blog.musnow.top/img/bg/gm40.webp",
+  "datePublished": "2024-07-27T22:07:48.000Z",
+  "dateModified": "2025-02-12T08:36:59.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "慕雪年华",
+      "url": "https://blog.musnow.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/321211845/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
-  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"距离上次更新本文已经过去了","messageNext":"天，文章部分内容可能已经过时，请注意甄别"},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
@@ -25,244 +143,264 @@
   copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
-      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
     rightside: true,
   },
   autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE={title:"【C语言】字符串 | 回顾C语言005",isPost:!0,isHome:!1,isHighlightShrink:!1,isToc:!0,postUpdate:"2025-02-12 16:36:59"}</script><noscript><style type="text/css">#nav{opacity:1}.justified-gallery img{opacity:1}#post-meta time,#recent-posts time{display:inline!important}</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【C语言】字符串 | 回顾C语言005',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"});</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/bg/gm40.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a><a class="nav-page-title" href="/"><span class="site-name">【C语言】字符串 | 回顾C语言005</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【C语言】字符串 | 回顾C语言005</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-27T22:07:48.000Z" title="发表于 2024-07-28 06:07:48">2024-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-12T08:36:59.000Z" title="更新于 2025-02-12 16:36:59">2025-02-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/C%E8%AF%AD%E8%A8%80/">C语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;距离上次更新本文已经过去了&quot;,&quot;messageNext&quot;:&quot;天，文章部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2025-02-12 16:36:59&quot;}" hidden></div><p>字符串，就是一长串的字符类型，每一个位上都是一个单独的char字符，连起来组合成了字符串。</p>
+<p>你在各个客户端&#x2F;网页里面看到的文字，在编程语言中都可以认为是一个<strong>字符串</strong>。</p>
+<p>在C语言中，字符串对应的是<code>const char*</code>和<code>char*</code>类型；其本质上是一个<strong>char字符数组</strong>。</p>
+<h2 id="1-常量字符串"><a href="#1-常量字符串" class="headerlink" title="1.常量字符串"></a>1.常量字符串</h2><p>常量字符串的类型是<code>const char*</code>，我们直接使用的<code>&quot;字符串&quot;</code>，就是常量字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* str = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 常量字符串</span></span><br></pre></td></tr></table></figure>
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+<p>常量字符串<strong>不能被修改</strong>，但可以像数组一样通过下标和指针的方式访问字符串的单个字符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* str = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 常量字符串</span></span><br><span class="line"><span class="type">char</span> c1 = str[<span class="number">0</span>];  <span class="comment">// 访问字符h</span></span><br><span class="line"><span class="type">char</span> c2 = (*str+<span class="number">4</span>); <span class="comment">// 访问字符o</span></span><br></pre></td></tr></table></figure>
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
+<p>而没有const修饰的<code>char*</code>类型，是不能直接接受常量字符串赋值的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* str = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 无法接受常量字符串，这行代码有误</span></span><br></pre></td></tr></table></figure>
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>!function(r){"use strict";!function(){var t=window,s=document,e=r,c="".concat("https:"===s.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),i=s.createElement("script"),n=s.getElementsByTagName("script")[0];i.type="text/javascript",i.setAttribute("charset","UTF-8"),i.async=!0,i.src=c,i.id="LA_COLLECT",e.d=i;function o(){t.LA.ids.push(e)}t.LA?t.LA.ids&&o():(t.LA=r,t.LA.ids=[],o()),n.parentNode.insertBefore(i,n)}()}({id:"JwxEfuZ8fwQ1GPEq",ck:"JwxEfuZ8fwQ1GPEq"})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/favicon.jpg" onerror='onerror=null,src="/img/friend_404.gif"' alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image:url(/img/bg/gm7.png)"><nav id="nav"><span id="blog-info"><a href="/" title="慕雪的寒舍"><img class="site-icon" src="/favicon.jpg"><span class="site-name">慕雪的寒舍</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【C语言】字符串 | 回顾C语言005</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-27T22:07:48.000Z" title="发表于 2024-07-28 06:07:48">2024-07-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-02-12T08:36:59.000Z" title="更新于 2025-02-12 16:36:59">2025-02-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/C%E8%AF%AD%E8%A8%80/">C语言</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span data-flag-title="【C语言】字符串 | 回顾C语言005"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>字符串，就是一长串的字符类型，每一个位上都是一个单独的char字符，连起来组合成了字符串。</p><p>你在各个客户端&#x2F;网页里面看到的文字，在编程语言中都可以认为是一个<strong>字符串</strong>。</p><p>在C语言中，字符串对应的是<code>const char*</code>和<code>char*</code>类型；其本质上是一个<strong>char字符数组</strong>。</p><h2 id="1-常量字符串"><a href="#1-常量字符串" class="headerlink" title="1.常量字符串"></a>1.常量字符串</h2><p>常量字符串的类型是<code>const char*</code>，我们直接使用的<code>&quot;字符串&quot;</code>，就是常量字符串。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* str = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 常量字符串</span></span><br></pre></td></tr></table></figure><p>常量字符串<strong>不能被修改</strong>，但可以像数组一样通过下标和指针的方式访问字符串的单个字符</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* str = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 常量字符串</span></span><br><span class="line"><span class="type">char</span> c1 = str[<span class="number">0</span>];  <span class="comment">// 访问字符h</span></span><br><span class="line"><span class="type">char</span> c2 = (*str+<span class="number">4</span>); <span class="comment">// 访问字符o</span></span><br></pre></td></tr></table></figure><p>而没有const修饰的<code>char*</code>类型，是不能直接接受常量字符串赋值的</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* str = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 无法接受常量字符串，这行代码有误</span></span><br></pre></td></tr></table></figure><p>虽然这行代码在VS2019中没有报错，在Linux下的g++也仅仅是报了warning警告，但其本质是<strong>有问题</strong>的！</p><p>下面的文字就是Linux下g++编译时的警告，翻译过来是禁止将<strong>常量字符串</strong>转换为<code>char *</code>类型。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ g++ test.cpp -o test</span><br><span class="line">test.cpp: In function ‘int main()’:</span><br><span class="line">test.cpp:137:17: warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]</span><br><span class="line">     char *str = &quot;hello world\n&quot;; // 无法接受常量字符串</span><br><span class="line">                 ^~~~~~~~~~~~~~~</span><br></pre></td></tr></table></figure><h2 id="2-普通字符串"><a href="#2-普通字符串" class="headerlink" title="2.普通字符串"></a>2.普通字符串</h2><p>前面提到，字符串就是一个字符的数组。但我们想定义一个字符串<strong>数组</strong>，也不能用<code>char*</code>，而需要用另外一种方式。</p><p>下面这种在变量名后带<code>[]</code>的写法，就是定义<strong>数组</strong>的语法，在前文已经介绍过了。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[] = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 普通字符串的基本定义方式</span></span><br></pre></td></tr></table></figure><p>上方是声明时赋值的写法，编译器在识别到这一行代码后，会自动帮我们创建字符串对应大小的空间，并让str指向这片空间的起始地址。</p><p>需要注意的是，只有初始化的时候能这么写。后续如果想修改这个字符串，需要使用strcpy函数，而不能用&#x3D;直接赋值。strcpy函数会在后文介绍。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[] = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">str = <span class="string">&quot;hello&quot;</span>; <span class="comment">//错误，不能通过=直接修改</span></span><br><span class="line"><span class="built_in">strcpy</span>(str,<span class="string">&quot;hello&quot;</span>); <span class="comment">// 正确修改方式</span></span><br></pre></td></tr></table></figure><blockquote><p>这里的str变量本质上是<code>char*</code>类型，是一个字符指针。所有数组变量都是对应类型的指针。</p></blockquote><p>如果想在声明时不赋初值，可以用下面的办法来定义一个字符串。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">15</span>];  <span class="comment">// 定义一个长度为15的字符串数组</span></span><br><span class="line">str1[<span class="number">0</span>] = <span class="string">&#x27;h&#x27;</span>;  <span class="comment">// 通过下标访问的方式赋值</span></span><br><span class="line">str1[<span class="number">1</span>] = <span class="string">&#x27;e&#x27;</span>;</span><br><span class="line">str1[<span class="number">2</span>] = <span class="string">&#x27;l&#x27;</span>;</span><br><span class="line">str1[<span class="number">3</span>] = <span class="string">&#x27;l&#x27;</span>;</span><br><span class="line">str1[<span class="number">4</span>] = <span class="string">&#x27;o&#x27;</span>;</span><br><span class="line">str1[<span class="number">5</span>] = <span class="string">&#x27;\0&#x27;</span>; <span class="comment">// 最后需要加上字符串的结束标志</span></span><br><span class="line"><span class="built_in">printf</span>(str1);  <span class="comment">// 打印字符串</span></span><br></pre></td></tr></table></figure><p>运行结果如下，成功打印出hello字符串。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/8e7656db84608af3560cd242027d9527.png"></p><h3 id="2-1-字符串结束标志-0"><a href="#2-1-字符串结束标志-0" class="headerlink" title="2.1 字符串结束标志\0"></a>2.1 字符串结束标志\0</h3><p>请注意，所有字符串数组最后都会带上一个隐藏的<code>&#39;\0&#39;</code>作为字符串的结束标志，该结束标志也需要占用一个字节的空间。</p><p>如果缺少了这个结束标志，那么程序就无法确定字符串什么时候结束，字符串就不完整了。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str4[] = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 该字符串末尾会自动带上一个\0</span></span><br><span class="line">str4[<span class="number">11</span>] = <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 尝试删掉最末尾的\0，看看会发生什么？</span></span><br><span class="line"><span class="built_in">printf</span>(str4);  <span class="comment">// 打印字符串</span></span><br></pre></td></tr></table></figure><p>可以看到，原本应该打印完毕 <code>hello worlda</code>就停止的程序，却继续往后打印了非常“经典”的乱码字符<code>烫烫</code>🤣。这也是初学者经常遇到的错误之一。这就是缺少<code>\0</code>结束标志的后果。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/9884e40a6ed20e33ceeec7c3bdb35f9e.png"></p><p>可能又有初学者在这里会犯第二个错误：越界访问。</p><blockquote><p>在数组章节中，我们已经介绍过越界访问的概念。访问了不属于用户的数组空间就是越界访问。</p></blockquote><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str4[] = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 该字符串末尾会自动带上一个\0</span></span><br><span class="line">str4[<span class="number">11</span>] = <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 尝试删掉最末尾的\0</span></span><br><span class="line">str4[<span class="number">12</span>] = <span class="string">&#x27;\0&#x27;</span>;<span class="comment">// 既然删掉了，我给他加上一个不就行了？</span></span><br><span class="line"><span class="built_in">printf</span>(str4);  <span class="comment">// 打印字符串</span></span><br></pre></td></tr></table></figure><p>但实际上，我们的str4字符串，在定义的时候赋值了<code>&quot;hello world&quot;</code>，这个字符串的长度是12。分别是可见的<code>hello world</code>一共11个字符（空格也算入字符中），和末尾隐藏的<code>\0</code>字符。</p><p>编译器会自动为我们开长度12的char数组，即等价于<code>char str4[12] = &quot;hello world&quot;;</code></p><p>数组<code>[]</code>里面的数字是通过<strong>下标</strong>访问的，<strong>下标是从0开始的</strong>，数组中的第一位的下标是0。所以，<code>str4[11]</code>访问的实际上是第十二个位置的<code>\0</code>，而<code>str4[12]</code>访问的数组的第十三个位置，该位置的空间实际上并不属于我们，此时的访问就是<strong>越界访问</strong>了！</p><p>在windows下，这份代码会因为错误提前退出；在linux下，运行会报段错误；</p><p>下图中就是windows下异常退出的情况，可以看到进程退出代码是<strong>负数</strong>，而且最后一行的<code>printf</code>也并没有打印出结果，这是因为代码在下图第24行中的<code>str4[12] = &#39;\0&#39;;</code>就已经因为越界访问提前异常退出程序了。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/5bd424adf0fb711d2c68b0635ecf8e9f.png"></p><p>正常程序中，如果运行正常，程序终止后的退出代码应该是0；非零值都代表运行出错！</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/3d5bd309b5cc469a4508df0c026f8f05.png"></p><h3 id="2-2-strcpy函数"><a href="#2-2-strcpy函数" class="headerlink" title="2.2 strcpy函数"></a>2.2 strcpy函数</h3><p>除了一个一个通过下标访问的方式来赋值外，还可以用库函数strcpy，<a target="_blank" rel="noopener" href="https://legacy.cplusplus.com/reference/cstring/strcpy/?kw=strcpy">点我查看文档</a></p><p>strcpy函数的使用比较简单，只有两个参数，分别是源字符串和目标字符串。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span> * <span class="title">strcpy</span> <span class="params">( <span class="type">char</span> * destination, <span class="type">const</span> <span class="type">char</span> * source )</span></span>;</span><br></pre></td></tr></table></figure><p>该函数有几点说明:</p><ul><li>拷贝的时候，会把源字符串末尾的<code>\0</code>也拷贝过去；</li><li>目标字符串所能容纳的长度必须大于源字符串（长度要包括<code>\0</code>），否则会有越界访问；</li><li>返回值是目标字符串的指针，即返回<code>destination</code>；</li></ul><p>在当前场景中，我们可以用下面的方式使用strcpy，只要保证我们自己设定的字符数组空间大于源字符串即可。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str5[<span class="number">15</span>]; <span class="comment">// 定义一个长度为15的字符串数组</span></span><br><span class="line"><span class="built_in">strcpy</span>(str5,<span class="string">&quot;hello world&quot;</span>); <span class="comment">// 使用strcpy函数，拷贝数据过去</span></span><br></pre></td></tr></table></figure><h3 id="2-3-为什么会打印乱码字符？"><a href="#2-3-为什么会打印乱码字符？" class="headerlink" title="2.3 为什么会打印乱码字符？"></a>2.3 为什么会打印乱码字符？</h3><p>前文中的这份代码，我们将原有的<code>&#39;\0&#39;</code>截止字符替换掉后，因为没有结束标志，printf函数就会一直往后打印，于是就出现了一些常见越界访问和未定义空间才会出现的生僻汉字。</p><p><img src="/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/9884e40a6ed20e33ceeec7c3bdb35f9e.png"></p><blockquote><p>你可能会疑惑，理论上后续的空间是没有人使用的空间，那为什么会打印出这些不知道哪里冒出来的字符呢？那最后又为什么停止了？</p></blockquote><p>其实这个问题的答案很简单：在一个程序中，所有<strong>未使用的内存空间</strong>，内部都存放的是<strong>随机值</strong>。这些随机值组合起来，和GBK&#x2F;UTF-8这类<strong>文字编码</strong>的部分编码对应，就会打印出这些生僻字，也就是网络上俗称的“乱码字符”。</p><blockquote><p>所谓“文字编码”，就是将语言里面的文字转为机器可识别的二进制的一个转换表。ASCII码就是一个文字编码表，但其内部只包含了英语字母和部分符号的转换，于是就会有各类的文字编码，将各国语言以规定的格式转换成机器可以识别的二进制。比较常用的文字编码是UTF-8；</p></blockquote><p>至于为什么会停止？回到ASCII码表上，查表可知，<code>&#39;\0&#39;</code>字符对应的<strong>十进制是0</strong>。</p><p>也就是说，只要我们原本定义的字符串，后续的内存空间中出现了一个<strong>随机值为0</strong>的位置，那么printf打印到这里就会把他当作截止标志，停止打印了。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>对字符串的介绍到这里就over了。总结一下，字符串中最需要关注的两个问题：</p><ul><li>字符串（字符数组）的空间长度，注意不要越界访问；</li><li>末尾的这个<code>&#39;\0&#39;</code>一定不能漏，否则没有结束标志了。</li></ul><p>在OJ刷题中，经常会有拼接字符串相关的题目，如果字符串结束标志控制不到位，就容易把自己弄进一个很难找到的混乱BUG中。说多了都是泪，后续等你开始OJ刷题了，就知道慕雪所言何物了。</p></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/321211845/">https://blog.musnow.top/posts/321211845/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a><a class="post-meta__tags" href="/tags/%E5%9B%9E%E9%A1%BEC%E5%92%8CCpp/">回顾C和Cpp</a></div><div class="post_share"><div class="social-share" data-image="/img/bg/gm7.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload='this.media="all"'><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1936212186/" title="【思源笔记】以思源笔记为例，谈谈什么是端到端加密"><img class="cover" src="https://img.musnow.top/i/2024/07/16e335bfa9f613a7449e038713b6823a.png" onerror='onerror=null,src="/img/404.jpg"' alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【思源笔记】以思源笔记为例，谈谈什么是端到端加密</div></div></a></div><div class="next-post pull-right"><a href="/posts/3142768460/" title="【C语言】何为数组？| 回顾C语言004"><img class="cover" src="/img/bg/gm8.jpg" onerror='onerror=null,src="/img/404.jpg"' alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【C语言】何为数组？| 回顾C语言004</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/4009185516/" title="【VS】如何解决VS编译器scanf报错问题"><img class="cover" src="https://img.musnow.top/i/2023/03/640d51f571284.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-25</div><div class="title">【VS】如何解决VS编译器scanf报错问题</div></div></a></div><div><a href="/posts/2731112594/" title="【VS】如何下载VS2019并初始化C&#x2F;C++环境"><img class="cover" src="https://img.musnow.top/i/2023/02/202203261053622.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-16</div><div class="title">【VS】如何下载VS2019并初始化C&#x2F;C++环境</div></div></a></div><div><a href="/posts/1114620238/" title="【C语言】都2024年了，还适合学C语言吗？| 回顾C语言001"><img class="cover" src="/img/bg/gm6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-28</div><div class="title">【C语言】都2024年了，还适合学C语言吗？| 回顾C语言001</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/favicon.jpg" onerror='this.onerror=null,this.src="/img/friend_404.gif"' alt="avatar"></div><div class="author-info__name">慕雪年华</div><div class="author-info__description">爱折腾的代码初学者</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">439</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">1.常量字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%99%AE%E9%80%9A%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.普通字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BB%93%E6%9D%9F%E6%A0%87%E5%BF%97-0"><span class="toc-text">2.1 字符串结束标志\0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-strcpy%E5%87%BD%E6%95%B0"><span class="toc-text">2.2 strcpy函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%89%93%E5%8D%B0%E4%B9%B1%E7%A0%81%E5%AD%97%E7%AC%A6%EF%BC%9F"><span class="toc-text">2.3 为什么会打印乱码字符？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/5825720428/" title="【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）">【图床】Picgo/Piclist图片上传之前转webp（pic2webp插件）</a><time datetime="2025-04-10T12:29:36.000Z" title="发表于 2025-04-10 20:29:36">2025-04-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9762190903/" title="【SLAM】使用ROS的camera_calibration工具标定D435相机">【SLAM】使用ROS的camera_calibration工具标定D435相机</a><time datetime="2025-04-07T00:09:24.000Z" title="发表于 2025-04-07 08:09:24">2025-04-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9149643829/" title="【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机">【SLAM】在ORB_SLAM2的ROS模式下使用RealSense D435相机</a><time datetime="2025-04-06T09:09:24.000Z" title="发表于 2025-04-06 17:09:24">2025-04-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/8572288919/" title="【SLAM】使用realsense-viewer对Realsense D435进行自校准">【SLAM】使用realsense-viewer对Realsense D435进行自校准</a><time datetime="2025-04-06T00:51:08.000Z" title="发表于 2025-04-06 08:51:08">2025-04-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image:url(/img/main/mothra.webp)"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a><br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a><br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/main.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.19/fancybox/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.8.3/lazyload.iife.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
-  }
-}
+<p>虽然这行代码在VS2019中没有报错，在Linux下的g++也仅仅是报了warning警告，但其本质是<strong>有问题</strong>的！</p>
+<p>下面的文字就是Linux下g++编译时的警告，翻译过来是禁止将<strong>常量字符串</strong>转换为<code>char *</code>类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ g++ test.cpp -o test</span><br><span class="line">test.cpp: In function ‘int main()’:</span><br><span class="line">test.cpp:137:17: warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]</span><br><span class="line">     char *str = &quot;hello world\n&quot;; // 无法接受常量字符串</span><br><span class="line">                 ^~~~~~~~~~~~~~~</span><br></pre></td></tr></table></figure>
 
-function panguInit () {
-  if (true){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
-  } else {
-    panguFn()
-  }
-}
+<h2 id="2-普通字符串"><a href="#2-普通字符串" class="headerlink" title="2.普通字符串"></a>2.普通字符串</h2><p>前面提到，字符串就是一个字符的数组。但我们想定义一个字符串<strong>数组</strong>，也不能用<code>char*</code>，而需要用另外一种方式。</p>
+<p>下面这种在变量名后带<code>[]</code>的写法，就是定义<strong>数组</strong>的语法，在前文已经介绍过了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[] = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 普通字符串的基本定义方式</span></span><br></pre></td></tr></table></figure>
 
-document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      tags: 'ams'
-    },
-    chtml: {
-      scale: 1.1
-    },
-    options: {
-      renderActions: {
-        findScript: [10, doc => {
-          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
-            const display = !!node.type.match(/; *mode=display/)
-            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
-            const text = document.createTextNode('')
-            node.parentNode.replaceChild(text, node)
-            math.start = {node: text, delim: '', n: 0}
-            math.end = {node: text, delim: '', n: 0}
-            doc.math.push(math)
+<p>上方是声明时赋值的写法，编译器在识别到这一行代码后，会自动帮我们创建字符串对应大小的空间，并让str指向这片空间的起始地址。</p>
+<p>需要注意的是，只有初始化的时候能这么写。后续如果想修改这个字符串，需要使用strcpy函数，而不能用&#x3D;直接赋值。strcpy函数会在后文介绍。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str[] = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">str = <span class="string">&quot;hello&quot;</span>; <span class="comment">//错误，不能通过=直接修改</span></span><br><span class="line"><span class="built_in">strcpy</span>(str,<span class="string">&quot;hello&quot;</span>); <span class="comment">// 正确修改方式</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里的str变量本质上是<code>char*</code>类型，是一个字符指针。所有数组变量都是对应类型的指针。</p>
+</blockquote>
+<p>如果想在声明时不赋初值，可以用下面的办法来定义一个字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">15</span>];  <span class="comment">// 定义一个长度为15的字符串数组</span></span><br><span class="line">str1[<span class="number">0</span>] = <span class="string">&#x27;h&#x27;</span>;  <span class="comment">// 通过下标访问的方式赋值</span></span><br><span class="line">str1[<span class="number">1</span>] = <span class="string">&#x27;e&#x27;</span>;</span><br><span class="line">str1[<span class="number">2</span>] = <span class="string">&#x27;l&#x27;</span>;</span><br><span class="line">str1[<span class="number">3</span>] = <span class="string">&#x27;l&#x27;</span>;</span><br><span class="line">str1[<span class="number">4</span>] = <span class="string">&#x27;o&#x27;</span>;</span><br><span class="line">str1[<span class="number">5</span>] = <span class="string">&#x27;\0&#x27;</span>; <span class="comment">// 最后需要加上字符串的结束标志</span></span><br><span class="line"><span class="built_in">printf</span>(str1);  <span class="comment">// 打印字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下，成功打印出hello字符串。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/8e7656db84608af3560cd242027d9527.png"></p>
+<h3 id="2-1-字符串结束标志-0"><a href="#2-1-字符串结束标志-0" class="headerlink" title="2.1 字符串结束标志\0"></a>2.1 字符串结束标志\0</h3><p>请注意，所有字符串数组最后都会带上一个隐藏的<code>&#39;\0&#39;</code>作为字符串的结束标志，该结束标志也需要占用一个字节的空间。</p>
+<p>如果缺少了这个结束标志，那么程序就无法确定字符串什么时候结束，字符串就不完整了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str4[] = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 该字符串末尾会自动带上一个\0</span></span><br><span class="line">str4[<span class="number">11</span>] = <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 尝试删掉最末尾的\0，看看会发生什么？</span></span><br><span class="line"><span class="built_in">printf</span>(str4);  <span class="comment">// 打印字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，原本应该打印完毕 <code>hello worlda</code>就停止的程序，却继续往后打印了非常“经典”的乱码字符<code>烫烫</code>🤣。这也是初学者经常遇到的错误之一。这就是缺少<code>\0</code>结束标志的后果。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/9884e40a6ed20e33ceeec7c3bdb35f9e.png"></p>
+<p>可能又有初学者在这里会犯第二个错误：越界访问。</p>
+<blockquote>
+<p>在数组章节中，我们已经介绍过越界访问的概念。访问了不属于用户的数组空间就是越界访问。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str4[] = <span class="string">&quot;hello world&quot;</span>; <span class="comment">// 该字符串末尾会自动带上一个\0</span></span><br><span class="line">str4[<span class="number">11</span>] = <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 尝试删掉最末尾的\0</span></span><br><span class="line">str4[<span class="number">12</span>] = <span class="string">&#x27;\0&#x27;</span>;<span class="comment">// 既然删掉了，我给他加上一个不就行了？</span></span><br><span class="line"><span class="built_in">printf</span>(str4);  <span class="comment">// 打印字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>但实际上，我们的str4字符串，在定义的时候赋值了<code>&quot;hello world&quot;</code>，这个字符串的长度是12。分别是可见的<code>hello world</code>一共11个字符（空格也算入字符中），和末尾隐藏的<code>\0</code>字符。</p>
+<p>编译器会自动为我们开长度12的char数组，即等价于<code>char str4[12] = &quot;hello world&quot;;</code></p>
+<p>数组<code>[]</code>里面的数字是通过<strong>下标</strong>访问的，<strong>下标是从0开始的</strong>，数组中的第一位的下标是0。所以，<code>str4[11]</code>访问的实际上是第十二个位置的<code>\0</code>，而<code>str4[12]</code>访问的数组的第十三个位置，该位置的空间实际上并不属于我们，此时的访问就是<strong>越界访问</strong>了！</p>
+<p>在windows下，这份代码会因为错误提前退出；在linux下，运行会报段错误；</p>
+<p>下图中就是windows下异常退出的情况，可以看到进程退出代码是<strong>负数</strong>，而且最后一行的<code>printf</code>也并没有打印出结果，这是因为代码在下图第24行中的<code>str4[12] = &#39;\0&#39;;</code>就已经因为越界访问提前异常退出程序了。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/5bd424adf0fb711d2c68b0635ecf8e9f.png"></p>
+<p>正常程序中，如果运行正常，程序终止后的退出代码应该是0；非零值都代表运行出错！</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/3d5bd309b5cc469a4508df0c026f8f05.png"></p>
+<h3 id="2-2-strcpy函数"><a href="#2-2-strcpy函数" class="headerlink" title="2.2 strcpy函数"></a>2.2 strcpy函数</h3><p>除了一个一个通过下标访问的方式来赋值外，还可以用库函数strcpy，<a target="_blank" rel="noopener" href="https://legacy.cplusplus.com/reference/cstring/strcpy/?kw=strcpy">点我查看文档</a></p>
+<p>strcpy函数的使用比较简单，只有两个参数，分别是源字符串和目标字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">char</span> * <span class="title">strcpy</span> <span class="params">( <span class="type">char</span> * destination, <span class="type">const</span> <span class="type">char</span> * source )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>该函数有几点说明:</p>
+<ul>
+<li>拷贝的时候，会把源字符串末尾的<code>\0</code>也拷贝过去；</li>
+<li>目标字符串所能容纳的长度必须大于源字符串（长度要包括<code>\0</code>），否则会有越界访问；</li>
+<li>返回值是目标字符串的指针，即返回<code>destination</code>；</li>
+</ul>
+<p>在当前场景中，我们可以用下面的方式使用strcpy，只要保证我们自己设定的字符数组空间大于源字符串即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str5[<span class="number">15</span>]; <span class="comment">// 定义一个长度为15的字符串数组</span></span><br><span class="line"><span class="built_in">strcpy</span>(str5,<span class="string">&quot;hello world&quot;</span>); <span class="comment">// 使用strcpy函数，拷贝数据过去</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-为什么会打印乱码字符？"><a href="#2-3-为什么会打印乱码字符？" class="headerlink" title="2.3 为什么会打印乱码字符？"></a>2.3 为什么会打印乱码字符？</h3><p>前文中的这份代码，我们将原有的<code>&#39;\0&#39;</code>截止字符替换掉后，因为没有结束标志，printf函数就会一直往后打印，于是就出现了一些常见越界访问和未定义空间才会出现的生僻汉字。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2024/07/9884e40a6ed20e33ceeec7c3bdb35f9e.png"></p>
+<blockquote>
+<p>你可能会疑惑，理论上后续的空间是没有人使用的空间，那为什么会打印出这些不知道哪里冒出来的字符呢？那最后又为什么停止了？</p>
+</blockquote>
+<p>其实这个问题的答案很简单：在一个程序中，所有<strong>未使用的内存空间</strong>，内部都存放的是<strong>随机值</strong>。这些随机值组合起来，和GBK&#x2F;UTF-8这类<strong>文字编码</strong>的部分编码对应，就会打印出这些生僻字，也就是网络上俗称的“乱码字符”。</p>
+<blockquote>
+<p>所谓“文字编码”，就是将语言里面的文字转为机器可识别的二进制的一个转换表。ASCII码就是一个文字编码表，但其内部只包含了英语字母和部分符号的转换，于是就会有各类的文字编码，将各国语言以规定的格式转换成机器可以识别的二进制。比较常用的文字编码是UTF-8；</p>
+</blockquote>
+<p>至于为什么会停止？回到ASCII码表上，查表可知，<code>&#39;\0&#39;</code>字符对应的<strong>十进制是0</strong>。</p>
+<p>也就是说，只要我们原本定义的字符串，后续的内存空间中出现了一个<strong>随机值为0</strong>的位置，那么printf打印到这里就会把他当作截止标志，停止打印了。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>对字符串的介绍到这里就over了。总结一下，字符串中最需要关注的两个问题：</p>
+<ul>
+<li>字符串（字符数组）的空间长度，注意不要越界访问；</li>
+<li>末尾的这个<code>&#39;\0&#39;</code>一定不能漏，否则没有结束标志了。</li>
+</ul>
+<p>在OJ刷题中，经常会有拼接字符串相关的题目，如果字符串结束标志控制不到位，就容易把自己弄进一个很难找到的混乱BUG中。说多了都是泪，后续等你开始OJ刷题了，就知道慕雪所言何物了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/321211845/">https://blog.musnow.top/posts/321211845/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C%E8%AF%AD%E8%A8%80/">C语言</a><a class="post-meta__tags" href="/tags/%E5%9B%9E%E9%A1%BEC%E5%92%8CCpp/">回顾C和Cpp</a></div><div class="post-share"><div class="social-share" data-image="/img/bg/gm40.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"/></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/3142768460/" title="【C语言】何为数组？| 回顾C语言004"><img class="cover" src="/img/bg/gm15.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【C语言】何为数组？| 回顾C语言004</div></div><div class="info-2"><div class="info-item-1">认识一下C语言的数组</div></div></div></a><a class="pagination-related" href="/posts/1936212186/" title="【思源笔记】以思源笔记为例，谈谈什么是端到端加密"><img class="cover" src="https://img.musnow.top/i/2024/07/16e335bfa9f613a7449e038713b6823a.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【思源笔记】以思源笔记为例，谈谈什么是端到端加密</div></div><div class="info-2"><div class="info-item-1">以思源笔记为例，谈谈什么是端到端加密</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4009185516/" title="【VS】如何解决VS编译器scanf报错问题"><img class="cover" src="https://img.musnow.top/i/2023/03/640d51f571284.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-25</div><div class="info-item-2">【VS】如何解决VS编译器scanf报错问题</div></div><div class="info-2"><div class="info-item-1">问题来源当我们使用vs编译器编译c语言代码，并需要用到一些非常常用的库函数的时候（如scanf） vs编译器通常会报出如下错误  有的时候即便报错了，程序也可以正常运行。但有的时候就会同图中一样，程序无法运行！这时候就头大了。 出现这个错误的原因是vs编译器认为这些库函数是“不安全的”（我可真谢谢你，担duo心guan那xian么shi多，微软） 解决方法解决这个报错问题的方法有两种 1.使用_s函数步骤如图所示，我们可以在库函数后面加一个_s，这时候vs就会把它认为是“安全的函数”，程序就可以正常运行了。 12double m;scanf_s(&quot;%lf&quot;,&amp;m);  如下图所示，代码编译运行成功。  这个方法本质上是调用了win下vs重写过后的scanf_s，因为是vs重写过后的，所以自然是安全的函数。 方法一的致命缺点但是这么做有一个非常大的弊端：该代码只能在vs编译器里运行。 如图，如果我们将这一串带_s的代码复制到 dev-c++...</div></div></div></a><a class="pagination-related" href="/posts/2731112594/" title="【VS】如何下载VS2019并初始化C&#x2F;C++环境"><img class="cover" src="https://img.musnow.top/i/2023/02/202203261053622.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-09-16</div><div class="info-item-2">【VS】如何下载VS2019并初始化C&#x2F;C++环境</div></div><div class="info-2"><div class="info-item-1">VS的全称是Visual Studio，和vscode不是一个东西，可不要下错了哦。 1.下载，百度Visual...</div></div></div></a><a class="pagination-related" href="/posts/1114620238/" title="【C语言】都2024年了，还适合学C语言吗？| 回顾C语言001"><img class="cover" src="/img/bg/gm24.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-28</div><div class="info-item-2">【C语言】都2024年了，还适合学C语言吗？| 回顾C语言001</div></div><div class="info-2"><div class="info-item-1">都2024年了，还适合学C语言吗？</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">443</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">1.常量字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%99%AE%E9%80%9A%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">2.普通字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BB%93%E6%9D%9F%E6%A0%87%E5%BF%97-0"><span class="toc-text">2.1 字符串结束标志\0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-strcpy%E5%87%BD%E6%95%B0"><span class="toc-text">2.2 strcpy函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%89%93%E5%8D%B0%E4%B9%B1%E7%A0%81%E5%AD%97%E7%AC%A6%EF%BC%9F"><span class="toc-text">2.3 为什么会打印乱码字符？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9085567599/" title="【Mac】拒绝parallels toolbox，从我做起！">【Mac】拒绝parallels toolbox，从我做起！</a><time datetime="2025-05-26T00:57:24.000Z" title="发表于 2025-05-26 08:57:24">2025-05-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/7827607861/" title="【Hexo】将代码块中tab替换为空格（修改tab_replace）">【Hexo】将代码块中tab替换为空格（修改tab_replace）</a><time datetime="2025-05-16T02:00:57.000Z" title="发表于 2025-05-16 10:00:57">2025-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2725694758/" title="【MCP】了解远程MCP调用背后使用的SSE协议">【MCP】了解远程MCP调用背后使用的SSE协议</a><time datetime="2025-04-20T06:47:57.000Z" title="发表于 2025-04-20 14:47:57">2025-04-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/2831928244/" title="【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？">【MCP】详细了解MCP协议：和function call的区别何在？如何使用MCP？</a><time datetime="2025-04-19T00:56:01.000Z" title="发表于 2025-04-19 08:56:01">2025-04-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
           }
-        }, '']
+        }
       }
+
+      const script = document.createElement('script')
+      script.src = '/pluginsSrc/mathjax/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
     }
   }
-  
-  const script = document.createElement('script')
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
-  script.id = 'MathJax-script'
-  script.async = true
-  document.head.appendChild(script)
-} else {
-  MathJax.startup.document.state(0)
-  MathJax.texReset()
-  MathJax.typesetPromise()
-}</script><script>(() => {
-  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
-  if ($mermaid.length === 0) return
-  const runMermaid = () => {
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
 
-    Array.from($mermaid).forEach((item, index) => {
+    ele.forEach((item, index) => {
       const mermaidSrc = item.firstElementChild
-      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
-      const mermaidID = 'mermaid-' + index
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
       const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
 
       const renderFn = mermaid.render(mermaidID, mermaidDefinition)
-
-      const renderV10 = () => {
-        renderFn.then(({svg}) => {
-          mermaidSrc.insertAdjacentHTML('afterend', svg)
-        })
-      }
-
-      const renderV9 = svg => {
+      const renderMermaid = svg => {
         mermaidSrc.insertAdjacentHTML('afterend', svg)
       }
 
-      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
     })
   }
 
   const loadMermaid = () => {
-    window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.2/mermaid.min.js').then(runMermaid)
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
   }
 
-  btf.addModeChange('mermaid', runMermaid)
-
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
   window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
-})()</script><script>function loadArtalk () {
-  function initArtalk () {
-    window.artalkItem = new Artalk(Object.assign({
-      el: '#artalk-wrap',
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
       server: 'https://artk.musnow.top',
       site: 'mublog',
-      pageKey: location.pathname,
       darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
-      countEl: '.artalk-count'
-    },null))
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
 
     if (GLOBAL_CONFIG.lightbox === 'null') return
-    window.artalkItem.use(ctx => {
-      ctx.on('list-loaded', () => {
-        ctx.getCommentList().forEach(comment => {
-          const $content = comment.getRender().$content
-          btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
-        })
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
       })
     })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
   }
 
-  if (typeof window.artalkItem === 'object') initArtalk()
-  else {
-    getCSS('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.css').then(()=>{
-      getScript('https://cdnjs.cloudflare.com/ajax/libs/artalk/2.5.5/Artalk.min.js').then(initArtalk)
-    })
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('/pluginsSrc/artalk/dist/Artalk.css')
+      await btf.getScript('/pluginsSrc/artalk/dist/Artalk.js')
+      initArtalk(el, pageKey)
+    }
   }
-}
 
-function artalkChangeMode (theme) {
-  const artalkWrap = document.getElementById('artalk-wrap')
-  if (!(artalkWrap && artalkWrap.children.length)) return
-  const isDark = theme === 'dark'
-  window.artalkItem.setDarkMode(isDark)
-}
-
-btf.addModeChange('artalk', artalkChangeMode)
-
-if ('Artalk' === 'Artalk' || !false) {
-  if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
-  else loadArtalk()
-} else {
-  function loadOtherComment () {
-    loadArtalk()
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
   }
-}</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/click-heart.min.js" async mobile="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span> 数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-butterfly/4.9.0/js/search/local-search.min.js"></script></div></div></body></html>
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
