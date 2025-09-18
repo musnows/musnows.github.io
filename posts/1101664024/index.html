@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【SLAM】在ROS下发布ORB_SLAM2的位姿（RGB-D） | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文介绍了如何修改ORB_SLAM2的ROS Demo，使其能够在建图的同时发布位姿。本文只涉及ROS RGB-D的代码修改。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【SLAM】在ROS下发布ORB_SLAM2的位姿（RGB-D）">
+<meta property="og:url" content="https://blog.musnow.top/posts/1101664024/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="本文介绍了如何修改ORB_SLAM2的ROS Demo，使其能够在建图的同时发布位姿。本文只涉及ROS RGB-D的代码修改。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.musnow.top/i/2025/05/fceab2ff6e68086b764c316f5fae8a1b.webp">
+<meta property="article:published_time" content="2025-05-31T09:10:00.000Z">
+<meta property="article:modified_time" content="2025-06-02T01:46:52.000Z">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="SLAM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.musnow.top/i/2025/05/fceab2ff6e68086b764c316f5fae8a1b.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【SLAM】在ROS下发布ORB_SLAM2的位姿（RGB-D）",
+  "url": "https://blog.musnow.top/posts/1101664024/",
+  "image": "https://img.musnow.top/i/2025/05/fceab2ff6e68086b764c316f5fae8a1b.webp",
+  "datePublished": "2025-05-31T09:10:00.000Z",
+  "dateModified": "2025-06-02T01:46:52.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "慕雪年华",
+      "url": "https://blog.musnow.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/1101664024/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【SLAM】在ROS下发布ORB_SLAM2的位姿（RGB-D）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script>var _hmt = _hmt || [];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?f444e8de702765e309d1a751aa12203e";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">451</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://img.musnow.top/i/2025/05/fceab2ff6e68086b764c316f5fae8a1b.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a><a class="nav-page-title" href="/"><span class="site-name">【SLAM】在ROS下发布ORB_SLAM2的位姿（RGB-D）</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【SLAM】在ROS下发布ORB_SLAM2的位姿（RGB-D）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-31T09:10:00.000Z" title="发表于 2025-05-31 17:10:00">2025-05-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-02T01:46:52.000Z" title="更新于 2025-06-02 09:46:52">2025-06-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/">项目开发记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;距离上次更新本文已经过去了&quot;,&quot;messageNext&quot;:&quot;天，文章部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2025-06-02 09:46:52&quot;}" hidden></div><p>本文介绍了如何修改ORB_SLAM2的ROS Demo，使其能够在建图的同时发布位姿。本文只涉及ROS RGB-D的代码修改。</p>
+<h2 id="修改代码">修改代码</h2>
+<p>直接进入正题，需要修改的代码文件是<code>Examples/ROS/ORB_SLAM2/src/ros_rgbd.cc</code>这个demo文件。ORB_SLAM2本身其实已经存放了相机的位姿和路径数据了，也提供了获取数据的接口，我们要做的就是将其转成ROS能够支持的格式并通过Topic发布出去。</p>
+<p>首先添加头文件</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tf/transform_broadcaster.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../../../include/Converter.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;nav_msgs/Path.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>然后在ImageGrabber类后方，main函数之前全局声明下面三个变量，注意是<strong>全局声明</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ros::Publisher pose_pub;</span><br><span class="line">nav_msgs::Path rgbd_path;</span><br><span class="line">ros::Publisher rgbd_path_pub;</span><br></pre></td></tr></table></figure>
+<p>main函数中<code>ros::spin();</code>之<strong>前</strong>新增如下代码，这里设置了我们发布位姿和路径的两个Topic，后续需要在rviz里面订阅这两个Topic来看到发布的位姿数据。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发布位姿</span></span><br><span class="line">pose_pub = nh.<span class="built_in">advertise</span>&lt;geometry_msgs::PoseStamped&gt;(<span class="string">&quot;ORB_SLAM/pose&quot;</span>, <span class="number">5</span>);</span><br><span class="line"><span class="comment">// 发布路径</span></span><br><span class="line">rgbd_path_pub = nh.<span class="built_in">advertise</span>&lt;nav_msgs::Path&gt;(<span class="string">&quot;ORB_SLAM/path&quot;</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>在<code>ImageGrabber::GrabRGBD</code>函数的最后修改，修改和添加如下内容。这里是用了一个<code>cv::Mat</code>存放了<code>mpSLAM-&gt;TrackRGBD</code>函数的返回结果（之前是没有用变量存放的）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发布位姿</span></span><br><span class="line">cv::Mat Tcw;</span><br><span class="line">Tcw = mpSLAM-&gt;<span class="built_in">TrackRGBD</span>(cv_ptrRGB-&gt;image, cv_ptrD-&gt;image, cv_ptrRGB-&gt;header.stamp.<span class="built_in">toSec</span>());</span><br><span class="line"><span class="keyword">if</span> (!Tcw.<span class="built_in">empty</span>()) <span class="comment">// 注意需要判断是否为空，可能为空</span></span><br><span class="line">&#123;</span><br><span class="line">    geometry_msgs::PoseStamped pose;</span><br><span class="line">    pose.header.stamp = ros::Time::<span class="built_in">now</span>();</span><br><span class="line">    pose.header.frame_id = <span class="string">&quot;map&quot;</span>; <span class="comment">// 注意这里，必须是map而不是path</span></span><br><span class="line"></span><br><span class="line">    cv::Mat Rwc = Tcw.<span class="built_in">rowRange</span>(<span class="number">0</span>, <span class="number">3</span>).<span class="built_in">colRange</span>(<span class="number">0</span>, <span class="number">3</span>).<span class="built_in">t</span>(); <span class="comment">// Rotation information</span></span><br><span class="line">    cv::Mat twc = -Rwc * Tcw.<span class="built_in">rowRange</span>(<span class="number">0</span>, <span class="number">3</span>).<span class="built_in">col</span>(<span class="number">3</span>);      <span class="comment">// translation information</span></span><br><span class="line">    vector&lt;<span class="type">float</span>&gt; q = ORB_SLAM2::Converter::<span class="built_in">toQuaternion</span>(Rwc);</span><br><span class="line"></span><br><span class="line">    tf::Transform new_transform;</span><br><span class="line">    new_transform.<span class="built_in">setOrigin</span>(tf::<span class="built_in">Vector3</span>(twc.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>, <span class="number">0</span>), twc.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>, <span class="number">1</span>), twc.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>, <span class="number">2</span>)));</span><br><span class="line">    <span class="function">tf::Quaternion <span class="title">quaternion</span><span class="params">(q[<span class="number">0</span>], q[<span class="number">1</span>], q[<span class="number">2</span>], q[<span class="number">3</span>])</span></span>;</span><br><span class="line">    new_transform.<span class="built_in">setRotation</span>(quaternion);</span><br><span class="line">    tf::<span class="built_in">poseTFToMsg</span>(new_transform, pose.pose);</span><br><span class="line">    pose_pub.<span class="built_in">publish</span>(pose); <span class="comment">// 发布位姿</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 发布路径</span></span><br><span class="line">    rgbd_path.header.frame_id = <span class="string">&quot;map&quot;</span>;</span><br><span class="line">    rgbd_path.header.stamp = ros::Time::<span class="built_in">now</span>();</span><br><span class="line">    rgbd_path.poses.<span class="built_in">push_back</span>(pose);</span><br><span class="line">    rgbd_path_pub.<span class="built_in">publish</span>(rgbd_path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里就修改完成了，先使用项目根目录下的<code>build.sh</code>脚本编译ORB_SLAM2普通版本，然后使用<code>build_ros.sh</code>脚本编译ROS版本。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ORB_SLAM2 <span class="comment"># 先进入文件夹</span></span><br><span class="line"><span class="built_in">export</span> ROS_PACKAGE_PATH=<span class="variable">$ROS_PACKAGE_PATH</span>:<span class="variable">$PWD</span>/Examples/ROS/ORB_SLAM2</span><br><span class="line">./build.sh</span><br><span class="line">./build_ros.sh</span><br></pre></td></tr></table></figure>
+<p>下面给出完整的demo代码，也可以在<a target="_blank" rel="noopener" href="https://github.com/musnows/ORB_SLAM2/commit/9e018fc5baea03f707e9d75d58c4b14471c375d6">Github</a>查看。</p>
+<details class="toggle" ><summary class="toggle-button" style="">修改后ros_rgbd.cc的完整代码</summary><div class="toggle-content"><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ros/ros.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cv_bridge/cv_bridge.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;message_filters/subscriber.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;message_filters/time_synchronizer.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;message_filters/sync_policies/approximate_time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/core/core.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../../../include/System.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tf/transform_broadcaster.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../../../include/Converter.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;nav_msgs/Path.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ImageGrabber</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">ImageGrabber</span>(ORB_SLAM2::System *pSLAM) : <span class="built_in">mpSLAM</span>(pSLAM) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">GrabRGBD</span><span class="params">(<span class="type">const</span> sensor_msgs::ImageConstPtr &amp;msgRGB, <span class="type">const</span> sensor_msgs::ImageConstPtr &amp;msgD)</span></span>;</span><br><span class="line"></span><br><span class="line">    ORB_SLAM2::System *mpSLAM;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ros::Publisher pose_pub;</span><br><span class="line">nav_msgs::Path rgbd_path;</span><br><span class="line">ros::Publisher rgbd_path_pub;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ros::<span class="built_in">init</span>(argc, argv, <span class="string">&quot;RGBD&quot;</span>);</span><br><span class="line">    ros::<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        cerr &lt;&lt; endl</span><br><span class="line">             &lt;&lt; <span class="string">&quot;Usage: rosrun ORB_SLAM2 RGBD path_to_vocabulary path_to_settings&quot;</span> &lt;&lt; endl;</span><br><span class="line">        ros::<span class="built_in">shutdown</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create SLAM system. It initializes all system threads and gets ready to process frames.</span></span><br><span class="line">    <span class="function">ORB_SLAM2::System <span class="title">SLAM</span><span class="params">(argv[<span class="number">1</span>], argv[<span class="number">2</span>], ORB_SLAM2::System::RGBD, <span class="literal">true</span>)</span></span>;</span><br><span class="line">    SLAM.<span class="built_in">LoadMap</span>(<span class="string">&quot;/home/bill/work/3dslam/orb_slam2/MapPointandKeyFrame.bin&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function">ImageGrabber <span class="title">igb</span><span class="params">(&amp;SLAM)</span></span>;</span><br><span class="line"></span><br><span class="line">    ros::NodeHandle nh;</span><br><span class="line"></span><br><span class="line">    <span class="function">message_filters::Subscriber&lt;sensor_msgs::Image&gt; <span class="title">rgb_sub</span><span class="params">(nh, <span class="string">&quot;/camera/rgb/image_raw&quot;</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="function">message_filters::Subscriber&lt;sensor_msgs::Image&gt; <span class="title">depth_sub</span><span class="params">(nh, <span class="string">&quot;/camera/depth/image_raw&quot;</span>, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">typedef</span> message_filters::sync_policies::ApproximateTime&lt;sensor_msgs::Image, sensor_msgs::Image&gt; sync_pol;</span><br><span class="line">    <span class="function">message_filters::Synchronizer&lt;sync_pol&gt; <span class="title">sync</span><span class="params">(sync_pol(<span class="number">10</span>), rgb_sub, depth_sub)</span></span>;</span><br><span class="line">    sync.<span class="built_in">registerCallback</span>(boost::<span class="built_in">bind</span>(&amp;ImageGrabber::GrabRGBD, &amp;igb, _1, _2));</span><br><span class="line">    pose_pub = nh.<span class="built_in">advertise</span>&lt;geometry_msgs::PoseStamped&gt;(<span class="string">&quot;ORB_SLAM/pose&quot;</span>, <span class="number">5</span>); <span class="comment">// 发布位姿</span></span><br><span class="line">    rgbd_path_pub = nh.<span class="built_in">advertise</span>&lt;nav_msgs::Path&gt;(<span class="string">&quot;ORB_SLAM/path&quot;</span>, <span class="number">10</span>);       <span class="comment">// 发布路径</span></span><br><span class="line"></span><br><span class="line">    ros::<span class="built_in">spin</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Stop all threads</span></span><br><span class="line">    SLAM.<span class="built_in">Shutdown</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Save camera trajectory</span></span><br><span class="line">    SLAM.<span class="built_in">SaveKeyFrameTrajectoryTUM</span>(<span class="string">&quot;KeyFrameTrajectory.txt&quot;</span>);</span><br><span class="line">    SLAM.<span class="built_in">SaveMap</span>(<span class="string">&quot;MapPointandKeyFrame.bin&quot;</span>);</span><br><span class="line"></span><br><span class="line">    ros::<span class="built_in">shutdown</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ImageGrabber::GrabRGBD</span><span class="params">(<span class="type">const</span> sensor_msgs::ImageConstPtr &amp;msgRGB, <span class="type">const</span> sensor_msgs::ImageConstPtr &amp;msgD)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Copy the ros image message to cv::Mat.</span></span><br><span class="line">    cv_bridge::CvImageConstPtr cv_ptrRGB;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        cv_ptrRGB = cv_bridge::<span class="built_in">toCvShare</span>(msgRGB);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">catch</span> (cv_bridge::Exception &amp;e)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">ROS_ERROR</span>(<span class="string">&quot;cv_bridge exception: %s&quot;</span>, e.<span class="built_in">what</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cv_bridge::CvImageConstPtr cv_ptrD;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        cv_ptrD = cv_bridge::<span class="built_in">toCvShare</span>(msgD);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">catch</span> (cv_bridge::Exception &amp;e)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">ROS_ERROR</span>(<span class="string">&quot;cv_bridge exception: %s&quot;</span>, e.<span class="built_in">what</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 发布位姿</span></span><br><span class="line">    cv::Mat Tcw;</span><br><span class="line">    Tcw = mpSLAM-&gt;<span class="built_in">TrackRGBD</span>(cv_ptrRGB-&gt;image, cv_ptrD-&gt;image, cv_ptrRGB-&gt;header.stamp.<span class="built_in">toSec</span>());</span><br><span class="line">    <span class="keyword">if</span> (!Tcw.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        geometry_msgs::PoseStamped pose;</span><br><span class="line">        pose.header.stamp = ros::Time::<span class="built_in">now</span>();</span><br><span class="line">        pose.header.frame_id = <span class="string">&quot;map&quot;</span>; <span class="comment">// 注意这里，必须是map而不是path</span></span><br><span class="line"></span><br><span class="line">        cv::Mat Rwc = Tcw.<span class="built_in">rowRange</span>(<span class="number">0</span>, <span class="number">3</span>).<span class="built_in">colRange</span>(<span class="number">0</span>, <span class="number">3</span>).<span class="built_in">t</span>(); <span class="comment">// Rotation information</span></span><br><span class="line">        cv::Mat twc = -Rwc * Tcw.<span class="built_in">rowRange</span>(<span class="number">0</span>, <span class="number">3</span>).<span class="built_in">col</span>(<span class="number">3</span>);      <span class="comment">// translation information</span></span><br><span class="line">        vector&lt;<span class="type">float</span>&gt; q = ORB_SLAM2::Converter::<span class="built_in">toQuaternion</span>(Rwc);</span><br><span class="line"></span><br><span class="line">        tf::Transform new_transform;</span><br><span class="line">        new_transform.<span class="built_in">setOrigin</span>(tf::<span class="built_in">Vector3</span>(twc.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>, <span class="number">0</span>), twc.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>, <span class="number">1</span>), twc.<span class="built_in">at</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>, <span class="number">2</span>)));</span><br><span class="line">        <span class="function">tf::Quaternion <span class="title">quaternion</span><span class="params">(q[<span class="number">0</span>], q[<span class="number">1</span>], q[<span class="number">2</span>], q[<span class="number">3</span>])</span></span>;</span><br><span class="line">        new_transform.<span class="built_in">setRotation</span>(quaternion);</span><br><span class="line">        tf::<span class="built_in">poseTFToMsg</span>(new_transform, pose.pose);</span><br><span class="line">        pose_pub.<span class="built_in">publish</span>(pose); <span class="comment">// 发布位姿</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发布路径</span></span><br><span class="line">        rgbd_path.header.frame_id = <span class="string">&quot;map&quot;</span>;</span><br><span class="line">        rgbd_path.header.stamp = ros::Time::<span class="built_in">now</span>();</span><br><span class="line">        rgbd_path.poses.<span class="built_in">push_back</span>(pose);</span><br><span class="line">        rgbd_path_pub.<span class="built_in">publish</span>(rgbd_path);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div></details>
+<p>截个图，证明一下俺的代码是能正常编译的。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/05/33ecd0262d5239e316d208e49c1f4230.webp" alt="image.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[ 77%] Linking CXX executable ../Stereo</span><br><span class="line">[ 88%] Linking CXX executable ../RGBD</span><br><span class="line">[ 88%] Built target Stereo</span><br><span class="line">[ 88%] Built target RGBD</span><br><span class="line">[100%] Linking CXX executable ../MonoAR</span><br><span class="line">[100%] Built target MonoAR</span><br></pre></td></tr></table></figure>
+<h2 id="测试效果">测试效果</h2>
+<p>先在一个终端里面执行roscore命令，在另外一个终端里面使用<strong>rviz</strong>命令启动前端查看器。</p>
+<p>另外再开一个终端，以RGBD模式启动ORB_SLAM2程序，注意需要修改TUM1.yaml文件中的DepthMapFactor为<code>1.0</code>，该参数ROS需要修改为<code>1.0</code>，直接运行是<code>5000.0</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:$PWD/Examples/ROS/ORB_SLAM2</span><br><span class="line">rosrun ORB_SLAM2 RGBD Vocabulary/ORBvoc.txt Examples/RGB-D/TUM<span class="number">1.</span>yaml</span><br></pre></td></tr></table></figure>
+<p>在左下角add里面选择<code>by topic</code>，订阅我们刚刚在ORB_SLAM2中发布的两个topic，注意需要启动ORB_SLAM2之后才能看到这两个topic。</p>
+<blockquote>
+<p>下图是从参考博客里面借来的，因为我自己忘记截图了。</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/05/290a78acf0230dc816889465607c7ab3.webp" alt="image.png"></p>
+<p>rviz订阅完毕这两个topic之后，就可以开始播放tum数据集的bag文件了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rosbag play \</span><br><span class="line">    datasets/TUM/rgbd_dataset_freiburg1_desk.bag \</span><br><span class="line">    /camera/rgb/image_color:=/camera/rgb/image_raw \</span><br><span class="line">    /camera/depth/image:=/camera/depth/image_raw</span><br></pre></td></tr></table></figure>
+<p>能够观察到红色的箭头代表相机位姿，绿色线条代表相机走过的路径。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/05/4726ebdf968856e3c73fef762580daad.webp" alt="image.png"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/05/fceab2ff6e68086b764c316f5fae8a1b.webp" alt="image.png"></p>
+<p>至此，位姿发布功能测试成功。</p>
+<h2 id="参考博客">参考博客</h2>
+<p>这里要提醒一下，参考博客中给出的代码是错的，主要是frame_id设置的不对，在我的测试环境中frame_id必须要设置为map，而不是path。如果你在修改了代码之后遇到了<code>Fix Frame [map] does not exist</code>的报错，就说明你的frame_id设置错误了。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/05/1c22f2d0bf3f055aa645d5a3ef503d19.webp" alt="image.png"></p>
+<p>参考博客：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/YiYeZhiNian/article/details/109384099">blog.csdn.net/YiYeZhiNian/article/details/109384099</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qinqinxiansheng/article/details/108288646">blog.csdn.net/qinqinxiansheng/article/details/108288646</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/raulmur/ORB_SLAM2/issues/597">github.com/raulmur/ORB_SLAM2/issues/597</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/1101664024/">https://blog.musnow.top/posts/1101664024/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/SLAM/">SLAM</a></div><div class="post-share"><div class="social-share" data-image="https://img.musnow.top/i/2025/05/fceab2ff6e68086b764c316f5fae8a1b.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"/></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/2657887526/" title="【SLAM】使用evo工具来绘制ORB_SLAM2轨迹图，评估ATE\RPE指标"><img class="cover" src="https://img.musnow.top/i/2025/05/95e2da1799dad391d8d747a7e1da8472.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【SLAM】使用evo工具来绘制ORB_SLAM2轨迹图，评估ATE\RPE指标</div></div><div class="info-2"><div class="info-item-1">本文介绍了如何使用evo工具来绘制ORB_SLAM2的轨迹图和进行ATE\RPE评估。</div></div></div></a><a class="pagination-related" href="/posts/4576584980/" title="【JAVA】SDKMAN环境管理工具"><img class="cover" src="/img/bg/gm19.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【JAVA】SDKMAN环境管理工具</div></div><div class="info-2"><div class="info-item-1">本文介绍了环境管理工具SDKMAN，他可以辅助我们管理多个版本的JDK、Gradle和Maven环境，并可快捷切换。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/1589125738/" title="【SLAM】于ubuntu18.04上纯CPU运行GCNv2_SLAM的记录（ARM64&#x2F;AMD64）"><img class="cover" src="https://img.musnow.top/i/2025/01/1cf6ea0426239abcba02e8a38ce24bea.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-01-31</div><div class="info-item-2">【SLAM】于ubuntu18.04上纯CPU运行GCNv2_SLAM的记录（ARM64&#x2F;AMD64）</div></div><div class="info-2"><div class="info-item-1">配置GCNv2_SLAM所需的环境并实现纯CPU运行项目的全过程记录（ARM64/AMD64）</div></div></div></a><a class="pagination-related" href="/posts/7873538113/" title="【SLAM】在本地虚拟机和AutoDL云端环境以TUM-RGBD数据集运行ORB_SLAM3"><img class="cover" src="https://img.musnow.top/i/2025/02/fb081dc6226497056b3613b2220e9aa9.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-04</div><div class="info-item-2">【SLAM】在本地虚拟机和AutoDL云端环境以TUM-RGBD数据集运行ORB_SLAM3</div></div><div class="info-2"><div class="info-item-1">在本地虚拟机和AutoDL云端环境以TUM-RGBD数据集运行ORB_SLAM3的介绍</div></div></div></a><a class="pagination-related" href="/posts/5090585017/" title="【SLAM】在 ubuntu 18.04 arm 中以ROS环境编译与运行ORB_SLAM3"><img class="cover" src="https://img.musnow.top/i/2025/02/4532d161bce1a806b99e91a7f55c5097.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-02-09</div><div class="info-item-2">【SLAM】在 ubuntu 18.04 arm 中以ROS环境编译与运行ORB_SLAM3</div></div><div class="info-2"><div class="info-item-1">在 ubuntu 18.04 arm 中于ROS环境编译与运行ORB_SLAM3，并以TUM数据集测试了ROS下单目、双目和RGB-D运行</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">451</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">75</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81"><span class="toc-text">修改代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%95%88%E6%9E%9C"><span class="toc-text">测试效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%8D%9A%E5%AE%A2"><span class="toc-text">参考博客</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/6151856853/" title="【Agent.02】市面上常见的大模型有哪些？">【Agent.02】市面上常见的大模型有哪些？</a><time datetime="2025-09-15T00:42:09.000Z" title="发表于 2025-09-15 08:42:09">2025-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/6796656750/" title="【Agent.01】AI Agent智能体开发专题引言">【Agent.01】AI Agent智能体开发专题引言</a><time datetime="2025-09-06T14:12:23.000Z" title="发表于 2025-09-06 22:12:23">2025-09-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4710483697/" title="【AI】AI对26届计算机校招的影响">【AI】AI对26届计算机校招的影响</a><time datetime="2025-08-31T07:12:29.000Z" title="发表于 2025-08-31 15:12:29">2025-08-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/9373074383/" title="【win】关闭windows系统切换输入法的其他快捷键（除了win+空格）">【win】关闭windows系统切换输入法的其他快捷键（除了win+空格）</a><time datetime="2025-08-24T07:52:44.000Z" title="发表于 2025-08-24 15:52:44">2025-08-24</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/pluginsSrc/mathjax/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
+      server: 'https://artk.musnow.top',
+      site: 'mublog',
+      darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
+
+    if (GLOBAL_CONFIG.lightbox === 'null') return
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
+      })
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
+  }
+
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('/pluginsSrc/artalk/dist/Artalk.css')
+      await btf.getScript('/pluginsSrc/artalk/dist/Artalk.js')
+      initArtalk(el, pageKey)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
+  }
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script></div><script src="/js/domain_check.js"></script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

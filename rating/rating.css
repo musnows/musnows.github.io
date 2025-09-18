@@ -50,6 +50,16 @@
     font-size: 12px;
     color: var(--heo-secondtext);
     line-height: 1;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rating-item-content-item-date {
+    font-size: 12px;
+    color: var(--heo-secondtext);
+    line-height: 1;
     margin-bottom: 12px;
     white-space: nowrap;
     overflow: hidden;
