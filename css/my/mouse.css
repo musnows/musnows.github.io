@@ -1,0 +1,6 @@
+body {
+  cursor: url("/images/mouse/mouse_arry.cur"), auto;
+}
+a {
+  cursor: url("/images/mouse/mouse_hand.cur"), auto !important;
+}

@@ -373,7 +373,12 @@
 <p>在我的视频点播项目中，就是用了如下语句设置了一个<code>TIMESTAMP</code>字段，做为视频的上传时间</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert_time <span class="type">TIMESTAMP</span> <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span> comment <span class="string">&#x27;视频创建时间&#x27;</span>,</span><br></pre></td></tr></table></figure>
 <p>但我发现，即便是用了<code>TIMESTAMP</code>，查询的时候依旧显示的是可读时间</p>
-<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/05/6455fd8499b5f.png" alt="image-20230506151100813"></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://img.musnow.top/i/2023/05/6455fd8499b5f.png"
+                      alt="image-20230506151100813"
+                ></p>
 <p>需要使用如下的语句进行查询，才会显示<strong>时间戳</strong>的数字</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> UNIX_TIMESTAMP(insert_time) <span class="keyword">AS</span> <span class="type">timestamp</span> <span class="keyword">FROM</span> tb_video;</span><br></pre></td></tr></table></figure>
 <p>效果如下</p>
@@ -433,7 +438,12 @@
 <p>相当于对使用这个数据库所有开发者的约束，必须要遵守枚举内部的数据要求。</p>
 <h4 id="4-1-1-通过数字插入">4.1.1 通过数字插入</h4>
 <p>除了通过直接指定元素来插入，还可以通过数字来插入</p>
-<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2023/07/3fa3c286554de8eeda7a2e1d5367399d.png" alt="image-20230713113312618"></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://img.musnow.top/i/2023/07/3fa3c286554de8eeda7a2e1d5367399d.png"
+                      alt="image-20230713113312618"
+                ></p>
 <p>我通过数字3来指定weekday里面的值，可以看到插入后的结果为<code>wednesday</code>，即枚举中的第三个值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [hello]&gt; insert into test  values (&#x27;游泳&#x27;,3);</span><br><span class="line">Query OK, 1 row affected (0.001 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [hello]&gt; select * from test;</span><br><span class="line">+------------------------------------------+-----------+</span><br><span class="line">| hobby                                    | weekday   |</span><br><span class="line">+------------------------------------------+-----------+</span><br><span class="line">| 跑步,游泳                                | Monday    |</span><br><span class="line">| 跑步                                     | Monday    |</span><br><span class="line">| 羽毛球                                   | Monday    |</span><br><span class="line">| 跑步,羽毛球                              | Monday    |</span><br><span class="line">| 乒乓球                                   | Monday    |</span><br><span class="line">|                                          | Monday    |</span><br><span class="line">| 跑步,羽毛球,乒乓球,游泳,跳绳             | Monday    |</span><br><span class="line">|                                          | Monday    |</span><br><span class="line">| 游泳                                     | Wednesday |</span><br><span class="line">+------------------------------------------+-----------+</span><br><span class="line">9 rows in set (0.000 sec)</span><br></pre></td></tr></table></figure>
 <p>再试试数字6，插入的是周六，也是第六个值</p>
