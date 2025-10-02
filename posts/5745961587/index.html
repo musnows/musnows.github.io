@@ -1,0 +1,455 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【Agent.03】带你学会写一个基础的Prompt | 慕雪的寒舍</title><meta name="author" content="慕雪年华"><meta name="copyright" content="慕雪年华"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文介绍了如何写好一个分为多个步骤的Prompt，让AI输出更符合我们要求的答案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Agent.03】带你学会写一个基础的Prompt">
+<meta property="og:url" content="https://blog.musnow.top/posts/5745961587/index.html">
+<meta property="og:site_name" content="慕雪的寒舍">
+<meta property="og:description" content="本文介绍了如何写好一个分为多个步骤的Prompt，让AI输出更符合我们要求的答案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp">
+<meta property="article:published_time" content="2025-09-19T14:35:38.000Z">
+<meta property="article:modified_time" content="2025-09-21T00:11:01.000Z">
+<meta property="article:author" content="慕雪年华">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agent开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【Agent.03】带你学会写一个基础的Prompt",
+  "url": "https://blog.musnow.top/posts/5745961587/",
+  "image": "https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp",
+  "datePublished": "2025-09-19T14:35:38.000Z",
+  "dateModified": "2025-09-21T00:11:01.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "慕雪年华",
+      "url": "https://blog.musnow.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://blog.musnow.top/posts/5745961587/index.html"><link rel="preconnect"/><meta name="google-site-verification" content="iR4A6ntiwhI9JX_YDe2ZFY6DerPD7c-NaLyIDlrDguY"/><meta name="msvalidate.01" content="D5CD621F38EE3FB5071F785AD4977161"/><meta name="baidu-site-verification" content="codeva-aZGKJiqRSI"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/pluginsSrc/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":420,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":600,"languages":{"author":"作者: 慕雪年华","link":"链接: ","source":"来源: 慕雪的寒舍","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: '/pluginsSrc/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【Agent.03】带你学会写一个基础的Prompt',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/equipment/equipment.css?1"><link rel="stylesheet" href="/rating/rating.css?1"><script src="/js/typing_style.js"></script><script>var _hmt = _hmt || [];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?f444e8de702765e309d1a751aa12203e";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="慕雪的寒舍" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/main/mothra.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">460</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/favicon.jpg" alt="Logo"><span class="site-name">慕雪的寒舍</span></a><a class="nav-page-title" href="/"><span class="site-name">【Agent.03】带你学会写一个基础的Prompt</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 归档</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/rating/"><i class="fa-fw fas fa-film"></i><span> 书·影</span></a></div><div class="menus_item"><a class="site-page" href="/qa/"><i class="fa-fw fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-user-friends"></i><span> 友人</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/fcircle/"><i class="fa-fw fas fa-link"></i><span> 朋友圈</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html"><i class="fa-fw fas fa-train"></i><span> 开往</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.foreverblog.cn/go.html"><i class="fa-fw fab fa-superpowers"></i><span> 虫洞</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://travel.moe/go.html?travel=on"><i class="fa-fw fas fa-globe-americas"></i><span> 异次元</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-glass-whiskey"></i><span> 镜像</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="https://blog.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-home"></i><span> Main</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog1.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-battle-net"></i><span> Netlify</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnows.github.io/?utm_source=mirror"><i class="fa-fw fa-brands fa-square-github"></i><span> Github</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog2.musnow.top/?utm_source=mirror"><i class="fa-fw fa-solid fa-square-caret-up"></i><span> Vercel</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog3.musnow.top/?utm_source=mirror"><i class="fa-fw fas fa-cloud"></i><span> Cloudflare</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://keep-hexo.musnow.top/?utm_source=mirror"><i class="fa-fw fa-brands fa-kickstarter"></i><span> KeepTheme</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://musnow.blog.csdn.net/"><i class="fa-fw fas fa-copyright"></i><span> CSDN</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://blog.51cto.com/u_15307009"><i class="fa-fw fas fa-dice-five"></i><span> 51CTO</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fab fa-blackberry"></i><span> 更多</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/equipment/"><i class="fa-fw fas fa-laptop"></i><span> 背包</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://memos.musnow.top"><i class="fa-fw fas fa-map-signs"></i><span> 说说</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://stats.uptimerobot.com/qrNpVSLkgV"><i class="fa-fw fas fa-chart-bar"></i><span> Uptime</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss-square"></i><span> RSS</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【Agent.03】带你学会写一个基础的Prompt</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-19T14:35:38.000Z" title="发表于 2025-09-19 22:35:38">2025-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-21T00:11:01.000Z" title="更新于 2025-09-21 08:11:01">2025-09-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/">编程学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/Agent%E6%99%BA%E8%83%BD%E4%BD%93%E5%BC%80%E5%8F%91/">Agent智能体开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="ArtalkPV"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="ai-summary"><div class="ai-explanation" style="display: block;" data-summary="这里是慕雪的小助手，这篇文章介绍了如何撰写有效的多步骤Prompt以提升AI输出质量，重点解析了Prompt、Token等关键术语，并引入乔哈里视窗理论指导优化人机交互，强调通过扩大开放区、缩小盲区等方法完善Prompt内容结构，确保指令具备清晰性与完整性从而引导AI生成更符合预期的回答。">慕雪的小助手正在绞尽脑汁···</div><div class="ai-title"> <div class="ai-title-left"> <i class="fa-brands fa-slack"></i><div class="ai-title-text">慕雪小助手的总结</div></div><div class="ai-tag" id="ai-tag">LongCat-Flash-Chat</div></div></div><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;距离上次更新本文已经过去了&quot;,&quot;messageNext&quot;:&quot;天，文章部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2025-09-21 08:11:01&quot;}" hidden></div><p>欢迎阅读慕雪撰写的AI Agent专栏，本专栏目录如下</p>
+<ol class="series-items"><li><a href="/posts/4710483697/" title="【AI】AI对26届计算机校招的影响">【AI】AI对26届计算机校招的影响</a></li><li><a href="/posts/6796656750/" title="【Agent.01】AI Agent智能体开发专题引言">【Agent.01】AI Agent智能体开发专题引言</a></li><li><a href="/posts/6151856853/" title="【Agent.02】市面上常见的大模型有哪些？">【Agent.02】市面上常见的大模型有哪些？</a></li><li><a href="/posts/5745961587/" title="【Agent.03】带你学会写一个基础的Prompt">【Agent.03】带你学会写一个基础的Prompt</a></li><li><a href="/posts/4044218607/" title="【Agent.04】AI时代的hello world：调用OpenAI接口，与大模型交互">【Agent.04】AI时代的hello world：调用OpenAI接口，与大模型交互</a></li></ol>
+<p>本文介绍了如何写好一个分为多个步骤的Prompt，让AI输出更符合我们要求的答案。这部分慕雪理解的也不是很透彻，所以只是一个抛砖引玉，仅供参考。</p>
+<h2 id="1-名词解释">1. 名词解释</h2>
+<p>以下是本文涉及到的部分AI大模型领域专有名词的解释</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名词解释</th>
+<th style="text-align:left">详细说明</th>
+<th style="text-align:left">实际举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Prompt（提示词）</td>
+<td style="text-align:left">Prompt（提示词）就是你在 AI Chat 框中，发送给 AI 的内容。</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Token</td>
+<td style="text-align:left">大模型语言以Token数计算处理信息的数量。你可以将一个 Token 简单地理解为你输入的一个字符，输入的字符越多，占用的 Token 也就越多。</td>
+<td style="text-align:left">实际上，一个Token可以包含多个英文单词和中文字符，左侧描述“一个Token是一个字符”只是为了帮助理解。<br>你可以使用<a target="_blank" rel="noopener" href="https://www.token-calculator.com/">Token计算器</a>计算你输入的信息占用的Token数量。</td>
+</tr>
+<tr>
+<td style="text-align:left">上下文 Token</td>
+<td style="text-align:left">对于大语言模型而言，它们能够接纳和处理的信息是有上限的，这个限制，就是最大上下文 Token 数。<strong>AI无法处理超过模型自身上下文Token限制的数据</strong>。注意，<strong>AI输出的内容</strong>也是上下文Token的一部分。<br></td>
+<td style="text-align:left">例：模型的最大上下文 Token 数为 8000，那么 AI 输出的内容加上用户输入的内容总和不能超过 8000 个 Token。如果用户输入的内容已经占用了较多的 Token，那么 AI 输出的内容就会相应减少，以确保总和不超过最大上下文 Token 数。</td>
+</tr>
+<tr>
+<td style="text-align:left">最大输出 Token（max_tokens)</td>
+<td style="text-align:left">最大输出 Token 是指 AI 在一次回复中<strong>能够生成的最大字符数量</strong>。这个是一个单独的限制，同时这个数量同样受到模型上下文 Token 数的限制。<br></td>
+<td style="text-align:left">例：模型的最大上下文 Token 数为 8000，<strong>最大输出 Token 数为 2000</strong>，那么 AI 输出的内容加上用户输入的内容总和不能超过 8000 个 Token，即便用户输入的内容远远少于8000个Token，<strong>AI也会在输出了2000个Token之后</strong>，由于<strong>最大输出Token限制</strong>而无法输出。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-引言：乔哈里视窗">2. 引言：乔哈里视窗</h2>
+<h3 id="2-1-什么是乔哈里视窗？">2.1. 什么是乔哈里视窗？</h3>
+<p>要想写好一个Promp，最基础的问题，自然是<strong>一个好的Prompt应当需要包含哪些内容</strong>了。回答这个问题之前，我们需要先了解一个概念：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B9%94%E5%93%88%E9%87%8C%E8%A7%86%E7%AA%97/2501456#:~:text=%E5%85%B3%E4%BA%8E%E6%B2%9F%E9%80%9A%E7%9A%84%E6%8A%80%E5%B7%A7%E5%92%8C%E7%90%86%E8%AE%BA%E4%B9%94%E5%93%88%E9%87%8C%E8%A7%86%E7%AA%97%EF%BC%88Johari%20Window%EF%BC%89%E6%98%AF%E4%B8%80%E7%A7%8D%E5%85%B3%E4%BA%8E%E6%B2%9F%E9%80%9A%E7%9A%84%E6%8A%80%E5%B7%A7%E5%92%8C%E7%90%86%E8%AE%BA%EF%BC%8C%E4%B9%9F%E8%A2%AB%E7%A7%B0%E4%B8%BA%E2%80%9C%E8%87%AA%E6%88%91%E6%84%8F%E8%AF%86%E7%9A%84%E5%8F%91%E7%8E%B0%E2%80%94%E2%80%94%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%9E%8B%E2%80%9D%EF%BC%8C%E4%B8%AD%E5%9B%BD%E7%AE%A1%E7%90%86%E5%AD%A6%E5%AE%9E%E5%8A%A1%E4%B8%AD%E9%80%9A%E5%B8%B8%E7%A7%B0%E4%B9%8B%E4%B8%BA">乔哈里视窗</a>（Johari Window）</p>
+<p>乔哈里视窗并不是AI时代才提出的概念，它是由乔瑟夫（Joseph）和哈里（Harry）在20世纪50年代提出的。视窗理论将人际沟通的信息比作一个窗子，它被分为4个区域：开放区、隐秘区、盲目区、未知区，人的有效沟通就是这四个区域的有机融合。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/09/bd7d2bcd4e0f68aaa9f11859dce881b9.webp" alt="image.png"></p>
+<p>同理，我们和AI的有效交流，也符合乔哈里视窗四个区域的概念：</p>
+<ul>
+<li>开放区：我们知道，AI知道。此类问题，在Prompt中无需多言。
+<ul>
+<li>举例：你想让AI帮你写一个C语言的hello world，你不需要把C语言的编程手册全部发给AI，因为这个知识，是AI已经知道的内容。</li>
+</ul>
+</li>
+<li>隐蔽区：我们知道，AI不知道。此类问题，在Prompt中需要着重描述。
+<ul>
+<li>举例：你希望让AI帮你补充论文中的一部分内容，此时你希望AI以学术论文的风格输出文字。但如果不将“以学术论文的要求输出&quot;在Prompt里面告诉AI，AI就不会知道这个需要，大概率会用口语化表达输出你想要的内容，而这部分内容并不是你需要的结果。</li>
+</ul>
+</li>
+<li>盲点区：我们不知道，AI知道。很多时候我们需要AI帮忙解决问题的时候，就是想让AI补充我们的盲点区。
+<ul>
+<li>举例：你让AI帮你实现一个脚本的时候，只说了需求，没有指定脚本的编程语言，此时AI会根据你的上下文推测你想要的编程语言是谁，最终输出这个语言的脚本。</li>
+</ul>
+</li>
+<li>未知区：我们不知道，AI也不知道。常见于头脑风暴、文字续写等探索性的场景。</li>
+</ul>
+<h3 id="2-2-善用乔哈里视窗">2.2. 善用乔哈里视窗</h3>
+<p>不管是和AI交流还是和其他人交流，善用乔哈里视窗理念，能帮助你减少交流中出现的误解，提高交流体验和效率。最佳实践如下：</p>
+<p><strong>一、扩大开放区</strong>：</p>
+<ul>
+<li>把心里想要的都说出来，不要留在“隐藏区”。</li>
+<li>例如：“写一篇论文” → “写一篇 2000 字的中文论文，主题是人工智能对社会发展的影响，用正式学术风格”。</li>
+</ul>
+<p><strong>二、缩小盲区</strong>：</p>
+<ul>
+<li>通过反馈或示例，让 AI 知道你没意识到的重要信息。</li>
+<li>比如AI输出后，你觉得风格不对，就要补充：“希望风格更口语化”。下次就能提前写进 Prompt。</li>
+</ul>
+<p><strong>三、利用未知区</strong>：</p>
+<ul>
+<li>当你不确定需求时，可以明确说“请先给我几个方向/示例让我选择”。这样 AI 可以帮你探索需求。</li>
+<li>相反，如果你明确自己需要获得什么类型的答案的时候，也可以明确表明让AI往某个方向输出结果，这样AI也不会发散的给你提供多种方案了。</li>
+</ul>
+<h2 id="3-阐述：Prompt应包含的内容">3. 阐述：Prompt应包含的内容</h2>
+<p>引入了乔哈里视窗这个概念之后，我们再来看看，一个好Prompt需要包含什么内容吧。</p>
+<p>首先，一个好的Prompt，通常需要具备 <strong>清晰性、完整性和可操作性</strong>。这三个特性可以分成如下的关键要素：</p>
+<h3 id="3-1-身份-角色设定">3.1. 身份/角色设定</h3>
+<p>对于大语言模型而言，我们和它们的所有交流都是“无状态”的，为了更好的激活大语言模型中的特定参数区，我们可以给大语言模型提供一个身份设定。最简单的方式就是告诉AI，现在它是什么领域的专家、面试官、编辑、导师……，让AI扮演起这个角色，能让AI在这个领域的问题中正确思考，输出更好的答案。</p>
+<p>比如，你需要咨询C/C++编程语言的问题，就可以在你的Prompt开头带上这样一句话：“你是一位C/C++编程领域的专家，擅长解决C/C++学习者在学习过程中会遇到的问题。”</p>
+<p>这样，AI就会立马知道自己需要帮助你解决C/C++方向的问题，从而省去了AI从你的输入中推导你需要什么类型的辅助这一步骤。</p>
+<h3 id="3-2-任务目标">3.2. 任务目标</h3>
+<p>任务目标明确你需要AI做什么，避免模糊的需求描述。</p>
+<p>比如，当你需要AI分析一段代码报错的时候，直接告诉AI：“请帮我分析这段Python的报错堆栈，告诉我出现了什么问题”，就比“帮我看看”这种简单的描述更好。</p>
+<h3 id="3-3-上下文信息">3.3. 上下文信息</h3>
+<p>“在没有错误日志的情况下诊断任何问题，无异于闭眼开车。”</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://img.musnow.top/i/2025/09/27cfad0b678a3f0af0bc905a7e021c60.webp" alt="8619ab2b1b35b27a799f5873b5299168.jpeg"></p>
+<p>咨询问题的时候，一定需要提供相关的上下文背景。比如分析报错，就需要告诉AI你的报错日志是什么、是在什么情况下发生的、你希望这个程序达到的目标是什么。</p>
+<p>此类上下文信息，越多越好。它们是AI理解任务需求的重要参考资料。</p>
+<p>同时，提供上下文信息的时候，需要遵循上文乔哈里视窗理念，<strong>不要给AI提供过量的上下文信息</strong>。比如某个编程语言的语法、某个常见Python库应该如何调用（比如requests库和aiohttp库）、如何使用g++编译程序等等……这类信息，虽然也是和你的需要息息相关，但它们都是AI已经知道的内容。过量提供上下文，会占用AI的上下文token，token占用过多，会导致AI更容易出现“幻觉”，无法理解你的需求，最终输出牛头不对马嘴的答案，浪费时间。</p>
+<h3 id="3-4-输入数据">3.4. 输入数据</h3>
+<p>这部分和上下文信息有一定区别，上下文信息是你当前操作项目的背景信息。而输入数据是你需要AI解决某个问题的直接信息输入。</p>
+<ul>
+<li>你需要AI查询最新的大模型论文，此时“帮我查询最新的大模型论文”就是你的直接输入数据，也是你的直接要求。</li>
+<li>你需要AI帮你解决代码报错的时候，“帮我解决这个Python的报错”就是你的直接输入，而报错的日志属于这个输入的附加信息。</li>
+</ul>
+<h3 id="3-5-输出要求">3.5. 输出要求</h3>
+<p>输出要求的目标是指定结果的格式和风格</p>
+<ul>
+<li>“用表格展示”、“用markdown输出”</li>
+<li>“用C++实现”</li>
+<li>“控制在300字以内”</li>
+<li>“分点叙述，逻辑清晰”</li>
+<li>“以xxx格式输出结果”</li>
+</ul>
+<p>这里对<strong>格式限制</strong>做特殊说明：为了实现大模型辅助我们完成一些自动化任务，我们必须限制大模型输出信息的格式，以方便我们在代码中接收了数据之后，进行格式化处理。</p>
+<p>比如：“请以JSON格式输出你的分析结论”。这样，AI大模型就会以JSON格式输出结果，我们就可以在脚本中对AI输出的这条信息进行序列化处理。</p>
+<p>如果不进行格式限制，AI输出纯文本信息，我们是无法在代码中对纯文本信息进行解译的，也就没办法自动化的应用AI输出的结果。因此，针对此类自动化需求，一定一定要牢记和AI约定要一个输出格式的限定条件，且此限定条件<strong>需要多次强调</strong>，才能保证AI遵循。</p>
+<h3 id="3-6-限制条件">3.6. 限制条件</h3>
+<p>说明必须遵守的规则：字数、语气、禁止输出的内容、引用文献的方式、是否允许使用外部知识等。</p>
+<p>比如你需要AI根据某个文档输出结论的时候，就可以在Prompt中添加“必须以文档中的信息总结并回答我的问题，严禁使用任何外部知识”。</p>
+<h3 id="3-7-示例或期望风格（Examples-Style-Guide）">3.7. 示例或期望风格（Examples / Style Guide）</h3>
+<p>很多时候，我们希望AI以某个风格输出答案，此时就可以添加上风格要求的描述。</p>
+<p>比如“参考下面这个写法……”或者“生成和这段风格类似的文本”。</p>
+<h2 id="4-速查：Prompt检查单">4. 速查：Prompt检查单</h2>
+<p>了解了上述内容后，想必你已经清楚了应该如何写一个好的Prompt了。</p>
+<p>这里需要说明的是，这些Prompt的约束更多是在项目实战环节，也就是你需要AI长期稳定地给出你想要的答案时，才需要遵循的。日常我们和AI咨询问题，没必要死守这些原则，得到的答案好不好先不提，日常随便问个问题都死守原则，肯定会让自己的心情不好。</p>
+<p>在后续的项目实战环节，会给大家展示好的Prompt和坏的Prompt的差距。你也可以自己测试一下，同一个问题，依照上述内容编写，和不遵循上述内容编写，咨询AI获得的答案的差距。</p>
+<p>这里慕雪给大家一个简化的Prompt编写检查单，方便快速自检：</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 任务目标：我要让 AI 做什么？</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 上下文：需要提供哪些背景？</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 输入：AI 需要处理的内容是什么？</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 输出要求：希望结果的形式/风格/长度？</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"> 补充：有没有我没说清的，AI 可以提醒或给选项。</li>
+</ul>
+<h2 id="5-The-end">5. The end</h2>
+<p>本文到这里就结束啦，有任何问题，欢迎评论区讨论！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://blog.musnow.top">慕雪年华</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://blog.musnow.top/posts/5745961587/">https://blog.musnow.top/posts/5745961587/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://blog.musnow.top" target="_blank">慕雪的寒舍</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/Agent%E5%BC%80%E5%8F%91/">Agent开发</a></div><div class="post-share"><div class="social-share" data-image="https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="/pluginsSrc/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="/pluginsSrc/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://ifdian.net/a/128ahri" target="_blank"><img class="post-qr-code-img" src="/img/ico/aifadian.webp" alt="爱发电"/></a><div class="post-qr-code-desc">爱发电</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/6151856853/" title="【Agent.02】市面上常见的大模型有哪些？"><img class="cover" src="https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【Agent.02】市面上常见的大模型有哪些？</div></div><div class="info-2"><div class="info-item-1">本文将带大家了解当前主流的大模型，汇总了所有能使用这些模型的官方网站</div></div></div></a><a class="pagination-related" href="/posts/8330674478/" title="【Hexo】使用hexo-markdown-it实现渲染markdown脚注能力"><img class="cover" src="/img/bg/gm37.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">【Hexo】使用hexo-markdown-it实现渲染markdown脚注能力</div></div><div class="info-2"><div class="info-item-1">本文介绍了如何配置hexo-markdown-it，让hexo站点支持markdown脚注</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/6796656750/" title="【Agent.01】AI Agent智能体开发专题引言"><img class="cover" src="https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-06</div><div class="info-item-2">【Agent.01】AI Agent智能体开发专题引言</div></div><div class="info-2"><div class="info-item-1">慕雪即将更新一套AI Agent智能体开发的专栏，本文是这个专栏的引言</div></div></div></a><a class="pagination-related" href="/posts/6151856853/" title="【Agent.02】市面上常见的大模型有哪些？"><img class="cover" src="https://img.musnow.top/i/2025/08/3a8db7a94b2b6fc9d75d2c6c8c5d5011.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-15</div><div class="info-item-2">【Agent.02】市面上常见的大模型有哪些？</div></div><div class="info-2"><div class="info-item-1">本文将带大家了解当前主流的大模型，汇总了所有能使用这些模型的官方网站</div></div></div></a><a class="pagination-related" href="/posts/4044218607/" title="【Agent.04】AI时代的hello world：调用OpenAI接口，与大模型交互"><img class="cover" src="/img/bg/gm1.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-30</div><div class="info-item-2">【Agent.04】AI时代的hello world：调用OpenAI接口，与大模型交互</div></div><div class="info-2"><div class="info-item-1">本文介绍了如何使用python发送请求，调用OpenAI的API，与大模型交互，获取到大模型关于hello的响应。</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">慕雪年华</div><div class="author-info-description">爱折腾的代码初学者</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">460</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/musnows/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://musnow.top/?utm_source=blog" target="_blank" title="个人主页"><i class="fa fa-home"></i></a><a class="social-icon" href="mailto:muxue@musnow.top" target="_blank" title="email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://web.musnow.top/?utm_source=blog" target="_blank" title="导航站点"><i class="fas fa-server"></i></a><a class="social-icon" href="https://gitee.com/musnows" target="_blank" title="Gitee"><i class="fa-sharp fa-solid fa-g"></i></a><a class="social-icon" href="https://blog.csdn.net/muxuen" target="_blank" title="CSDN"><i class="fa-brands fa-blogger-b"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss-square"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到寒舍，近来可好？</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="toc-text">1. 名词解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BC%95%E8%A8%80%EF%BC%9A%E4%B9%94%E5%93%88%E9%87%8C%E8%A7%86%E7%AA%97"><span class="toc-text">2. 引言：乔哈里视窗</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AF%E4%B9%94%E5%93%88%E9%87%8C%E8%A7%86%E7%AA%97%EF%BC%9F"><span class="toc-text">2.1. 什么是乔哈里视窗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%96%84%E7%94%A8%E4%B9%94%E5%93%88%E9%87%8C%E8%A7%86%E7%AA%97"><span class="toc-text">2.2. 善用乔哈里视窗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%98%90%E8%BF%B0%EF%BC%9APrompt%E5%BA%94%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">3. 阐述：Prompt应包含的内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%BA%AB%E4%BB%BD-%E8%A7%92%E8%89%B2%E8%AE%BE%E5%AE%9A"><span class="toc-text">3.1. 身份&#x2F;角色设定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BB%BB%E5%8A%A1%E7%9B%AE%E6%A0%87"><span class="toc-text">3.2. 任务目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BF%A1%E6%81%AF"><span class="toc-text">3.3. 上下文信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">3.4. 输入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E8%BE%93%E5%87%BA%E8%A6%81%E6%B1%82"><span class="toc-text">3.5. 输出要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E9%99%90%E5%88%B6%E6%9D%A1%E4%BB%B6"><span class="toc-text">3.6. 限制条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-%E7%A4%BA%E4%BE%8B%E6%88%96%E6%9C%9F%E6%9C%9B%E9%A3%8E%E6%A0%BC%EF%BC%88Examples-Style-Guide%EF%BC%89"><span class="toc-text">3.7. 示例或期望风格（Examples &#x2F; Style Guide）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%80%9F%E6%9F%A5%EF%BC%9APrompt%E6%A3%80%E6%9F%A5%E5%8D%95"><span class="toc-text">4. 速查：Prompt检查单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-The-end"><span class="toc-text">5. The end</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/5899307553/" title="【Hexo】为自己的博客站点加上离线的AI摘要">【Hexo】为自己的博客站点加上离线的AI摘要</a><time datetime="2025-10-02T01:08:21.000Z" title="发表于 2025-10-02 09:08:21">2025-10-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4044218607/" title="【Agent.04】AI时代的hello world：调用OpenAI接口，与大模型交互">【Agent.04】AI时代的hello world：调用OpenAI接口，与大模型交互</a><time datetime="2025-09-30T07:25:08.000Z" title="发表于 2025-09-30 15:25:08">2025-09-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/3454235760/" title="【面试】求职面试大忌：自断后路">【面试】求职面试大忌：自断后路</a><time datetime="2025-09-29T11:31:10.000Z" title="发表于 2025-09-29 19:31:10">2025-09-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/4200815612/" title="【AI】配置claude-code-router转发Claude Code请求至OpenAI API格式">【AI】配置claude-code-router转发Claude Code请求至OpenAI API格式</a><time datetime="2025-09-27T12:33:46.000Z" title="发表于 2025-09-27 20:33:46">2025-09-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/main/mothra.webp);"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2025 By 慕雪年华</div><div class="footer_custom_text"><img src="/img/ico/gonganbeian.png" height="15" style="position:relative; top:2px;">&nbsp;<a href="https://beian.mps.gov.cn/#/query/webSearch?code=44190002007715" rel="noreferrer" target="_blank">粤公网安备44190002007715</a></br><a href="https://icp.gov.moe/?keyword=20230054" target="_blank"><img src="/img/badge/-%E8%90%8CICP%E5%A4%8720230054-ff69b4.svg" height="20px"></a>&nbsp<a href="/sitemap.xml" target="_blank"><img src="/img/badge/-SITEMAP-00CDCD.svg" height="20px"></a>&nbsp<a href="https://beian.miit.gov.cn/" target="_blank"><img src="/img/badge/%E7%B2%A4ICP%E5%A4%872023007189-red.svg" height="20px"></a></br><a href="https://travel.moe/go.html" target="_blank"><img src="/img/ico/moe-default-white.png" style="width:auto;height:25px" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！"></a>&nbsp<a href="https://www.foreverblog.cn/go.html" target="_blank"><img src="/img/ico/wormhole_1_tp.gif" height="25px"></a>&nbsp<a href="https://www.travellings.cn/go.html" target="_blank"><img src="/img/ico/travelling_icon.gif" height="25px"></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/pluginsSrc/@fancyapps/ui/dist/fancybox/fancybox.umd.js"></script><script src="/pluginsSrc/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = '/pluginsSrc/mathjax/es5/tex-mml-chtml.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('/pluginsSrc/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
+      server: 'https://artk.musnow.top',
+      site: 'mublog',
+      darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
+
+    if (GLOBAL_CONFIG.lightbox === 'null') return
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
+      })
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
+  }
+
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('/pluginsSrc/artalk/dist/Artalk.css')
+      await btf.getScript('/pluginsSrc/artalk/dist/Artalk.js')
+      initArtalk(el, pageKey)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
+  }
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script></div><script src="/js/domain_check.js"></script><script>document.addEventListener('DOMContentLoaded',()=>{if(window.location.pathname.includes('/posts')){const e=document.querySelector('.footnotes');e&&e.insertBefore(document.createElement('strong').appendChild(document.createTextNode('脚注：')).parentNode,e.firstChild);}});</script><script id="click-heart" src="/pluginsSrc/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
